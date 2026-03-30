@@ -148,6 +148,14 @@ after_initialize do
     end
   end
 
+  on(:user_first_logged_in) do |user|
+    if wizard = CustomWizard::Wizard.after_signup(user)
+      if !wizard.completed?
+        CustomWizard::Wizard.set_user_redirect(wizard.id, user)
+      end
+    end
+  end
+
   add_to_class(:application_controller, :redirect_to_wizard_if_required) do
     @excluded_routes ||= SiteSetting.wizard_redirect_exclude_paths.split("|") + ["/w/"]
     url = request.referer || request.original_url
