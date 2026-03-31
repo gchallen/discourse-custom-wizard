@@ -1,0 +1,6 @@
+{
+  "id": "step_1_field_email",
+  "label": "Email",
+  "type": "email",
+  "allowed_domains": "edu|ac.uk|edu.au"
+}

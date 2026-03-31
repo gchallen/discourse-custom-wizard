@@ -129,6 +129,59 @@ describe CustomWizard::UpdateValidator do
     end
   end
 
+  context "email fields" do
+    let(:email_field) { get_wizard_fixture("field/email") }
+
+    before do
+      template[:steps][0][:fields] << email_field
+      CustomWizard::Template.save(template)
+    end
+
+    it "validates email fields with allowed academic domains" do
+      updater = perform_validation("step_1", step_1_field_email: "user@university.edu")
+      expect(updater.errors.messages[:step_1_field_email].first).to eq(nil)
+    end
+
+    it "validates email fields with subdomains of allowed domains" do
+      updater = perform_validation("step_1", step_1_field_email: "user@cs.university.edu")
+      expect(updater.errors.messages[:step_1_field_email].first).to eq(nil)
+    end
+
+    it "validates email fields with ac.uk domains" do
+      updater = perform_validation("step_1", step_1_field_email: "user@oxford.ac.uk")
+      expect(updater.errors.messages[:step_1_field_email].first).to eq(nil)
+    end
+
+    it "rejects email fields with non-allowed domains" do
+      updater = perform_validation("step_1", step_1_field_email: "user@gmail.com")
+      expect(updater.errors.messages[:step_1_field_email].first).to eq(
+        I18n.t("wizard.field.invalid_email_domain", label: "Email", default: "%{label}: Email address is not from an allowed domain."),
+      )
+    end
+
+    it "rejects email fields with similar but non-matching domains" do
+      updater = perform_validation("step_1", step_1_field_email: "user@notedu.com")
+      expect(updater.errors.messages[:step_1_field_email].first).to eq(
+        I18n.t("wizard.field.invalid_email_domain", label: "Email", default: "%{label}: Email address is not from an allowed domain."),
+      )
+    end
+
+    it "allows empty email fields when not required" do
+      updater = perform_validation("step_1", step_1_field_email: "")
+      expect(updater.errors.messages[:step_1_field_email].first).to eq(nil)
+    end
+
+    it "requires email fields when marked required" do
+      @template[:steps][0][:fields].last[:required] = true
+      CustomWizard::Template.save(@template)
+
+      updater = perform_validation("step_1", step_1_field_email: nil)
+      expect(updater.errors.messages[:step_1_field_email].first).to eq(
+        I18n.t("wizard.field.required", label: "Email"),
+      )
+    end
+  end
+
   it "validates date fields" do
     @template[:steps][1][:fields][0][:format] = "DD-MM-YYYY"
     CustomWizard::Template.save(@template)
