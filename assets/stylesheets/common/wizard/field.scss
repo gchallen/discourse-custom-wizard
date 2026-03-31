@@ -194,6 +194,14 @@ body.custom-wizard {
     }
   }
 
+  .wizard-field-email input {
+    width: 100%;
+    max-width: 500px;
+    font-size: 1.1487em;
+    padding: 6px;
+    transition: border-color 0.5s;
+  }
+
   .wizard-field-email-error {
     color: var(--danger);
     font-size: 0.875em;
