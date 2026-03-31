@@ -48,4 +48,5 @@ Discourse::Application.routes.append do
   end
 
   put "/admin/users/:id/wizards/clear_redirect" => "custom_wizard/user#clear_redirect"
+  put "/admin/users/:id/wizards/set_redirect" => "custom_wizard/user#set_redirect"
 end
