@@ -24,7 +24,8 @@ class CustomWizard::Field
               :category,
               :can_create_tag,
               :preview_template,
-              :placeholder
+              :placeholder,
+              :allowed_domains
 
   attr_accessor :index, :step
 
@@ -53,6 +54,7 @@ class CustomWizard::Field
     @can_create_tag = attrs[:can_create_tag]
     @preview_template = attrs[:preview_template]
     @placeholder = attrs[:placeholder]
+    @allowed_domains = attrs[:allowed_domains]
   end
 
   def label
@@ -145,6 +147,7 @@ class CustomWizard::Field
         prefill: nil,
         char_counter: nil,
         placeholder: nil,
+        allowed_domains: nil,
       },
     }
   end

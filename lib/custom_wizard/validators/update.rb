@@ -67,15 +67,18 @@ class ::CustomWizard::UpdateValidator
       @updater.errors.add(field_id, I18n.t("wizard.field.invalid_time"))
     end
 
-    if type === "academic_email" && value.present? && !validate_academic_email(value)
-      @updater.errors.add(
-        field_id,
-        I18n.t(
-          "wizard.field.invalid_academic_email",
-          label: label,
-          default: "%{label}: Please enter an email address from an academic institution."
-        ),
-      )
+    if type === "academic_email" && value.present?
+      allowed = field.allowed_domains
+      if allowed.present? && !validate_academic_email(value, allowed)
+        @updater.errors.add(
+          field_id,
+          I18n.t(
+            "wizard.field.invalid_academic_email",
+            label: label,
+            default: "%{label}: Please enter an email address from an academic institution."
+          ),
+        )
+      end
     end
 
     self.class.field_validators.each do |validator|
@@ -135,10 +138,10 @@ class ::CustomWizard::UpdateValidator
     false
   end
 
-  def validate_academic_email(value)
+  def validate_academic_email(value, allowed_domains)
     return false unless value.include?("@")
     domain = value.strip.downcase.split("@").last
-    allowed = (SiteSetting.auto_approve_email_domains rescue "").split("|").map(&:strip)
+    allowed = allowed_domains.split("|").map(&:strip)
     return false if allowed.empty?
     allowed.any? { |suffix| domain == suffix || domain.end_with?(".#{suffix}") }
   end

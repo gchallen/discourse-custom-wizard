@@ -21,7 +21,8 @@ class CustomWizard::FieldSerializer < ::ApplicationSerializer
              :validations,
              :max_length,
              :char_counter,
-             :preview_template
+             :preview_template,
+             :allowed_domains
 
   def id
     object.id
@@ -126,6 +127,10 @@ class CustomWizard::FieldSerializer < ::ApplicationSerializer
 
   def preview_template
     object.preview_template
+  end
+
+  def allowed_domains
+    object.allowed_domains
   end
 
   protected

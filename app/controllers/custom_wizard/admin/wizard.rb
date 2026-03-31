@@ -111,6 +111,7 @@ class CustomWizard::AdminWizardController < CustomWizard::AdminController
           :property,
           :preview_template,
           :placeholder,
+          :allowed_domains,
           :can_create_tag,
           :category,
           prefill: mapped_params,
