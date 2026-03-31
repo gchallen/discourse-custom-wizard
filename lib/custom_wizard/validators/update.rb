@@ -108,7 +108,7 @@ class ::CustomWizard::UpdateValidator
   end
 
   def is_text_type(field)
-    %w[text textarea composer].include? field.type
+    %w[text textarea composer academic_email].include? field.type
   end
 
   def is_url_type(field)

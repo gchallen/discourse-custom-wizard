@@ -156,6 +156,30 @@ after_initialize do
     end
   end
 
+  # Validate academic_email fields against allowed academic domains.
+  # Uses the auto_approve_email_domains site setting as the source of truth.
+  CustomWizard::UpdateValidator.add_field_validator(0, "academic_email") do |field, value, updater|
+    if value.present?
+      domain = value.strip.downcase.split("@").last
+      allowed = (SiteSetting.auto_approve_email_domains || "").split("|").map(&:strip)
+
+      is_academic = allowed.any? do |suffix|
+        domain == suffix || domain.end_with?(".#{suffix}")
+      end
+
+      unless is_academic
+        updater.errors.add(
+          field.id.to_s,
+          I18n.t(
+            "wizard.field.invalid_academic_email",
+            label: field.raw[:label],
+            default: "%{label}: Please enter an email address from an academic institution."
+          )
+        )
+      end
+    end
+  end
+
   add_to_class(:application_controller, :redirect_to_wizard_if_required) do
     @excluded_routes ||= SiteSetting.wizard_redirect_exclude_paths.split("|") + ["/w/"]
     url = request.referer || request.original_url
