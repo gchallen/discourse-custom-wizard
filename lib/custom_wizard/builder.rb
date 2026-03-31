@@ -130,6 +130,7 @@ class CustomWizard::Builder
     params[:value] = standardise_boolean(params[:value]) if field_template["type"] === "checkbox"
 
     params[:file_types] = field_template["file_types"] if field_template["type"] === "upload"
+    params[:allowed_domains] = field_template["allowed_domains"] if field_template["type"] === "email"
 
     if %w[date time date_time].include?(field_template["type"])
       params[:format] = field_template["format"]
