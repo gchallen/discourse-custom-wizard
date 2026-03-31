@@ -296,4 +296,35 @@ describe CustomWizard::Wizard do
       expect(CustomWizard::Wizard.prompt_completion(user).length).to eq(1)
     end
   end
+
+  context "user_first_logged_in event" do
+    it "sets redirect_to_wizard for after_signup wizards" do
+      template_json["after_signup"] = true
+      CustomWizard::Template.save(template_json, skip_jobs: true)
+
+      DiscourseEvent.trigger(:user_first_logged_in, user)
+      expect(user.reload.custom_fields["redirect_to_wizard"]).to eq("super_mega_fun_wizard")
+    end
+
+    it "does not set redirect if wizard is already completed" do
+      template_json["after_signup"] = true
+      CustomWizard::Template.save(template_json, skip_jobs: true)
+
+      wizard = CustomWizard::Wizard.create(template_json["id"], user)
+      progress_step("step_1", wizard: wizard)
+      progress_step("step_2", wizard: wizard)
+      progress_step("step_3", wizard: wizard)
+
+      DiscourseEvent.trigger(:user_first_logged_in, user)
+      expect(user.reload.custom_fields["redirect_to_wizard"]).to be_nil
+    end
+
+    it "does not set redirect for non-after_signup wizards" do
+      template_json["after_signup"] = false
+      CustomWizard::Template.save(template_json, skip_jobs: true)
+
+      DiscourseEvent.trigger(:user_first_logged_in, user)
+      expect(user.reload.custom_fields["redirect_to_wizard"]).to be_nil
+    end
+  end
 end

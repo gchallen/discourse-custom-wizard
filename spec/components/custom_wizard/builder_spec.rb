@@ -288,4 +288,32 @@ describe CustomWizard::Builder do
       end
     end
   end
+
+  context "email field type" do
+    let(:email_field) { get_wizard_fixture("field/email") }
+
+    before do
+      wizard_template[:steps][0][:fields] << email_field
+      CustomWizard::Template.save(wizard_template, skip_jobs: true)
+    end
+
+    it "passes allowed_domains to the email field" do
+      wizard = CustomWizard::Builder.new("super_mega_fun_wizard", user).build
+      field = wizard.steps.first.fields.find { |f| f.id == "step_1_field_email" }
+      expect(field).to be_present
+      expect(field.type).to eq("email")
+      expect(field.allowed_domains).to eq("edu|ac.uk|edu.au")
+    end
+
+    it "works without allowed_domains" do
+      email_field.delete("allowed_domains")
+      CustomWizard::Template.save(wizard_template, skip_jobs: true)
+
+      wizard = CustomWizard::Builder.new("super_mega_fun_wizard", user).build
+      field = wizard.steps.first.fields.find { |f| f.id == "step_1_field_email" }
+      expect(field).to be_present
+      expect(field.type).to eq("email")
+      expect(field.allowed_domains).to be_nil
+    end
+  end
 end

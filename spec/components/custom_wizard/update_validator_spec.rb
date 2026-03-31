@@ -182,6 +182,28 @@ describe CustomWizard::UpdateValidator do
         I18n.t("wizard.field.required", label: "Email"),
       )
     end
+
+    it "accepts any email when allowed_domains is not set" do
+      email_field.delete("allowed_domains")
+      template[:steps][0][:fields] = template[:steps][0][:fields].reject { |f| f[:id] == "step_1_field_email" || f["id"] == "step_1_field_email" }
+      template[:steps][0][:fields] << email_field
+      CustomWizard::Template.save(template)
+
+      updater = perform_validation("step_1", step_1_field_email: "user@gmail.com")
+      expect(updater.errors.messages[:step_1_field_email].first).to eq(nil)
+    end
+
+    it "applies min_length to email fields" do
+      email_field[:min_length] = 10
+      template[:steps][0][:fields] = template[:steps][0][:fields].reject { |f| f[:id] == "step_1_field_email" || f["id"] == "step_1_field_email" }
+      template[:steps][0][:fields] << email_field
+      CustomWizard::Template.save(template)
+
+      updater = perform_validation("step_1", step_1_field_email: "a@b.edu")
+      expect(updater.errors.messages[:step_1_field_email].first).to eq(
+        I18n.t("wizard.field.too_short", label: "Email", min: 10),
+      )
+    end
   end
 
   it "validates date fields" do
