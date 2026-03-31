@@ -172,8 +172,10 @@ describe CustomWizard::UpdateValidator do
     end
 
     it "requires email fields when marked required" do
-      @template[:steps][0][:fields].last[:required] = true
-      CustomWizard::Template.save(@template)
+      email_field[:required] = true
+      template[:steps][0][:fields] = template[:steps][0][:fields].reject { |f| f[:id] == "step_1_field_email" || f["id"] == "step_1_field_email" }
+      template[:steps][0][:fields] << email_field
+      CustomWizard::Template.save(template)
 
       updater = perform_validation("step_1", step_1_field_email: nil)
       expect(updater.errors.messages[:step_1_field_email].first).to eq(
