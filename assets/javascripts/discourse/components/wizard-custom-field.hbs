@@ -156,6 +156,18 @@
   </div>
 {{/if}}
 
+{{#if this.isAcademicEmail}}
+  <div class="setting">
+    <div class="setting-label">
+      <label>{{i18n "admin.wizard.field.allowed_domains"}}</label>
+    </div>
+
+    <div class="setting-value">
+      <Input @value={{this.field.allowed_domains}} class="medium" />
+    </div>
+  </div>
+{{/if}}
+
 {{#if this.showLimit}}
   <div class="setting">
     <div class="setting-label">

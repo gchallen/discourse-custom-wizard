@@ -21,6 +21,7 @@ export default Component.extend(UndoChanges, {
   isText: equal("field.type", "text"),
   isTextarea: equal("field.type", "textarea"),
   isUrl: equal("field.type", "url"),
+  isAcademicEmail: equal("field.type", "academic_email"),
   isComposer: equal("field.type", "composer"),
   showPrefill: or(
     "isText",
@@ -32,7 +33,7 @@ export default Component.extend(UndoChanges, {
   ),
   showContent: or("isCategory", "isTag", "isGroup", "isDropdown", "isTopic"),
   showLimit: or("isCategory", "isTag", "isTopic"),
-  isTextType: or("isText", "isTextarea", "isComposer"),
+  isTextType: or("isText", "isTextarea", "isComposer", "isAcademicEmail"),
   isComposerPreview: equal("field.type", "composer_preview"),
   categoryPropertyTypes: selectKitContent(["id", "slug"]),
   messageUrl:

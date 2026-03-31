@@ -278,6 +278,7 @@ en:
           char_counter_placeholder: "Display Character Counter"
           field_placeholder: "Placeholder"
           file_types: "File Types"
+          allowed_domains: "Allowed Domains (pipe-separated, e.g. edu|ac.uk|edu.au)"
           preview_template: "Template"
           limit: "Limit"
           property: "Property"
@@ -325,6 +326,7 @@ en:
             date: Date
             time: Time
             date_time: Date & Time
+            academic_email: Academic Email
             event: Event (Events Plugin)
 
         connector:
