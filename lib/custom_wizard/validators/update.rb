@@ -67,15 +67,15 @@ class ::CustomWizard::UpdateValidator
       @updater.errors.add(field_id, I18n.t("wizard.field.invalid_time"))
     end
 
-    if type === "academic_email" && value.present?
+    if type === "email" && value.present?
       allowed = field.allowed_domains
-      if allowed.present? && !validate_academic_email(value, allowed)
+      if allowed.present? && !validate_email(value, allowed)
         @updater.errors.add(
           field_id,
           I18n.t(
-            "wizard.field.invalid_academic_email",
+            "wizard.field.invalid_email_domain",
             label: label,
-            default: "%{label}: Please enter an email address from an academic institution."
+            default: "%{label}: Email address is not from an allowed domain."
           ),
         )
       end
@@ -122,7 +122,7 @@ class ::CustomWizard::UpdateValidator
   end
 
   def is_text_type(field)
-    %w[text textarea composer academic_email].include? field.type
+    %w[text textarea composer email].include? field.type
   end
 
   def is_url_type(field)
@@ -138,7 +138,7 @@ class ::CustomWizard::UpdateValidator
     false
   end
 
-  def validate_academic_email(value, allowed_domains)
+  def validate_email(value, allowed_domains)
     return false unless value.include?("@")
     domain = value.strip.downcase.split("@").last
     allowed = allowed_domains.split("|").map(&:strip)

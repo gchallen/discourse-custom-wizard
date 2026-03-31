@@ -193,4 +193,14 @@ body.custom-wizard {
       margin-right: 10px;
     }
   }
+
+  .wizard-field-email-error {
+    color: var(--danger);
+    font-size: 0.875em;
+    margin-top: 0.25em;
+  }
+
+  .wizard-field-email.invalid input {
+    border-color: var(--danger);
+  }
 }

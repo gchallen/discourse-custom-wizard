@@ -326,7 +326,7 @@ en:
             date: Date
             time: Time
             date_time: Date & Time
-            academic_email: Academic Email
+            email: Email
             event: Event (Events Plugin)
 
         connector:

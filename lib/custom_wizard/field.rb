@@ -141,7 +141,7 @@ class CustomWizard::Field
       },
       user_selector: {
       },
-      academic_email: {
+      email: {
         min_length: nil,
         max_length: nil,
         prefill: nil,

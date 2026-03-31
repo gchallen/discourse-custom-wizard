@@ -7,3 +7,8 @@
   placeholder={{this.field.translatedPlaceholder}}
   autocomplete="email"
 />
+{{#if this.emailInvalid}}
+  <div class="wizard-field-email-error">
+    Please enter an email from an allowed domain.
+  </div>
+{{/if}}
