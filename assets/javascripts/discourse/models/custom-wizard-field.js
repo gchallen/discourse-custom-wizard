@@ -70,6 +70,19 @@ export default EmberObject.extend(ValidState, {
       valid = val && val.toString().length > 0;
     } else if (type === "url") {
       valid = true;
+    } else if (type === "email") {
+      valid = val && val.toString().length > 0;
+      if (valid && this.get("allowed_domains")) {
+        const domain = val.trim().toLowerCase().split("@")[1];
+        if (domain) {
+          const allowed = this.get("allowed_domains").split("|").map((s) => s.trim());
+          valid = allowed.some(
+            (suffix) => domain === suffix || domain.endsWith(`.${suffix}`)
+          );
+        } else {
+          valid = false;
+        }
+      }
     }
 
     this.setValid(Boolean(valid));
