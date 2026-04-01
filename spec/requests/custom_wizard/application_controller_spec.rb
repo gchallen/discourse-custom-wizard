@@ -60,6 +60,21 @@ describe ApplicationController do
             CustomWizard::Wizard.create(@template["id"], user).submissions.first.redirect_to,
           ).to eq("/t/2")
         end
+
+        it "does not redirect when visiting /tos" do
+          get "/tos"
+          expect(response).to_not redirect_to("/w/super-mega-fun-wizard")
+        end
+
+        it "does not redirect when visiting /privacy" do
+          get "/privacy"
+          expect(response).to_not redirect_to("/w/super-mega-fun-wizard")
+        end
+
+        it "does not redirect when visiting /guidelines" do
+          get "/guidelines"
+          expect(response).to_not redirect_to("/w/super-mega-fun-wizard")
+        end
       end
 
       include ActiveSupport::Testing::TimeHelpers
