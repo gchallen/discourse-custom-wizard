@@ -1,5 +1,6 @@
 import Component from "@ember/component";
 import { dasherize } from "@ember/string";
+import { htmlSafe } from "@ember/template";
 import { cook } from "discourse/lib/text";
 import discourseComputed from "discourse-common/utils/decorators";
 
@@ -10,7 +11,7 @@ function openLinksInNewTab(html) {
     a.setAttribute("target", "_blank");
     a.setAttribute("rel", "noopener noreferrer");
   });
-  return div.innerHTML;
+  return htmlSafe(div.innerHTML);
 }
 
 export default Component.extend({

@@ -16,7 +16,8 @@ export default {
       id: "step_1",
       index: 0,
       next: "step_2",
-      description: "<p>Text inputs!</p>",
+      description:
+        '<p>By joining, you agree to our <a href="/tos">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</p>',
       title: "Text",
       permitted: true,
       permitted_message: null,
@@ -29,7 +30,8 @@ export default {
           required: false,
           value: "I am prefilled",
           label: "<p>Text</p>",
-          description: "Text field description.",
+          description:
+            'I agree to the <a href="/guidelines">Community Guidelines</a>.',
           file_types: null,
           format: null,
           limit: null,

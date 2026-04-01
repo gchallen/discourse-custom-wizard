@@ -19,7 +19,7 @@ function openLinksInNewTab(html) {
     a.setAttribute("target", "_blank");
     a.setAttribute("rel", "noopener noreferrer");
   });
-  return div.innerHTML;
+  return htmlSafe(div.innerHTML);
 }
 
 const uploadStartedEventKeys = ["upload-started"];

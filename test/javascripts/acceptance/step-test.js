@@ -5,6 +5,7 @@ import {
   count,
   exists,
   query,
+  queryAll,
   visible,
 } from "discourse/tests/helpers/qunit-helpers";
 import { stepNotPermitted, update, wizard } from "../helpers/wizard";
@@ -33,17 +34,34 @@ acceptance("Step | Step", function (needs) {
       query(".wizard-step-title p").textContent.trim(),
       "Text"
     );
-    assert.strictEqual(
-      query(".wizard-step-description p").textContent.trim(),
-      "Text inputs!"
-    );
-    assert.strictEqual(
-      query(".wizard-step-description p").textContent.trim(),
-      "Text inputs!"
+    assert.ok(
+      query(".wizard-step-description p").textContent.includes(
+        "By joining, you agree to our"
+      )
     );
     assert.strictEqual(count(".wizard-step-form .wizard-field"), 6);
     assert.ok(visible(".wizard-step-footer .wizard-progress"), true);
     assert.ok(visible(".wizard-step-footer .wizard-buttons"), true);
+  });
+
+  test("Step description links open in new tabs", async function (assert) {
+    await visit("/w/wizard");
+    const links = queryAll(".wizard-step-description a[href]");
+    assert.ok(links.length > 0);
+    links.each(function () {
+      assert.strictEqual(this.getAttribute("target"), "_blank");
+      assert.strictEqual(this.getAttribute("rel"), "noopener noreferrer");
+    });
+  });
+
+  test("Field description links open in new tabs", async function (assert) {
+    await visit("/w/wizard");
+    const links = queryAll(".field-description a[href]");
+    assert.ok(links.length > 0);
+    links.each(function () {
+      assert.strictEqual(this.getAttribute("target"), "_blank");
+      assert.strictEqual(this.getAttribute("rel"), "noopener noreferrer");
+    });
   });
 
   test("Goes to the next step", async function (assert) {
