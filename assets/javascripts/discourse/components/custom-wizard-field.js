@@ -3,6 +3,16 @@ import { dasherize } from "@ember/string";
 import { cook } from "discourse/lib/text";
 import discourseComputed from "discourse-common/utils/decorators";
 
+function openLinksInNewTab(html) {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  div.querySelectorAll("a[href]").forEach((a) => {
+    a.setAttribute("target", "_blank");
+    a.setAttribute("rel", "noopener noreferrer");
+  });
+  return div.innerHTML;
+}
+
 export default Component.extend({
   classNameBindings: [
     ":wizard-field",
@@ -15,7 +25,7 @@ export default Component.extend({
     this._super(...arguments);
 
     cook(this.field.translatedDescription).then((cookedDescription) => {
-      this.set("cookedDescription", cookedDescription);
+      this.set("cookedDescription", openLinksInNewTab(cookedDescription));
     });
   },
 

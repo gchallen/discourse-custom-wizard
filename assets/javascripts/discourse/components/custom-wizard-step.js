@@ -12,6 +12,16 @@ import CustomWizard, {
 } from "discourse/plugins/discourse-custom-wizard/discourse/models/custom-wizard";
 import { wizardComposerEdtiorEventPrefix } from "./custom-wizard-composer-editor";
 
+function openLinksInNewTab(html) {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  div.querySelectorAll("a[href]").forEach((a) => {
+    a.setAttribute("target", "_blank");
+    a.setAttribute("rel", "noopener noreferrer");
+  });
+  return div.innerHTML;
+}
+
 const uploadStartedEventKeys = ["upload-started"];
 const uploadEndedEventKeys = [
   "upload-success",
@@ -35,10 +45,10 @@ export default Component.extend({
     this._super(...arguments);
 
     cook(this.step.translatedTitle).then((cookedTitle) => {
-      this.set("cookedTitle", cookedTitle);
+      this.set("cookedTitle", openLinksInNewTab(cookedTitle));
     });
     cook(this.step.translatedDescription).then((cookedDescription) => {
-      this.set("cookedDescription", cookedDescription);
+      this.set("cookedDescription", openLinksInNewTab(cookedDescription));
     });
 
     uploadStartedEventKeys.forEach((key) => {

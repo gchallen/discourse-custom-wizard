@@ -5,10 +5,12 @@ plugins:
   wizard_redirect_exclude_paths:
     client: true
     type: list
-    default: 'admin'
+    default: 'admin|tos|privacy|guidelines'
     choices:
       - admin
+      - tos
       - privacy
+      - guidelines
   wizard_recognised_image_upload_formats:
     client: true
     default: "jpg|jpeg|png|gif"
