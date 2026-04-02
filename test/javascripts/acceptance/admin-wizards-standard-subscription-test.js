@@ -1,4 +1,4 @@
-import { click, currentURL, fillIn, visit, waitUntil } from "@ember/test-helpers";
+import { click, currentURL, fillIn, settled, visit, waitUntil } from "@ember/test-helpers";
 import $ from "jquery";
 import { test } from "qunit";
 import {
@@ -68,10 +68,8 @@ acceptance("Admin | Custom Wizard Standard Subscription", function (needs) {
 
   test("shows authorized and subscribed", async (assert) => {
     await visit("/admin/wizards");
-    await waitUntil(
-      () => document.querySelector("button.wizard-subscription-badge span"),
-      { timeout: 5000 }
-    );
+    await waitUntil(() => document.querySelector("button.wizard-subscription-badge"), { timeout: 3000 });
+    await settled();
     assert.notOk(
       exists(".supplier-authorize .btn-primary:not(.update)"),
       "the authorize button not shown."
@@ -84,6 +82,11 @@ acceptance("Admin | Custom Wizard Standard Subscription", function (needs) {
 
   test("creating a new wizard", async (assert) => {
     await visit("/admin/wizards/wizard");
+    await waitUntil(
+      () => document.querySelector("button.wizard-subscription-badge"),
+      { timeout: 3000 }
+    );
+    await settled();
     await click(".admin-wizard-controls button");
     assert.ok(
       query(".message-content").innerText.includes(
@@ -178,13 +181,15 @@ acceptance("Admin | Custom Wizard Standard Subscription", function (needs) {
     const listDisabled = queryAll(
       ".wizard-custom-action .setting .setting-value ul li.disabled"
     );
+    // Subscription restrictions were removed (01fe27d1), so all action
+    // types are enabled regardless of subscription level.
     assert.ok(
-      listDisabled.length === 4,
-      "Disabled items displayed correctly in action dropdown"
+      listDisabled.length === 0,
+      "No disabled items in action dropdown"
     );
     assert.ok(
-      listEnabled.length === 7,
-      "Enabled items displayed correctly in action dropdown"
+      listEnabled.length === 11,
+      "All items enabled in action dropdown"
     );
     await actionTypeDropdown.selectRowByValue("create_topic");
     assert.ok(

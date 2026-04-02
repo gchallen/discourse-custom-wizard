@@ -1,4 +1,4 @@
-import { click, currentURL, fillIn, settled, visit } from "@ember/test-helpers";
+import { click, currentURL, fillIn, settled, visit, waitUntil } from "@ember/test-helpers";
 import $ from "jquery";
 import { test } from "qunit";
 import {
@@ -93,6 +93,10 @@ acceptance("Admin | Custom Wizard Unsubscribed", function (needs) {
 
   test("creating a new wizard", async (assert) => {
     await visit("/admin/wizards/wizard");
+    await waitUntil(
+      () => document.querySelector("button.wizard-subscription-badge"),
+      { timeout: 3000 }
+    );
     await settled();
     await click(".admin-wizard-controls button");
     assert.ok(
@@ -120,11 +124,8 @@ acceptance("Admin | Custom Wizard Unsubscribed", function (needs) {
     ).innerText;
     const regex = /\d\d\:\d\d/;
     assert.ok(regex.test(timeText));
-    assert.equal(
-      $.trim($("a[title='Subscribe to use these features']").text()),
-      "Not Subscribed",
-      "Show messsage and link of user not subscribed"
-    );
+    // Subscription restrictions were removed (01fe27d1), so "Not Subscribed" link
+    // is no longer shown in the wizard builder.
 
     await click(".step .link-list button");
     const stepOneText = "step_1 (step_1)";
@@ -267,35 +268,7 @@ acceptance("Admin | Custom Wizard Unsubscribed", function (needs) {
       "Google",
       "The link text in the preview wrapper should be 'Google'"
     );
-    await click(
-      ".wizard-custom-step .wizard-text-editor .d-editor button.local-dates"
-    );
-
-    assert.ok(
-      exists(".d-modal.discourse-local-dates-create-modal"),
-      "Insert date-time modal visible"
-    );
-
-    assert.ok(
-      !exists(
-        ".discourse-local-dates-create-modal .d-modal__body .advanced-options"
-      ),
-      "Advanced mode not visible"
-    );
-    await click(".d-modal__footer button.advanced-mode-btn");
-    assert.ok(
-      exists(
-        ".discourse-local-dates-create-modal .d-modal__body .advanced-options"
-      ),
-      "Advanced mode is visible"
-    );
-    await click(".d-modal__footer button.btn-primary");
-    assert.ok(
-      exists(
-        ".wizard-custom-step .wizard-text-editor .d-editor-preview-wrapper span.discourse-local-date"
-      ),
-      "Date inserted"
-    );
+    // local-dates toolbar button was removed from d-editor in recent Discourse
 
     await click(".field .link-list button");
     assert.ok(
@@ -366,13 +339,15 @@ acceptance("Admin | Custom Wizard Unsubscribed", function (needs) {
     const listDisabled = queryAll(
       ".wizard-custom-action .setting .setting-value ul li.disabled"
     );
+    // Subscription restrictions were removed (01fe27d1), so all action
+    // types are enabled regardless of subscription level.
     assert.ok(
-      listDisabled.length === 7,
-      "disabled items displayed correctly in action dropdown"
+      listDisabled.length === 0,
+      "No disabled items in action dropdown"
     );
     assert.ok(
-      listEnabled.length === 4,
-      "Enabled items displayed correctly in action dropdown"
+      listEnabled.length === 11,
+      "All items enabled in action dropdown"
     );
     await actionTypeDropdown.selectRowByValue("create_topic");
     assert.ok(

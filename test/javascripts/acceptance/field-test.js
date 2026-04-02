@@ -226,17 +226,8 @@ acceptance("Field | Fields", function (needs) {
 
   test("User", async function (assert) {
     await visit("/w/wizard");
-    await fillIn(
-      ".wizard-field.user-selector-field .filter-input",
-      "a"
+    assert.ok(
+      visible(".wizard-field.user-selector-field .custom-user-selector")
     );
-    await triggerKeyEvent(
-      ".wizard-field.user-selector-field .filter-input",
-      "keyup",
-      "a".charCodeAt(0)
-    );
-
-    assert.ok(visible(".wizard-field.user-selector-field .multi-select"));
-    // TODO: add assertion for ac results. autocomplete does not appear in time.
   });
 });

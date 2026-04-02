@@ -11,20 +11,29 @@ export default class WizardSubscriptionStatus extends Component {
   @tracked supplierId = null;
   @tracked authorized = false;
   @tracked unauthorizing = false;
+  @tracked loaded = false;
   basePath = "/admin/plugins/subscription-client/suppliers";
 
   constructor() {
     super(...arguments);
-    ajax(`${this.basePath}?resource=discourse-custom-wizard`)
-      .then((result) => {
-        if (result.suppliers && result.suppliers.length) {
-          this.supplierId = result.suppliers[0].id;
-          this.authorized = result.suppliers[0].authorized;
-        }
-      })
-      .finally(() => {
-        this.subscription.retrieveSubscriptionStatus();
-      });
+    this._load();
+  }
+
+  async _load() {
+    try {
+      const result = await ajax(
+        `${this.basePath}?resource=discourse-custom-wizard`
+      );
+      if (result.suppliers && result.suppliers.length) {
+        this.supplierId = result.suppliers[0].id;
+        this.authorized = result.suppliers[0].authorized;
+      }
+    } catch {
+      // suppliers endpoint may not be available
+    }
+
+    await this.subscription.retrieveSubscriptionStatus();
+    this.loaded = true;
   }
 
   @action

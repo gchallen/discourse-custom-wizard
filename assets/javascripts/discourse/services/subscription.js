@@ -1,7 +1,6 @@
 import { tracked } from "@glimmer/tracking";
 import Service from "@ember/service";
 import { ajax } from "discourse/lib/ajax";
-import { popupAjaxError } from "discourse/lib/ajax-error";
 
 const PRODUCT_PAGE = "https://custom-wizard.pavilion.tech/pricing";
 const SUPPORT_MESSAGE =
@@ -17,35 +16,37 @@ export default class SubscriptionService extends Service {
   @tracked standardSubscription = false;
   @tracked subscriptionAttributes = {};
 
-  async init() {
+  init() {
     super.init(...arguments);
-    await this.retrieveSubscriptionStatus();
+    this.retrieveSubscriptionStatus();
   }
 
   async retrieveSubscriptionStatus() {
-    let result = await ajax("/admin/wizards/subscription").catch(
-      popupAjaxError
-    );
+    let result = await ajax("/admin/wizards/subscription").catch(() => null);
 
-    this.subscribed = result.subscribed;
-    this.subscriptionType = result.subscription_type;
-    this.subscriptionAttributes = result.subscription_attributes;
-    this.businessSubscription = this.subscriptionType === "business";
-    this.communitySubscription = this.subscriptionType === "community";
-    this.standardSubscription = this.subscriptionType === "standard";
+    if (result) {
+      this.subscribed = result.subscribed;
+      this.subscriptionType = result.subscription_type;
+      this.subscriptionAttributes = result.subscription_attributes;
+      this.businessSubscription = this.subscriptionType === "business";
+      this.communitySubscription = this.subscriptionType === "community";
+      this.standardSubscription = this.subscriptionType === "standard";
+    }
   }
 
   async updateSubscriptionStatus() {
     let result = await ajax(
       "/admin/wizards/subscription?update_from_remote=true"
-    ).catch(popupAjaxError);
+    ).catch(() => null);
 
-    this.subscribed = result.subscribed;
-    this.subscriptionType = result.subscription_type;
-    this.subscriptionAttributes = result.subscription_attributes;
-    this.businessSubscription = this.subscriptionType === "business";
-    this.communitySubscription = this.subscriptionType === "community";
-    this.standardSubscription = this.subscriptionType === "standard";
+    if (result) {
+      this.subscribed = result.subscribed;
+      this.subscriptionType = result.subscription_type;
+      this.subscriptionAttributes = result.subscription_attributes;
+      this.businessSubscription = this.subscriptionType === "business";
+      this.communitySubscription = this.subscriptionType === "community";
+      this.standardSubscription = this.subscriptionType === "standard";
+    }
   }
 
   get subscriptionCtaLink() {

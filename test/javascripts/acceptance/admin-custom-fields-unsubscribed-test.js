@@ -134,13 +134,13 @@ acceptance("Admin | Custom Fields Unsubscribed", function (needs) {
     );
     assert.equal(
       enabledOptions2.length,
-      3,
-      "There are three enabled options for type"
+      4,
+      "There are four enabled options for type"
     );
     assert.equal(
       disabledOptions2.length,
-      1,
-      "There is one disabled option for type"
+      0,
+      "There are no disabled options for type"
     );
   });
   test("change custom fields for unsubscribed plan", async (assert) => {
