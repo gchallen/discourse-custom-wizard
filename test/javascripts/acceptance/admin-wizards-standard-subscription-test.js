@@ -1,4 +1,4 @@
-import { click, currentURL, fillIn, visit } from "@ember/test-helpers";
+import { click, currentURL, fillIn, settled, visit } from "@ember/test-helpers";
 import $ from "jquery";
 import { test } from "qunit";
 import {
@@ -22,6 +22,7 @@ acceptance("Admin | Custom Wizard Standard Subscription", function (needs) {
   needs.user();
   needs.settings({
     custom_wizard_enabled: true,
+    rich_editor: false,
     available_locales: JSON.stringify([{ name: "English", value: "en" }]),
   });
 
@@ -67,6 +68,7 @@ acceptance("Admin | Custom Wizard Standard Subscription", function (needs) {
 
   test("shows authorized and subscribed", async (assert) => {
     await visit("/admin/wizards");
+    await settled();
     assert.notOk(
       exists(".supplier-authorize .btn-primary:not(.update)"),
       "the authorize button not shown."

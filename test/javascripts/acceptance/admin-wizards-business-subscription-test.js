@@ -22,6 +22,7 @@ acceptance("Admin | Custom Wizard Business Subscription", function (needs) {
   needs.user();
   needs.settings({
     custom_wizard_enabled: true,
+    rich_editor: false,
     available_locales: JSON.stringify([{ name: "English", value: "en" }]),
   });
 

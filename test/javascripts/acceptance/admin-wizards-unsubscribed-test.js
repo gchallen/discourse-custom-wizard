@@ -1,4 +1,4 @@
-import { click, currentURL, fillIn, visit } from "@ember/test-helpers";
+import { click, currentURL, fillIn, settled, visit } from "@ember/test-helpers";
 import $ from "jquery";
 import { test } from "qunit";
 import {
@@ -23,6 +23,7 @@ acceptance("Admin | Custom Wizard Unsubscribed", function (needs) {
   needs.user();
   needs.settings({
     custom_wizard_enabled: true,
+    rich_editor: false,
     available_locales: JSON.stringify([{ name: "English", value: "en" }]),
   });
 
@@ -92,6 +93,7 @@ acceptance("Admin | Custom Wizard Unsubscribed", function (needs) {
 
   test("creating a new wizard", async (assert) => {
     await visit("/admin/wizards/wizard");
+    await settled();
     await click(".admin-wizard-controls button");
     assert.ok(
       query(".message-content").innerText.includes(
@@ -529,7 +531,7 @@ acceptance("Admin | Custom Wizard Unsubscribed", function (needs) {
       await click(
         `.wizard-links.step .link-list div:nth-of-type(${
           i + 1
-        }) button.btn-text`
+        }) button`
       );
       assert.equal(
         query(".wizard-custom-step  input[name='title']").value,
@@ -546,7 +548,7 @@ acceptance("Admin | Custom Wizard Unsubscribed", function (needs) {
         await click(
           `.wizard-links.field .link-list div:nth-of-type(${
             j + 1
-          }) button.btn-text`
+          }) button`
         );
         assert.equal(
           query(".wizard-custom-field.visible .setting:nth-of-type(1) input")
