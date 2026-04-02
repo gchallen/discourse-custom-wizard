@@ -1,10 +1,11 @@
 import Component, { Input } from "@ember/component";
+import { mut } from "discourse/helpers/mut";
 import { action } from "@ember/object";
 import { alias, equal, or } from "@ember/object/computed";
 import discourseComputed, { observes } from "discourse-common/utils/decorators";
 import I18n from "I18n";
 import wizardSubscriptionSelector from "./wizard-subscription-selector";
-import { hash } from "@ember/helper";
+import { hash, fn } from "@ember/helper";
 import i18n from "discourse/helpers/i18n";
 import multiSelect from "select-kit/components/multi-select";
 import loadingSpinner from "discourse/helpers/loading-spinner";
@@ -141,16 +142,16 @@ export default class extends Component {
   }
 <template>{{#if this.showInputs}}
   <td>
-    {{wizardSubscriptionSelector value=this.field.klass feature="custom_field" attribute="klass" onChange=(action (mut this.field.klass)) options=(hash none="admin.wizard.custom_field.klass.select")}}
+    {{wizardSubscriptionSelector value=this.field.klass feature="custom_field" attribute="klass" onChange=(fn (mut this.field.klass)) options=(hash none="admin.wizard.custom_field.klass.select")}}
   </td>
   <td>
-    {{wizardSubscriptionSelector value=this.field.type feature="custom_field" attribute="type" onChange=(action (mut this.field.type)) options=(hash none="admin.wizard.custom_field.type.select")}}
+    {{wizardSubscriptionSelector value=this.field.type feature="custom_field" attribute="type" onChange=(fn (mut this.field.type)) options=(hash none="admin.wizard.custom_field.type.select")}}
   </td>
   <td class="input">
     <Input @value={{this.field.name}} placeholder={{i18n "admin.wizard.custom_field.name.select"}} />
   </td>
   <td class="multi-select">
-    {{multiSelect value=this.field.serializers content=this.serializerContent onChange=(action (mut this.field.serializers)) options=(hash none="admin.wizard.custom_field.serializers.select")}}
+    {{multiSelect value=this.field.serializers content=this.serializerContent onChange=(fn (mut this.field.serializers)) options=(hash none="admin.wizard.custom_field.serializers.select")}}
   </td>
   <td class="actions">
     {{#if this.loading}}
@@ -160,9 +161,9 @@ export default class extends Component {
         {{icon this.saveIcon}}
       {{/if}}
     {{/if}}
-    {{dButton action=(action "destroy") icon="trash-can" class="destroy" disabled=this.destroyDisabled}}
-    {{dButton icon="floppy-disk" action=(action "save") disabled=this.saveDisabled class="save"}}
-    {{dButton action=(action "close") icon="xmark" disabled=this.closeDisabled}}
+    {{dButton action=this.destroy icon="trash-can" class="destroy" disabled=this.destroyDisabled}}
+    {{dButton icon="floppy-disk" action=this.save disabled=this.saveDisabled class="save"}}
+    {{dButton action=this.close icon="xmark" disabled=this.closeDisabled}}
   </td>
 {{else}}
   <td><label>{{this.field.klass}}</label></td>
@@ -185,7 +186,7 @@ export default class extends Component {
     </td>
   {{else}}
     <td class="actions">
-      {{dButton action=(action "edit") icon="pencil"}}
+      {{dButton action=this.edit icon="pencil"}}
     </td>
   {{/if}}
 {{/if}}</template>}

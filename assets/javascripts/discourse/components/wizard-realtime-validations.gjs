@@ -1,4 +1,5 @@
 import Component, { Input } from "@ember/component";
+import { mut } from "discourse/helpers/mut";
 import { action } from "@ember/object";
 import EmberObject from "@ember/object";
 import Category from "discourse/models/category";
@@ -6,7 +7,7 @@ import { cloneJSON } from "discourse-common/lib/object";
 import discourseComputed from "discourse-common/utils/decorators";
 import I18n from "I18n";
 import i18n from "discourse/helpers/i18n";
-import { concat, get } from "@ember/helper";
+import { concat, get, fn } from "@ember/helper";
 import CategorySelector from "select-kit/components/category-selector";
 import comboBox from "select-kit/components/combo-box";
 import radioButton from "discourse/components/radio-button";
@@ -86,7 +87,7 @@ export default class extends Component {
             </div>
             <div class="setting-value">
               <Input @type="number" @value={{props.time_n_value}} class="time-n-value" />
-              {{comboBox value=(readonly props.time_unit) content=this.timeUnits class="time-unit-selector" onChange=(action (mut props.time_unit))}}
+              {{comboBox value=(readonly props.time_unit) content=this.timeUnits class="time-unit-selector" onChange=(fn (mut props.time_unit))}}
             </div>
           </div>
           <div class="validation-section">

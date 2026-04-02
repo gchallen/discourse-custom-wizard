@@ -11,12 +11,12 @@ export default RouteTemplate(<template>{{#if @controller.logs}}
     </label>
 
     <div class="controls">
-      {{dButton label="refresh" icon="arrows-rotate" action=(action "refresh") class="refresh"}}
+      {{dButton label="refresh" icon="arrows-rotate" action=this.refresh class="refresh"}}
     </div>
   </div>
 
   <div class="wizard-table">
-    {{#LoadMore selector=".wizard-table tr" action=(action "loadMore")}}
+    {{#LoadMore selector=".wizard-table tr" action=this.loadMore}}
       {{#if @controller.noResults}}
         <p>{{i18n "search.no_results"}}</p>
       {{else}}

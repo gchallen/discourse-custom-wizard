@@ -15,17 +15,17 @@ export default class extends DateTimeInput {
     return timeFirst ? tabindex + 1 : tabindex;
   }
 <template>{{#unless this.timeFirst}}
-  {{customWizardDateInput date=this.date relativeDate=this.relativeDate onChange=(action "onChangeDate") tabindex=this.dateTabindex}}
+  {{customWizardDateInput date=this.date relativeDate=this.relativeDate onChange=this.onChangeDate tabindex=this.dateTabindex}}
 {{/unless}}
 
 {{#if this.showTime}}
-  {{customWizardTimeInput date=this.date relativeDate=this.relativeDate onChange=(action "onChangeTime") tabindex=this.timeTabindex}}
+  {{customWizardTimeInput date=this.date relativeDate=this.relativeDate onChange=this.onChangeTime tabindex=this.timeTabindex}}
 {{/if}}
 
 {{#if this.timeFirst}}
-  {{customWizardDateInput date=this.date relativeDate=this.relativeDate onChange=(action "onChangeDate") tabindex=this.dateTabindex}}
+  {{customWizardDateInput date=this.date relativeDate=this.relativeDate onChange=this.onChangeDate tabindex=this.dateTabindex}}
 {{/if}}
 
 {{#if this.clearable}}
-  {{dButton class="clear-date-time" icon="xmark" action=(action "onClear")}}
+  {{dButton class="clear-date-time" icon="xmark" action=this.onClear}}
 {{/if}}</template>}

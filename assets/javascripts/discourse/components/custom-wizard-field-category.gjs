@@ -1,8 +1,9 @@
 import Component from "@ember/component";
+import { mut } from "discourse/helpers/mut";
 import Category from "discourse/models/category";
 import { observes } from "discourse-common/utils/decorators";
 import customWizardCategorySelector from "./custom-wizard-category-selector";
-import { hash } from "@ember/helper";
+import { hash, fn } from "@ember/helper";
 
 export default class extends Component {
   categories = [];
@@ -44,4 +45,4 @@ export default class extends Component {
       );
     }
   }
-<template>{{customWizardCategorySelector categories=this.categories class=this.fieldClass whitelist=this.field.content onChange=(action (mut this.categories)) tabindex=this.field.tabindex options=(hash maximum=this.field.limit)}}</template>}
+<template>{{customWizardCategorySelector categories=this.categories class=this.fieldClass whitelist=this.field.content onChange=(fn (mut this.categories)) tabindex=this.field.tabindex options=(hash maximum=this.field.limit)}}</template>}

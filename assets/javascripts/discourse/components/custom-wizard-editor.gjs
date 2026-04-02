@@ -1,6 +1,6 @@
 import htmlSafe from "discourse/helpers/html-safe";
 import toolbarPopupMenuOptions from "discourse/components/toolbar-popup-menu-options";
-import { hash } from "@ember/helper";
+import { hash, fn } from "@ember/helper";
 import icon from "discourse/helpers/d-icon";
 import i18n from "discourse/helpers/i18n";
 import conditionalLoadingSpinner from "discourse/components/conditional-loading-spinner";
@@ -20,7 +20,7 @@ const CustomWizardEditor = <template><div class="d-editor-overlay hidden"></div>
         {{#each this.toolbar.groups as |group|}}
           {{#each group.buttons as |b|}}
             {{#if b.popupMenu}}
-              {{toolbarPopupMenuOptions onPopupMenuAction=this.onPopupMenuAction onExpand=(action b.action b) class=b.className content=this.popupMenuOptions options=(hash popupTitle=b.title icon=b.icon)}}
+              {{toolbarPopupMenuOptions onPopupMenuAction=this.onPopupMenuAction onExpand=(fn b.action b) class=b.className content=this.popupMenuOptions options=(hash popupTitle=b.title icon=b.icon)}}
             {{else}}
               <div>{{b.icon}}</div>
               <button class="wizard-btn {{b.className}}" {{action b.action b}} title={{b.title}} type="button">

@@ -158,16 +158,16 @@ export default class extends Component {
   {{#if this.anyLinks}}
     {{#each this.links as |link|}}
       <div data-id={{link.id}}>
-        {{dButton action=(action "change") actionParam=link.id translatedLabel=link.label class=link.classes}}
+        {{dButton action=this.change actionParam=link.id translatedLabel=link.label class=link.classes}}
         {{#unless link.first}}
-          {{dButton action=(action "back") actionParam=link icon="arrow-left" class="back"}}
+          {{dButton action=this.back actionParam=link icon="arrow-left" class="back"}}
         {{/unless}}
         {{#unless link.last}}
-          {{dButton action=(action "forward") actionParam=link icon="arrow-right" class="forward"}}
+          {{dButton action=this.forward actionParam=link icon="arrow-right" class="forward"}}
         {{/unless}}
-        {{dButton action=(action "remove") actionParam=link.id icon="xmark" class="remove"}}
+        {{dButton action=this.remove actionParam=link.id icon="xmark" class="remove"}}
       </div>
     {{/each}}
   {{/if}}
-  {{dButton action=(action "add") label="admin.wizard.add" icon="plus"}}
+  {{dButton action=this.add label="admin.wizard.add" icon="plus"}}
 </div></template>}

@@ -13,4 +13,4 @@ export default class extends Component {
   onChange(value) {
     this.set("date", moment(value));
   }
-<template>{{customWizardDateInput date=this.date onChange=(action "onChange") tabindex=this.field.tabindex format=this.field.format}}</template>}
+<template>{{customWizardDateInput date=this.date onChange=this.onChange tabindex=this.field.tabindex format=this.field.format}}</template>}

@@ -59,7 +59,7 @@ export default class extends Component {
     <label>{{i18n "admin.wizard.step.banner"}}</label>
   </div>
   <div class="setting-value">
-    {{uppyImageUploader imageUrl=this.step.banner onUploadDone=(action "bannerUploadDone") onUploadDeleted=(action "bannerUploadDeleted") type="wizard-step-banner" class="no-repeat contain-image" id=(concat "wizard-step-" this.step.id "-banner-upload")}}
+    {{uppyImageUploader imageUrl=this.step.banner onUploadDone=this.bannerUploadDone onUploadDeleted=this.bannerUploadDeleted type="wizard-step-banner" class="no-repeat contain-image" id=(concat "wizard-step-" this.step.id "-banner-upload")}}
   </div>
 </div>
 

@@ -441,7 +441,7 @@ export default class extends Component {
     {{#if this.showTypes}}
       <div class="selector-types">
         {{#each this.selectorTypes as |item|}}
-          {{wizardMapperSelectorType activeType=this.activeType item=item toggle=(action "toggleType")}}
+          {{wizardMapperSelectorType activeType=this.activeType item=item toggle=this.toggleType}}
         {{/each}}
       </div>
     {{/if}}
@@ -452,26 +452,26 @@ export default class extends Component {
 
 <div class="input">
   {{#if this.showText}}
-    <Input @type="text" @value={{this.value}} placeholder={{i18n this.placeholderKey}} {{on "change" (action "changeInputValue")}} />
+    <Input @type="text" @value={{this.value}} placeholder={{i18n this.placeholderKey}} {{on "change" this.changeInputValue}} />
   {{/if}}
 
   {{#if this.showComboBox}}
-    {{comboBox value=this.value content=this.comboBoxContent onChange=(action "changeValue") options=(hash none=this.placeholderKey allowAny=this.comboBoxAllowAny)}}
+    {{comboBox value=this.value content=this.comboBoxContent onChange=this.changeValue options=(hash none=this.placeholderKey allowAny=this.comboBoxAllowAny)}}
   {{/if}}
 
   {{#if this.showMultiSelect}}
-    {{multiSelect content=this.multiSelectContent value=this.value onChange=(action "changeValue") options=this.multiSelectOptions}}
+    {{multiSelect content=this.multiSelectContent value=this.value onChange=this.changeValue options=this.multiSelectOptions}}
   {{/if}}
 
   {{#if this.showList}}
-    {{wizardValueList values=this.value addKey=this.placeholderKey onChange=(action "changeValue")}}
+    {{wizardValueList values=this.value addKey=this.placeholderKey onChange=this.changeValue}}
   {{/if}}
 
   {{#if this.showTag}}
-    {{tagChooser tags=this.value onChange=(action "changeValue") everyTag=true options=(hash none=this.placeholderKey filterable=true)}}
+    {{tagChooser tags=this.value onChange=this.changeValue everyTag=true options=(hash none=this.placeholderKey filterable=true)}}
   {{/if}}
 
   {{#if this.showUser}}
-    {{wizardUserChooser placeholderKey=this.placeholderKey value=this.value autocomplete="discourse" onChange=(action "changeUserValue") options=this.userOptions}}
+    {{wizardUserChooser placeholderKey=this.placeholderKey value=this.value autocomplete="discourse" onChange=this.changeUserValue options=this.userOptions}}
   {{/if}}
 </div></template>}

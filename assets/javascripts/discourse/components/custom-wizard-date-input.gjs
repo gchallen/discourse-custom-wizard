@@ -17,6 +17,6 @@ export default class extends DateInput {
       format: this.format || "LL",
     };
   }
-<template><Input @type={{this.inputType}} @value={{readonly this.value}} class="date-picker" placeholder={{this.placeholder}} tabindex={{this.tabindex}} {{on "input" (action "onChangeDate")}} autocomplete="off" />
+<template><Input @type={{this.inputType}} @value={{readonly this.value}} class="date-picker" placeholder={{this.placeholder}} tabindex={{this.tabindex}} {{on "input" this.onChangeDate}} autocomplete="off" />
 
 <div class="picker-container"></div></template>}

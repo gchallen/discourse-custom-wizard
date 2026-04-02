@@ -38,7 +38,7 @@ export default class extends Component {
     this.onUpdate("connector", this.connectorType);
   }
 <template>{{#if this.hasMultiple}}
-  {{comboBox value=this.connector content=this.connectors onChange=(action "changeConnector")}}
+  {{comboBox value=this.connector content=this.connectors onChange=this.changeConnector}}
 {{else}}
   {{#if this.connector}}
     <span class="connector-single">

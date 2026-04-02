@@ -54,4 +54,4 @@ export default class extends Component {
       originalCallback();
     }
   }
-<template>{{customUserSelector usernames=this.field.value includeGroups=this._includeGroups includeMentionableGroups=this._includeMentionableGroups includeMessageableGroups=this._includeMessageableGroups allowedUsers=this._allowedUsers single=this._single topicId=this._topicId disabled=this._disabled onChangeCallback=(action "updateFieldValue")}}</template>}
+<template>{{customUserSelector usernames=this.field.value includeGroups=this._includeGroups includeMentionableGroups=this._includeMentionableGroups includeMessageableGroups=this._includeMessageableGroups allowedUsers=this._allowedUsers single=this._single topicId=this._topicId disabled=this._disabled onChangeCallback=this.updateFieldValue}}</template>}

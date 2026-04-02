@@ -80,7 +80,7 @@ export default class extends Component {
 {{#if this.hasPairs}}
   <div class="mapper-pairs mapper-block">
     {{#each this.input.pairs as |pair|}}
-      {{wizardMapperPair pair=pair last=pair.last inputType=this.inputType options=this.options removePair=(action "removePair") onUpdate=this.onUpdate}}
+      {{wizardMapperPair pair=pair last=pair.last inputType=this.inputType options=this.options removePair=this.removePair onUpdate=this.onUpdate}}
     {{/each}}
 
     {{#if this.canAddPair}}

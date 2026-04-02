@@ -1,4 +1,5 @@
 import Component, { Input, Textarea } from "@ember/component";
+import { mut } from "discourse/helpers/mut";
 import { action } from "@ember/object";
 import { computed } from "@ember/object";
 import { equal, or } from "@ember/object/computed";
@@ -9,7 +10,7 @@ import UndoChanges from "../mixins/undo-changes";
 import dButton from "discourse/components/d-button";
 import i18n from "discourse/helpers/i18n";
 import uppyImageUploader from "discourse/components/uppy-image-uploader";
-import { concat, hash } from "@ember/helper";
+import { concat, hash, fn } from "@ember/helper";
 import wizardSubscriptionSelector from "./wizard-subscription-selector";
 import wizardMessage from "./wizard-message";
 import htmlSafe from "discourse/helpers/html-safe";
@@ -186,7 +187,7 @@ export default class extends Component.extend(UndoChanges) {
     this.set("field.category", category?.id);
   }
 <template>{{#if this.showUndo}}
-  {{dButton action=(action "undoChanges") icon=this.undoIcon label=this.undoKey class="undo-changes"}}
+  {{dButton action=this.undoChanges icon=this.undoIcon label=this.undoKey class="undo-changes"}}
 {{/if}}
 
 <div class="setting">
@@ -223,7 +224,7 @@ export default class extends Component.extend(UndoChanges) {
     <label>{{i18n "admin.wizard.field.image"}}</label>
   </div>
   <div class="setting-value">
-    {{uppyImageUploader imageUrl=this.field.image onUploadDone=(action "imageUploadDone") onUploadDeleted=(action "imageUploadDeleted") type="wizard-field-image" class="no-repeat contain-image" id=(concat "wizard-field-" this.field.id "-image-upload")}}
+    {{uppyImageUploader imageUrl=this.field.image onUploadDone=this.imageUploadDone onUploadDeleted=this.imageUploadDeleted type="wizard-field-image" class="no-repeat contain-image" id=(concat "wizard-field-" this.field.id "-image-upload")}}
   </div>
 </div>
 
@@ -233,7 +234,7 @@ export default class extends Component.extend(UndoChanges) {
   </div>
 
   <div class="setting-value">
-    {{wizardSubscriptionSelector value=this.field.type feature="field" attribute="type" onChange=(action "changeType") wizard=this.wizard options=(hash none="admin.wizard.select_type")}}
+    {{wizardSubscriptionSelector value=this.field.type feature="field" attribute="type" onChange=this.changeType wizard=this.wizard options=(hash none="admin.wizard.select_type")}}
   </div>
 </div>
 
@@ -350,7 +351,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.field.prefill property="prefill" onUpdate=(action "mappedFieldUpdated") options=this.prefillOptions}}
+      {{wizardMapper inputs=this.field.prefill property="prefill" onUpdate=this.mappedFieldUpdated options=this.prefillOptions}}
     </div>
   </div>
 {{/if}}
@@ -362,7 +363,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.field.content property="content" onUpdate=(action "mappedFieldUpdated") options=this.contentOptions}}
+      {{wizardMapper inputs=this.field.content property="content" onUpdate=this.mappedFieldUpdated options=this.contentOptions}}
     </div>
   </div>
 {{/if}}
@@ -374,7 +375,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{tagGroupChooser id=(concat this.field.id "-tag-groups") tagGroups=this.field.tag_groups onChange=(action (mut this.field.tag_groups))}}
+      {{tagGroupChooser id=(concat this.field.id "-tag-groups") tagGroups=this.field.tag_groups onChange=(fn (mut this.field.tag_groups))}}
     </div>
   </div>
 
@@ -428,7 +429,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{comboBox value=this.field.property content=this.categoryPropertyTypes onChange=(action (mut this.field.property)) options=(hash none="admin.wizard.selector.placeholder.property")}}
+      {{comboBox value=this.field.property content=this.categoryPropertyTypes onChange=(fn (mut this.field.property)) options=(hash none="admin.wizard.selector.placeholder.property")}}
     </div>
   </div>
 {{/if}}

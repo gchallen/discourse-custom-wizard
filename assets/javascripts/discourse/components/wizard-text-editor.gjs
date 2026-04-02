@@ -76,11 +76,11 @@ export default class extends Component {
 
 <div class="wizard-editor-gutter">
   {{#if this.previewEnabled}}
-    {{dButton action=(action "togglePreview") translatedLabel=this.previewLabel}}
+    {{dButton action=this.togglePreview translatedLabel=this.previewLabel}}
   {{/if}}
 
   {{#if this.fieldsEnabled}}
-    {{dButton action=(action "togglePopover") translatedLabel=this.popoverLabel}}
+    {{dButton action=this.togglePopover translatedLabel=this.popoverLabel}}
 
     {{#if this.showPopover}}
       <div class="wizard-editor-gutter-popover">

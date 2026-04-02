@@ -1,9 +1,10 @@
 import RouteTemplate from 'ember-route-template'
+import { mut } from "discourse/helpers/mut";
 import { Input } from "@ember/component";
 import i18n from "discourse/helpers/i18n";
 import dButton from "discourse/components/d-button";
 import comboBox from "select-kit/components/combo-box";
-import { hash } from "@ember/helper";
+import { hash, fn } from "@ember/helper";
 import wizardMapper from "../components/wizard-mapper";
 import GroupChooser from "select-kit/components/group-chooser";
 import wizardLinks from "../components/wizard-links";
@@ -20,7 +21,7 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
         {{#if @controller.copiedUrl}}
           {{dButton class="btn-hover pull-right" icon="copy" label="ip_lookup.copied"}}
         {{else}}
-          {{dButton action=(action "copyUrl") class="pull-right no-text" icon="copy"}}
+          {{dButton action=this.copyUrl class="pull-right no-text" icon="copy"}}
         {{/if}}
         <a href={{@controller.wizardUrl}} target="_blank" rel="noopener noreferrer">{{@controller.wizardUrl}}</a>
       {{/if}}
@@ -42,7 +43,7 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
         <label>{{i18n "admin.wizard.theme_id"}}</label>
       </div>
       <div class="setting-value">
-        {{comboBox content=@controller.themes valueProperty="id" value=@controller.wizard.theme_id onChange=(action (mut @controller.wizard.theme_id)) options=(hash none="admin.wizard.no_theme")}}
+        {{comboBox content=@controller.themes valueProperty="id" value=@controller.wizard.theme_id onChange=(fn (mut @controller.wizard.theme_id)) options=(hash none="admin.wizard.no_theme")}}
       </div>
     </div>
   </div>
@@ -99,7 +100,7 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
       <div class="setting-value">
         <Input @type="checkbox" @checked={{@controller.wizard.after_time}} />
         <span>{{i18n "admin.wizard.after_time_label"}}</span>
-        {{dButton action=(action "setNextSessionScheduled") translatedLabel=@controller.nextSessionScheduledLabel class="btn-after-time" icon="far-calendar"}}
+        {{dButton action=this.setNextSessionScheduled translatedLabel=@controller.nextSessionScheduledLabel class="btn-after-time" icon="far-calendar"}}
       </div>
     </div>
 

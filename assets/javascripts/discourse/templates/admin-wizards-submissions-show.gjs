@@ -12,7 +12,7 @@ export default RouteTemplate(<template>{{#if @controller.submissions}}
     </label>
 
     <div class="controls">
-      {{dButton icon="sliders" label="admin.wizard.edit_columns" action=(action "showEditColumnsModal") class="btn-default open-edit-columns-btn download-link"}}
+      {{dButton icon="sliders" label="admin.wizard.edit_columns" action=this.showEditColumnsModal class="btn-default open-edit-columns-btn download-link"}}
     </div>
 
     <a class="btn btn-default download-link" href={{@controller.downloadUrl}} target="_blank" rel="noopener noreferrer">
@@ -24,7 +24,7 @@ export default RouteTemplate(<template>{{#if @controller.submissions}}
   </div>
 
   <div class="wizard-table">
-    {{#LoadMore selector=".wizard-table tr" action=(action "loadMore")}}
+    {{#LoadMore selector=".wizard-table tr" action=this.loadMore}}
       {{#if @controller.noResults}}
         <p>{{i18n "search.no_results"}}</p>
       {{else}}

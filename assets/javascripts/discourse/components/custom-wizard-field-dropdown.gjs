@@ -12,4 +12,4 @@ export default class extends Component {
   onChangeValue(value) {
     this.set("field.value", value);
   }
-<template>{{comboBox class=this.fieldClass value=this.field.value content=this.field.content tabindex=this.field.tabindex onChange=(action "onChangeValue") options=(hash none="select_kit.default_header_text")}}</template>}
+<template>{{comboBox class=this.fieldClass value=this.field.value content=this.field.content tabindex=this.field.tabindex onChange=this.onChangeValue options=(hash none="select_kit.default_header_text")}}</template>}

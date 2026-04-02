@@ -93,14 +93,14 @@ export default class extends Component {
   }
 <template>{{#each this.inputs as |input|}}
   {{#if input.connector}}
-    {{wizardMapperConnector connector=input.connector connectorType="input" onUpdate=(action "inputUpdated")}}
+    {{wizardMapperConnector connector=input.connector connectorType="input" onUpdate=this.inputUpdated}}
   {{/if}}
 
-  {{wizardMapperInput input=input options=this.inputOptions remove=(action "remove") onUpdate=(action "inputUpdated")}}
+  {{wizardMapperInput input=input options=this.inputOptions remove=this.remove onUpdate=this.inputUpdated}}
 {{/each}}
 
 {{#if this.canAdd}}
   <span class="add-mapper-input">
-    {{dButton action=(action "add") label="admin.wizard.add" icon="plus"}}
+    {{dButton action=this.add label="admin.wizard.add" icon="plus"}}
   </span>
 {{/if}}</template>}

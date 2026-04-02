@@ -21,4 +21,4 @@ export default class extends Component {
       this.set("field.value", topics);
     }
   }
-<template>{{customWizardTopicSelector topics=this.topics category=this.field.category onChange=(action "setValue") options=(hash maximum=this.field.limit)}}</template>}
+<template>{{customWizardTopicSelector topics=this.topics category=this.field.category onChange=this.setValue options=(hash maximum=this.field.limit)}}</template>}

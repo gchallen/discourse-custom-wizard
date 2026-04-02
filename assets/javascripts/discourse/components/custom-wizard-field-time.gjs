@@ -21,4 +21,4 @@ export default class extends Component {
       })
     );
   }
-<template>{{customWizardTimeInput date=this.time onChange=(action "onChange") tabindex=this.field.tabindex}}</template>}
+<template>{{customWizardTimeInput date=this.time onChange=this.onChange tabindex=this.field.tabindex}}</template>}

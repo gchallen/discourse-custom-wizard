@@ -8,7 +8,7 @@ export default RouteTemplate(<template><div class="admin-wizard-controls">
   <h3>{{i18n "admin.wizard.custom_field.nav_label"}}</h3>
 
   <div class="buttons">
-    {{dButton label="admin.wizard.custom_field.add" icon="plus" action=(action "addField")}}
+    {{dButton label="admin.wizard.custom_field.add" icon="plus" action=this.addField}}
   </div>
 </div>
 
@@ -27,7 +27,7 @@ export default RouteTemplate(<template><div class="admin-wizard-controls">
       </thead>
       <tbody>
         {{#each @controller.customFields as |field|}}
-          {{customFieldInput field=field removeField=(action "removeField") saveField=(action "saveField")}}
+          {{customFieldInput field=field removeField=this.removeField saveField=this.saveField}}
         {{/each}}
       </tbody>
     </table>

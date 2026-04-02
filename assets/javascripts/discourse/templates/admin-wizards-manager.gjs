@@ -20,11 +20,11 @@ export default RouteTemplate(<template><div class="admin-wizard-controls">
       </div>
     {{/if}}
 
-    <Input id="custom-wizard-file-upload" @type="file" accept="application/json" {{on "input" (action "setFile")}} />
-    {{dButton id="upload-button" label="admin.wizard.manager.upload" action=(action "upload")}}
-    {{dButton id="import-button" label="admin.wizard.manager.import" action=(action "import") disabled=@controller.importDisabled}}
-    {{dButton id="export-button" label="admin.wizard.manager.export" action=(action "export") disabled=@controller.exportDisabled}}
-    {{dButton id="destroy-button" label="admin.wizard.manager.destroy" action=(action "destroy") disabled=@controller.destoryDisabled}}
+    <Input id="custom-wizard-file-upload" @type="file" accept="application/json" {{on "input" this.setFile}} />
+    {{dButton id="upload-button" label="admin.wizard.manager.upload" action=this.upload}}
+    {{dButton id="import-button" label="admin.wizard.manager.import" action=this.import disabled=@controller.importDisabled}}
+    {{dButton id="export-button" label="admin.wizard.manager.export" action=this.export disabled=@controller.exportDisabled}}
+    {{dButton id="destroy-button" label="admin.wizard.manager.destroy" action=this.destroy disabled=@controller.destoryDisabled}}
   </div>
 </div>
 
@@ -48,10 +48,10 @@ export default RouteTemplate(<template><div class="admin-wizard-controls">
             </LinkTo>
           </td>
           <td class="control-column">
-            <Input @type="checkbox" class="export" {{on "change" (action "selectWizard")}} />
+            <Input @type="checkbox" class="export" {{on "change" this.selectWizard}} />
           </td>
           <td class="control-column">
-            <Input @type="checkbox" class="destroy" {{on "change" (action "selectWizard")}} />
+            <Input @type="checkbox" class="destroy" {{on "change" this.selectWizard}} />
           </td>
         </tr>
       {{/each}}
