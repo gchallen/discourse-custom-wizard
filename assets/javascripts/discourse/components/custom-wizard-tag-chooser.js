@@ -1,7 +1,7 @@
 import { makeArray } from "discourse/lib/helpers";
 import TagChooser from "discourse/select-kit/components/tag-chooser";
 
-export default TagChooser.extend({
+export default class extends TagChooser {
   _selectedTagPayload(selectedTags, blockedTags) {
     const selectedTagIds = [];
     const selectedTagNames = [];
@@ -19,7 +19,7 @@ export default TagChooser.extend({
       });
 
     return { selectedTagIds, selectedTagNames };
-  },
+  }
 
   search(query) {
     const selectedTags = makeArray(this.tags).filter(Boolean);
@@ -66,5 +66,5 @@ export default TagChooser.extend({
       data,
       this._transformJson
     );
-  },
-});
+  }
+}

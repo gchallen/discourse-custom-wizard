@@ -2,8 +2,11 @@ import { computed } from "@ember/object";
 import { makeArray } from "discourse-common/lib/helpers";
 import CategorySelector from "select-kit/components/category-selector";
 
-export default CategorySelector.extend({
-  classNames: ["category-selector", "wizard-category-selector"],
+class CustomWizardCategorySelector extends CategorySelector {
+  classNames = ["category-selector", "wizard-category-selector"];
+}
+
+CustomWizardCategorySelector.reopen({
   content: computed(
     "categoryIds.[]",
     "blacklist.[]",
@@ -16,3 +19,5 @@ export default CategorySelector.extend({
     }
   ),
 });
+
+export default CustomWizardCategorySelector;

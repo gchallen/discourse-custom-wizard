@@ -3,21 +3,21 @@ import { searchForTerm } from "discourse/lib/search";
 import { makeArray } from "discourse-common/lib/helpers";
 import MultiSelectComponent from "select-kit/components/multi-select";
 
-export default MultiSelectComponent.extend({
-  classNames: ["topic-selector", "wizard-topic-selector"],
-  topics: null,
-  value: [],
-  content: [],
-  nameProperty: "fancy_title",
-  labelProperty: "title",
-  titleProperty: "title",
+export default class extends MultiSelectComponent {
+  classNames = ["topic-selector", "wizard-topic-selector"];
+  topics = null;
+  value = [];
+  content = [];
+  nameProperty = "fancy_title";
+  labelProperty = "title";
+  titleProperty = "title";
 
-  selectKitOptions: {
+  selectKitOptions = {
     clearable: true,
     filterable: true,
     filterPlaceholder: "choose_topic.title.placeholder",
     allowAny: false,
-  },
+  };
 
   didReceiveAttrs() {
     if (this.topics && !this.selectKit.hasSelection) {
@@ -25,12 +25,12 @@ export default MultiSelectComponent.extend({
       const content = makeArray(this.topics);
       this.selectKit.change(values, content);
     }
-    this._super(...arguments);
-  },
+    super.didReceiveAttrs(...arguments);
+  }
 
   modifyComponentForRow() {
     return "topic-row";
-  },
+  }
 
   search(filter) {
     if (isEmpty(filter)) {
@@ -54,9 +54,9 @@ export default MultiSelectComponent.extend({
         return results.posts.mapBy("topic");
       }
     });
-  },
+  }
 
-  actions: {
+  actions = {
     onChange(value, items) {
       const content = items.map((t) => {
         let attrs = {
@@ -73,5 +73,5 @@ export default MultiSelectComponent.extend({
       this.setProperties({ value, content });
       this.onChange(value, content);
     },
-  },
-});
+  };
+}

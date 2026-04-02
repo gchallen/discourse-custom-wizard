@@ -2,8 +2,9 @@ import { computed } from "@ember/object";
 import { makeArray } from "discourse-common/lib/helpers";
 import ComboBox from "select-kit/components/combo-box";
 
-export default ComboBox.extend({
-  content: computed("groups.[]", "field.content.[]", function () {
+export default class extends ComboBox {
+  @computed("groups.[]", "field.content.[]")
+  get content() {
     const whitelist = makeArray(this.field.content);
     return this.groups
       .filter((group) => {
@@ -15,5 +16,5 @@ export default ComboBox.extend({
           name: g.full_name ? g.full_name : g.name,
         };
       });
-  }),
-});
+  }
+}

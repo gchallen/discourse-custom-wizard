@@ -1,0 +1,38 @@
+import { computed } from "@ember/object";
+import { reads } from "@ember/object/computed";
+import SingleSelectHeaderComponent from "select-kit/components/select-kit/single-select-header";
+import icon from "discourse/helpers/d-icon";
+import { i18n } from "discourse-i18n";
+
+export default class WizardSubscriptionSelectorHeader extends SingleSelectHeaderComponent {
+  classNames = ["combo-box-header", "wizard-subscription-selector-header"];
+  @reads("selectKit.options.caretUpIcon") caretUpIcon;
+  @reads("selectKit.options.caretDownIcon") caretDownIcon;
+  @computed(
+    "selectKit.isExpanded",
+    "caretUpIcon",
+    "caretDownIcon"
+  )
+  get caretIcon() {
+    return this.selectKit.isExpanded ? this.caretUpIcon : this.caretDownIcon;
+  }
+
+  <template>
+    <div class="select-kit-header-wrapper">
+
+      {{component
+        this.selectKit.options.selectedNameComponent
+        tabindex=this.tabindex
+        item=this.selectedContent
+        selectKit=this.selectKit
+        shouldDisplayClearableButton=this.shouldDisplayClearableButton
+      }}
+
+      {{#if this.subscriptionRequired}}
+        <span class="subscription-label">{{i18n this.selectorLabel}}</span>
+      {{/if}}
+
+      {{icon this.caretIcon class="caret-icon"}}
+    </div>
+  </template>
+}

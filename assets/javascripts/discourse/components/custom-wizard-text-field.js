@@ -3,14 +3,14 @@ import { isLTR, isRTL, siteDir } from "discourse/lib/text-direction";
 import computed from "discourse-common/utils/decorators";
 import I18n from "I18n";
 
-export default TextField.extend({
-  attributeBindings: [
+export default class extends TextField {
+  attributeBindings = [
     "autocorrect",
     "autocapitalize",
     "autofocus",
     "maxLength",
     "dir",
-  ],
+  ];
 
   @computed
   dir() {
@@ -22,7 +22,7 @@ export default TextField.extend({
         return siteDir();
       }
     }
-  },
+  }
 
   keyUp() {
     if (this.siteSettings.support_mixed_text_direction) {
@@ -35,10 +35,10 @@ export default TextField.extend({
         this.set("dir", siteDir());
       }
     }
-  },
+  }
 
   @computed("placeholderKey")
   placeholder(placeholderKey) {
     return placeholderKey ? I18n.t(placeholderKey) : "";
-  },
-});
+  }
+}

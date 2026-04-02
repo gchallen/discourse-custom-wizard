@@ -1,0 +1,14 @@
+import { i18n } from "discourse-i18n";
+
+<template>
+{{#each @site.complete_custom_wizard as |wizard|}}
+  <div class="row">
+    <div class="alert alert-info alert-wizard">
+      <a href={{wizard.url}}>{{i18n
+          "wizard.complete_custom"
+          name=wizard.name
+        }}</a>
+    </div>
+  </div>
+{{/each}}
+</template>

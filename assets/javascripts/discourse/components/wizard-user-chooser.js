@@ -3,31 +3,31 @@ import UserChooserComponent from "select-kit/components/user-chooser";
 
 export const WIZARD_USER = "wizard-user";
 
-export default UserChooserComponent.extend({
-  pluginApiIdentifiers: ["wizard-user-chooser"],
-  classNames: ["user-chooser", "wizard-user-chooser"],
-  classNameBindings: ["selectKit.options.fullWidthWrap:full-width-wrap"],
-  valueProperty: "id",
-  nameProperty: "name",
+export default class extends UserChooserComponent {
+  pluginApiIdentifiers = ["wizard-user-chooser"];
+  classNames = ["user-chooser", "wizard-user-chooser"];
+  classNameBindings = ["selectKit.options.fullWidthWrap:full-width-wrap"];
+  valueProperty = "id";
+  nameProperty = "name";
 
   modifyComponentForRow() {
     return "wizard-user-chooser/wizard-user-chooser-row";
-  },
+  }
 
   modifyNoSelection() {
     return this.defaultItem(
       WIZARD_USER,
       I18n.t("admin.wizard.action.poster.wizard_user")
     );
-  },
+  }
 
-  selectKitOptions: {
+  selectKitOptions = {
     fullWidthWrap: false,
     autoWrap: false,
-  },
+  };
 
   search() {
-    const superPromise = this._super(...arguments);
+    const superPromise = super.search(...arguments);
     if (!superPromise) {
       return;
     }
@@ -54,5 +54,5 @@ export default UserChooserComponent.extend({
         return { ...item, ...reconstructed };
       });
     });
-  },
-});
+  }
+}

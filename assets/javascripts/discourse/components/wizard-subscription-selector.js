@@ -12,11 +12,11 @@ const nameKey = function (feature, attribute, value) {
   }
 };
 
-export default SingleSelectComponent.extend({
-  classNames: ["combo-box", "wizard-subscription-selector"],
-  subscription: service(),
+export default class extends SingleSelectComponent {
+  classNames = ["combo-box", "wizard-subscription-selector"];
+  @service subscription;
 
-  selectKitOptions: {
+  selectKitOptions = {
     autoFilterable: false,
     filterable: false,
     showFullTitle: true,
@@ -24,7 +24,7 @@ export default SingleSelectComponent.extend({
       "wizard-subscription-selector/wizard-subscription-selector-header",
     caretUpIcon: "caret-up",
     caretDownIcon: "caret-down",
-  },
+  };
 
   allowedSubscriptionTypes(feature, attribute, value) {
     let attributes = this.subscription.subscriptionAttributes[feature];
@@ -39,7 +39,7 @@ export default SingleSelectComponent.extend({
       }
     });
     return allowedTypes;
-  },
+  }
 
   @discourseComputed("feature", "attribute", "wizard.allowGuests")
   content(feature, attribute) {
@@ -86,9 +86,9 @@ export default SingleSelectComponent.extend({
           return a.subscriptionType === "standard" ? -1 : 0;
         }
       });
-  },
+  }
 
   modifyComponentForRow() {
     return "wizard-subscription-selector/wizard-subscription-selector-row";
-  },
-});
+  }
+}
