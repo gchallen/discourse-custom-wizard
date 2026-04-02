@@ -124,13 +124,15 @@ acceptance("Wizard | Wizard", function (needs) {
       query(".wizard-step-title p").textContent.trim(),
       "Text"
     );
-    assert.strictEqual(
-      query(".wizard-step-description p").textContent.trim(),
-      "Text inputs!"
+    assert.ok(
+      query(".wizard-step-description p").textContent.includes(
+        "By joining, you agree to our"
+      )
     );
-    assert.strictEqual(
-      query(".wizard-step-description p").textContent.trim(),
-      "Text inputs!"
+    assert.ok(
+      query(".wizard-step-description p").textContent.includes(
+        "By joining, you agree to our"
+      )
     );
     assert.strictEqual(count(".wizard-step-form .wizard-field"), 6);
     assert.ok(exists(".wizard-step-footer .wizard-progress"), true);
@@ -180,13 +182,15 @@ acceptance("Wizard | Guest access", function (needs) {
       query(".wizard-step-title p").textContent.trim(),
       "Text"
     );
-    assert.strictEqual(
-      query(".wizard-step-description p").textContent.trim(),
-      "Text inputs!"
+    assert.ok(
+      query(".wizard-step-description p").textContent.includes(
+        "By joining, you agree to our"
+      )
     );
-    assert.strictEqual(
-      query(".wizard-step-description p").textContent.trim(),
-      "Text inputs!"
+    assert.ok(
+      query(".wizard-step-description p").textContent.includes(
+        "By joining, you agree to our"
+      )
     );
     assert.strictEqual(count(".wizard-step-form .wizard-field"), 6);
     assert.ok(exists(".wizard-step-footer .wizard-progress"), true);

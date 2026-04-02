@@ -1,4 +1,4 @@
-import { click, currentURL, fillIn, settled, visit } from "@ember/test-helpers";
+import { click, currentURL, fillIn, visit, waitUntil } from "@ember/test-helpers";
 import $ from "jquery";
 import { test } from "qunit";
 import {
@@ -68,7 +68,10 @@ acceptance("Admin | Custom Wizard Standard Subscription", function (needs) {
 
   test("shows authorized and subscribed", async (assert) => {
     await visit("/admin/wizards");
-    await settled();
+    await waitUntil(
+      () => document.querySelector("button.wizard-subscription-badge span"),
+      { timeout: 5000 }
+    );
     assert.notOk(
       exists(".supplier-authorize .btn-primary:not(.update)"),
       "the authorize button not shown."

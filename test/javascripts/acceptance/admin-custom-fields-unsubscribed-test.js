@@ -114,13 +114,13 @@ acceptance("Admin | Custom Fields Unsubscribed", function (needs) {
     );
     assert.equal(
       enabledOptions1.length,
-      2,
-      "There are two enabled options for class fields"
+      4,
+      "There are four enabled options for class fields"
     );
     assert.equal(
       disabledOptions1.length,
-      2,
-      "There are two disabled options for class fields"
+      0,
+      "There are no disabled options for class fields"
     );
     const dropdown2 = selectKit(
       '.admin-wizard-container details:has(summary[name="Filter by: Select a type"])'

@@ -130,7 +130,7 @@ acceptance("Field | Fields", function (needs) {
     );
     await fillIn(".d-modal__body.insert-link .inputs .link-url", "google.com");
     await fillIn(".d-modal__body.insert-link .inputs .link-text", "Google");
-    await click(".d-modal__footer button.btn-danger");
+    await click(".d-modal__footer button.btn-transparent");
 
     assert.strictEqual(
       query(".wizard-field.composer-field .wizard-field-composer textarea")
@@ -152,9 +152,9 @@ acceptance("Field | Fields", function (needs) {
 
   test("Time", async function (assert) {
     await visit("/w/wizard");
-    assert.ok(visible(".wizard-field.time-field .d-time-input .select-kit"));
+    assert.ok(visible(".wizard-field.time-field .select-kit"));
     await click(
-      ".wizard-field.time-field .d-time-input .select-kit .select-kit-header"
+      ".wizard-field.time-field .select-kit .select-kit-header"
     );
     assert.ok(visible(".wizard-field.time-field .select-kit-collection"));
   });
@@ -227,16 +227,16 @@ acceptance("Field | Fields", function (needs) {
   test("User", async function (assert) {
     await visit("/w/wizard");
     await fillIn(
-      ".wizard-field.user-selector-field .d-multi-select-trigger input",
+      ".wizard-field.user-selector-field .filter-input",
       "a"
     );
     await triggerKeyEvent(
-      ".wizard-field.user-selector-field .d-multi-select-trigger input",
+      ".wizard-field.user-selector-field .filter-input",
       "keyup",
       "a".charCodeAt(0)
     );
 
-    assert.ok(visible(".wizard-field.user-selector-field .d-multi-select"));
+    assert.ok(visible(".wizard-field.user-selector-field .multi-select"));
     // TODO: add assertion for ac results. autocomplete does not appear in time.
   });
 });
