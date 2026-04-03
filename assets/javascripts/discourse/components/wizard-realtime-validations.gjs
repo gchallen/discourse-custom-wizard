@@ -11,6 +11,7 @@ import { concat, get, fn } from "@ember/helper";
 import CategorySelector from "select-kit/components/category-selector";
 import comboBox from "select-kit/components/combo-box";
 import radioButton from "discourse/components/radio-button";
+import ComboBox from "select-kit/components/combo-box";
 
 export default class extends Component {
   classNames = ["realtime-validations", "setting", "full", "subscription"];
@@ -87,7 +88,7 @@ export default class extends Component {
             </div>
             <div class="setting-value">
               <Input @type="number" @value={{props.time_n_value}} class="time-n-value" />
-              {{comboBox value=(readonly props.time_unit) content=this.timeUnits class="time-unit-selector" onChange=(fn (mut props.time_unit))}}
+              <ComboBox @value={{(readonly props.time_unit)}} @content={{this.timeUnits}} class="time-unit-selector" @onChange={{(fn (mut props.time_unit))}} />
             </div>
           </div>
           <div class="validation-section">

@@ -2,6 +2,7 @@ import Component from "@ember/component";
 import { action } from "@ember/object";
 import customWizardTopicSelector from "./custom-wizard-topic-selector";
 import { hash } from "@ember/helper";
+import CustomWizardTopicSelector from "./custom-wizard-topic-selector";
 
 export default class extends Component {
   topics = [];
@@ -21,4 +22,4 @@ export default class extends Component {
       this.set("field.value", topics);
     }
   }
-<template>{{customWizardTopicSelector topics=this.topics category=this.field.category onChange=this.setValue options=(hash maximum=this.field.limit)}}</template>}
+<template><CustomWizardTopicSelector @topics={{this.topics}} @category={{this.field.category}} @onChange={{this.setValue}} @options={{(hash maximum=this.field.limit)}} /></template>}

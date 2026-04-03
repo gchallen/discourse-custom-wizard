@@ -5,6 +5,7 @@ import { later } from "@ember/runloop";
 import I18n from "I18n";
 import { defaultConnector } from "../lib/wizard-mapper";
 import comboBox from "select-kit/components/combo-box";
+import ComboBox from "select-kit/components/combo-box";
 
 export default class extends Component {
   classNameBindings = [
@@ -38,7 +39,7 @@ export default class extends Component {
     this.onUpdate("connector", this.connectorType);
   }
 <template>{{#if this.hasMultiple}}
-  {{comboBox value=this.connector content=this.connectors onChange=this.changeConnector}}
+  <ComboBox @value={{this.connector}} @content={{this.connectors}} @onChange={{this.changeConnector}} />
 {{else}}
   {{#if this.connector}}
     <span class="connector-single">

@@ -11,6 +11,9 @@ import multiSelect from "select-kit/components/multi-select";
 import loadingSpinner from "discourse/helpers/loading-spinner";
 import icon from "discourse/helpers/d-icon";
 import dButton from "discourse/components/d-button";
+import WizardSubscriptionSelector from "./wizard-subscription-selector";
+import MultiSelect from "select-kit/components/multi-select";
+import DButton from "discourse/components/d-button";
 
 export default class extends Component {
   tagName = "tr";
@@ -142,16 +145,16 @@ export default class extends Component {
   }
 <template>{{#if this.showInputs}}
   <td>
-    {{wizardSubscriptionSelector value=this.field.klass feature="custom_field" attribute="klass" onChange=(fn (mut this.field.klass)) options=(hash none="admin.wizard.custom_field.klass.select")}}
+    <WizardSubscriptionSelector @value={{this.field.klass}} @feature="custom_field" @attribute="klass" @onChange={{(fn (mut this.field.klass))}} @options={{(hash none="admin.wizard.custom_field.klass.select")}} />
   </td>
   <td>
-    {{wizardSubscriptionSelector value=this.field.type feature="custom_field" attribute="type" onChange=(fn (mut this.field.type)) options=(hash none="admin.wizard.custom_field.type.select")}}
+    <WizardSubscriptionSelector @value={{this.field.type}} @feature="custom_field" @attribute="type" @onChange={{(fn (mut this.field.type))}} @options={{(hash none="admin.wizard.custom_field.type.select")}} />
   </td>
   <td class="input">
     <Input @value={{this.field.name}} placeholder={{i18n "admin.wizard.custom_field.name.select"}} />
   </td>
   <td class="multi-select">
-    {{multiSelect value=this.field.serializers content=this.serializerContent onChange=(fn (mut this.field.serializers)) options=(hash none="admin.wizard.custom_field.serializers.select")}}
+    <MultiSelect @value={{this.field.serializers}} @content={{this.serializerContent}} @onChange={{(fn (mut this.field.serializers))}} @options={{(hash none="admin.wizard.custom_field.serializers.select")}} />
   </td>
   <td class="actions">
     {{#if this.loading}}
@@ -161,9 +164,9 @@ export default class extends Component {
         {{icon this.saveIcon}}
       {{/if}}
     {{/if}}
-    {{dButton action=this.destroy icon="trash-can" class="destroy" disabled=this.destroyDisabled}}
-    {{dButton icon="floppy-disk" action=this.save disabled=this.saveDisabled class="save"}}
-    {{dButton action=this.close icon="xmark" disabled=this.closeDisabled}}
+    <DButton @action={{this.destroy}} @icon="trash-can" class="destroy" @disabled={{this.destroyDisabled}} />
+    <DButton @icon="floppy-disk" @action={{this.save}} @disabled={{this.saveDisabled}} class="save" />
+    <DButton @action={{this.close}} @icon="xmark" @disabled={{this.closeDisabled}} />
   </td>
 {{else}}
   <td><label>{{this.field.klass}}</label></td>
@@ -186,7 +189,7 @@ export default class extends Component {
     </td>
   {{else}}
     <td class="actions">
-      {{dButton action=this.edit icon="pencil"}}
+      <DButton @action={{this.edit}} @icon="pencil" />
     </td>
   {{/if}}
 {{/if}}</template>}

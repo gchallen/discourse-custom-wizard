@@ -16,6 +16,7 @@ import customWizardField from "./custom-wizard-field";
 import i18n from "discourse/helpers/i18n";
 import loadingSpinner from "discourse/helpers/loading-spinner";
 import icon from "discourse/helpers/d-icon";
+import CustomWizardField from "./custom-wizard-field";
 
 function openLinksInNewTab(html) {
   const div = document.createElement("div");
@@ -263,7 +264,7 @@ export default class extends Component {
 
   {{#CustomWizardStepForm step=this.step}}
     {{#each this.step.fields as |field|}}
-      {{customWizardField field=field step=this.step wizard=this.wizard}}
+      <CustomWizardField @field={{field}} @step={{this.step}} @wizard={{this.wizard}} />
     {{/each}}
   {{/CustomWizardStepForm}}
 </div>

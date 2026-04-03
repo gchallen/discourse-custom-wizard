@@ -6,6 +6,7 @@ import $ from "jquery";
 import { observes } from "discourse-common/utils/decorators";
 import customWizardSimilarTopic from "./custom-wizard-similar-topic";
 import i18n from "discourse/helpers/i18n";
+import CustomWizardSimilarTopic from "./custom-wizard-similar-topic";
 
 export default class extends Component {
   classNames = ["wizard-similar-topics"];
@@ -44,7 +45,7 @@ export default class extends Component {
 <template>{{#if this.showTopics}}
   <ul>
     {{#each this.topics as |topic|}}
-      <li>{{customWizardSimilarTopic topic=topic}}</li>
+      <li><CustomWizardSimilarTopic @topic={{topic}} /></li>
     {{/each}}
   </ul>
 {{else}}

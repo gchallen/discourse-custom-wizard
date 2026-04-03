@@ -9,6 +9,8 @@ import { userProperties } from "../lib/wizard";
 import dEditor from "discourse/components/d-editor";
 import dButton from "discourse/components/d-button";
 import i18n from "discourse/helpers/i18n";
+import DEditor from "discourse/components/d-editor";
+import DButton from "discourse/components/d-button";
 
 const excludedUserProperties = ["profile_background", "card_background"];
 
@@ -72,15 +74,15 @@ export default class extends Component {
   togglePopover() {
     this.toggleProperty("showPopover");
   }
-<template>{{dEditor value=this.value forcePreview=this.forcePreview placeholder=this.placeholder}}
+<template><DEditor @value={{this.value}} @forcePreview={{this.forcePreview}} @placeholder={{this.placeholder}} />
 
 <div class="wizard-editor-gutter">
   {{#if this.previewEnabled}}
-    {{dButton action=this.togglePreview translatedLabel=this.previewLabel}}
+    <DButton @action={{this.togglePreview}} @translatedLabel={{this.previewLabel}} />
   {{/if}}
 
   {{#if this.fieldsEnabled}}
-    {{dButton action=this.togglePopover translatedLabel=this.popoverLabel}}
+    <DButton @action={{this.togglePopover}} @translatedLabel={{this.popoverLabel}} />
 
     {{#if this.showPopover}}
       <div class="wizard-editor-gutter-popover">

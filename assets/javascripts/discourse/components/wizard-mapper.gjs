@@ -7,6 +7,9 @@ import { newInput, selectionTypes } from "../lib/wizard-mapper";
 import wizardMapperConnector from "./wizard-mapper-connector";
 import wizardMapperInput from "./wizard-mapper-input";
 import dButton from "discourse/components/d-button";
+import WizardMapperConnector from "./wizard-mapper-connector";
+import WizardMapperInput from "./wizard-mapper-input";
+import DButton from "discourse/components/d-button";
 
 export default class extends Component {
   classNames = "wizard-mapper";
@@ -93,14 +96,14 @@ export default class extends Component {
   }
 <template>{{#each this.inputs as |input|}}
   {{#if input.connector}}
-    {{wizardMapperConnector connector=input.connector connectorType="input" onUpdate=this.inputUpdated}}
+    <WizardMapperConnector @connector={{input.connector}} @connectorType="input" @onUpdate={{this.inputUpdated}} />
   {{/if}}
 
-  {{wizardMapperInput input=input options=this.inputOptions remove=this.remove onUpdate=this.inputUpdated}}
+  <WizardMapperInput @input={{input}} @options={{this.inputOptions}} @remove={{this.remove}} @onUpdate={{this.inputUpdated}} />
 {{/each}}
 
 {{#if this.canAdd}}
   <span class="add-mapper-input">
-    {{dButton action=this.add label="admin.wizard.add" icon="plus"}}
+    <DButton @action={{this.add}} @label="admin.wizard.add" @icon="plus" />
   </span>
 {{/if}}</template>}

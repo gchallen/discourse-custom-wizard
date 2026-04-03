@@ -4,6 +4,9 @@ import dButton from "discourse/components/d-button";
 import LoadMore from "discourse/components/load-more";
 import wizardTableField from "../components/wizard-table-field";
 import conditionalLoadingSpinner from "discourse/components/conditional-loading-spinner";
+import DButton from "discourse/components/d-button";
+import WizardTableField from "../components/wizard-table-field";
+import ConditionalLoadingSpinner from "discourse/components/conditional-loading-spinner";
 export default RouteTemplate(<template>{{#if @controller.logs}}
   <div class="wizard-header large">
     <label>
@@ -11,7 +14,7 @@ export default RouteTemplate(<template>{{#if @controller.logs}}
     </label>
 
     <div class="controls">
-      {{dButton label="refresh" icon="arrows-rotate" action=this.refresh class="refresh"}}
+      <DButton @label="refresh" @icon="arrows-rotate" @action={{this.refresh}} class="refresh" />
     </div>
   </div>
 
@@ -33,7 +36,7 @@ export default RouteTemplate(<template>{{#if @controller.logs}}
             {{#each @controller.logs as |log|}}
               <tr>
                 {{#each-in log as |field value|}}
-                  <td class="small">{{wizardTableField field=field value=value}}</td>
+                  <td class="small"><WizardTableField @field={{field}} @value={{value}} /></td>
                 {{/each-in}}
               </tr>
             {{/each}}
@@ -41,7 +44,7 @@ export default RouteTemplate(<template>{{#if @controller.logs}}
         </table>
       {{/if}}
 
-      {{conditionalLoadingSpinner condition=@controller.refreshing}}
+      <ConditionalLoadingSpinner @condition={{@controller.refreshing}} />
     {{/LoadMore}}
   </div>
 {{/if}}</template>)

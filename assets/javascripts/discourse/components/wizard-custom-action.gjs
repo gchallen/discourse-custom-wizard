@@ -14,6 +14,12 @@ import comboBox from "select-kit/components/combo-box";
 import wizardMessage from "./wizard-message";
 import wizardMapper from "./wizard-mapper";
 import wizardTextEditor from "./wizard-text-editor";
+import DButton from "discourse/components/d-button";
+import WizardSubscriptionSelector from "./wizard-subscription-selector";
+import ComboBox from "select-kit/components/combo-box";
+import WizardMessage from "./wizard-message";
+import WizardMapper from "./wizard-mapper";
+import WizardTextEditor from "./wizard-text-editor";
 
 export default class extends Component.extend(UndoChanges) {
   componentType = "action";
@@ -113,7 +119,7 @@ export default class extends Component.extend(UndoChanges) {
     return fieldTypes.map((ft) => ft.id).includes("location");
   }
 <template>{{#if this.showUndo}}
-  {{dButton action=this.undoChanges icon=this.undoIcon label=this.undoKey class="undo-changes"}}
+  <DButton @action={{this.undoChanges}} @icon={{this.undoIcon}} @label={{this.undoKey}} class="undo-changes" />
 {{/if}}
 
 <div class="setting">
@@ -122,7 +128,7 @@ export default class extends Component.extend(UndoChanges) {
   </div>
 
   <div class="setting-value">
-    {{wizardSubscriptionSelector value=this.action.type feature="action" attribute="type" onChange=this.changeType wizard=this.wizard options=(hash none="admin.wizard.select_type")}}
+    <WizardSubscriptionSelector @value={{this.action.type}} @feature="action" @attribute="type" @onChange={{this.changeType}} @wizard={{this.wizard}} @options={{(hash none="admin.wizard.select_type")}} />
   </div>
 </div>
 
@@ -132,11 +138,11 @@ export default class extends Component.extend(UndoChanges) {
   </div>
 
   <div class="setting-value">
-    {{comboBox value=this.action.run_after content=this.runAfterContent onChange=(fn (mut this.action.run_after))}}
+    <ComboBox @value={{this.action.run_after}} @content={{this.runAfterContent}} @onChange={{(fn (mut this.action.run_after))}} />
   </div>
 </div>
 
-{{wizardMessage key=this.messageKey url=this.messageUrl component="action"}}
+<WizardMessage @key={{this.messageKey}} @url={{this.messageUrl}} @component="action" />
 
 {{#if this.basicTopicFields}}
   <div class="setting full field-mapper-setting">
@@ -145,7 +151,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.title property="title" onUpdate=this.mappedFieldUpdated options=(hash wizardFieldSelection=true userFieldSelection="key,value" context="action")}}
+      <WizardMapper @inputs={{this.action.title}} @property="title" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash wizardFieldSelection=true userFieldSelection="key,value" context="action")}} />
     </div>
   </div>
 
@@ -155,7 +161,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{comboBox value=this.action.post content=this.wizardFields nameProperty="label" onChange=(fn (mut this.action.post)) options=(hash none="admin.wizard.selector.placeholder.wizard_field" isDisabled=this.showPostBuilder)}}
+      <ComboBox @value={{this.action.post}} @content={{this.wizardFields}} @nameProperty="label" @onChange={{(fn (mut this.action.post))}} @options={{(hash none="admin.wizard.selector.placeholder.wizard_field" isDisabled=this.showPostBuilder)}} />
 
       <div class="setting-gutter">
         <Input @type="checkbox" @checked={{this.action.post_builder}} />
@@ -171,7 +177,7 @@ export default class extends Component.extend(UndoChanges) {
       </div>
 
       <div class="setting-value editor">
-        {{wizardTextEditor value=this.action.post_template wizardFields=this.wizardFields}}
+        <WizardTextEditor @value={{this.action.post_template}} @wizardFields={{this.wizardFields}} />
       </div>
     </div>
   {{/if}}
@@ -184,7 +190,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.category property="category" onUpdate=this.mappedFieldUpdated options=(hash textSelection="key,value" wizardFieldSelection=true userFieldSelection="key,value" categorySelection="output" wizardActionSelection="output" outputDefaultSelection="category" context="action")}}
+      <WizardMapper @inputs={{this.action.category}} @property="category" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection="key,value" wizardFieldSelection=true userFieldSelection="key,value" categorySelection="output" wizardActionSelection="output" outputDefaultSelection="category" context="action")}} />
     </div>
   </div>
 
@@ -194,7 +200,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.tags property="tags" onUpdate=this.mappedFieldUpdated options=(hash tagSelection="output" outputDefaultSelection="tag" listSelection="output" wizardFieldSelection=true userFieldSelection="key,value" context="action")}}
+      <WizardMapper @inputs={{this.action.tags}} @property="tags" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash tagSelection="output" outputDefaultSelection="tag" listSelection="output" wizardFieldSelection=true userFieldSelection="key,value" context="action")}} />
     </div>
   </div>
 
@@ -204,7 +210,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.visible property="visible" onUpdate=this.mappedFieldUpdated options=(hash wizardFieldSelection=true userFieldSelection=true context="action")}}
+      <WizardMapper @inputs={{this.action.visible}} @property="visible" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash wizardFieldSelection=true userFieldSelection=true context="action")}} />
     </div>
   </div>
 
@@ -215,7 +221,7 @@ export default class extends Component.extend(UndoChanges) {
       </div>
 
       <div class="setting-value">
-        {{wizardMapper inputs=this.action.add_event property="add_event" onUpdate=this.mappedFieldUpdated options=(hash wizardFieldSelection=true context="action")}}
+        <WizardMapper @inputs={{this.action.add_event}} @property="add_event" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash wizardFieldSelection=true context="action")}} />
       </div>
     </div>
   {{/if}}
@@ -227,7 +233,7 @@ export default class extends Component.extend(UndoChanges) {
       </div>
 
       <div class="setting-value">
-        {{wizardMapper inputs=this.action.add_location property="add_location" onUpdate=this.mappedFieldUpdated options=(hash wizardFieldSelection=true context="action")}}
+        <WizardMapper @inputs={{this.action.add_location}} @property="add_location" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash wizardFieldSelection=true context="action")}} />
       </div>
     </div>
   {{/if}}
@@ -240,7 +246,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.recipient property="recipient" onUpdate=this.mappedFieldUpdated options=(hash textSelection="value,output" wizardFieldSelection=true userFieldSelection="key,value" groupSelection="key,value" userSelection="output" outputDefaultSelection="user" context="action" includeMessageableGroups="true")}}
+      <WizardMapper @inputs={{this.action.recipient}} @property="recipient" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection="value,output" wizardFieldSelection=true userFieldSelection="key,value" groupSelection="key,value" userSelection="output" outputDefaultSelection="user" context="action" includeMessageableGroups="true")}} />
     </div>
   </div>
 {{/if}}
@@ -251,7 +257,7 @@ export default class extends Component.extend(UndoChanges) {
       <label>{{i18n "admin.wizard.action.update_profile.setting"}}</label>
     </div>
 
-    {{wizardMapper inputs=this.action.profile_updates property="profile_updates" onUpdate=this.mappedFieldUpdated options=(hash inputTypes="association" textSelection="value" userFieldSelection="key" wizardFieldSelection="value" wizardActionSelection="value" keyDefaultSelection="userField" context="action")}}
+    <WizardMapper @inputs={{this.action.profile_updates}} @property="profile_updates" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash inputTypes="association" textSelection="value" userFieldSelection="key" wizardFieldSelection="value" wizardActionSelection="value" keyDefaultSelection="userField" context="action")}} />
   </div>
 {{/if}}
 
@@ -262,7 +268,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{comboBox value=this.action.api content=this.availableApis onChange=(fn (mut this.action.api)) options=(hash isDisabled=this.action.custom_title_enabled none="admin.wizard.action.send_to_api.select_an_api")}}
+      <ComboBox @value={{this.action.api}} @content={{this.availableApis}} @onChange={{(fn (mut this.action.api))}} @options={{(hash isDisabled=this.action.custom_title_enabled none="admin.wizard.action.send_to_api.select_an_api")}} />
     </div>
   </div>
 
@@ -272,7 +278,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{comboBox value=this.action.api_endpoint content=this.availableEndpoints onChange=(fn (mut this.action.api_endpoint)) options=(hash isDisabled=this.apiEmpty none="admin.wizard.action.send_to_api.select_an_endpoint")}}
+      <ComboBox @value={{this.action.api_endpoint}} @content={{this.availableEndpoints}} @onChange={{(fn (mut this.action.api_endpoint))}} @options={{(hash isDisabled=this.apiEmpty none="admin.wizard.action.send_to_api.select_an_endpoint")}} />
     </div>
   </div>
 
@@ -282,7 +288,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardTextEditor value=this.action.api_body previewEnabled=false barEnabled=false wizardFields=this.wizardFields placeholder="admin.wizard.action.send_to_api.body_placeholder"}}
+      <WizardTextEditor @value={{this.action.api_body}} @previewEnabled={{false}} @barEnabled={{false}} @wizardFields={{this.wizardFields}} @placeholder="admin.wizard.action.send_to_api.body_placeholder" />
     </div>
   </div>
 {{/if}}
@@ -294,7 +300,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.group property="group" onUpdate=this.mappedFieldUpdated options=(hash textSelection="value,output" wizardFieldSelection="key,value,assignment" userFieldSelection="key,value,assignment" wizardActionSelection=true groupSelection="value,output" outputDefaultSelection="group" context="action")}}
+      <WizardMapper @inputs={{this.action.group}} @property="group" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection="value,output" wizardFieldSelection="key,value,assignment" userFieldSelection="key,value,assignment" wizardActionSelection=true groupSelection="value,output" outputDefaultSelection="group" context="action")}} />
     </div>
   </div>
 {{/if}}
@@ -306,7 +312,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.url property="url" onUpdate=this.mappedFieldUpdated options=(hash context="action" wizardFieldSelection=true userFieldSelection="key,value" groupSelection="key,value" categorySelection="key,value" userSelection="key,value")}}
+      <WizardMapper @inputs={{this.action.url}} @property="url" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash context="action" wizardFieldSelection=true userFieldSelection="key,value" groupSelection="key,value" categorySelection="key,value" userSelection="key,value")}} />
     </div>
   </div>
 {{/if}}
@@ -318,7 +324,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.categories property="categories" onUpdate=this.mappedFieldUpdated options=(hash textSelection="key,value" wizardFieldSelection=true wizardActionSelection=true userFieldSelection="key,value" categorySelection="output" context="action")}}
+      <WizardMapper @inputs={{this.action.categories}} @property="categories" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection="key,value" wizardFieldSelection=true wizardActionSelection=true userFieldSelection="key,value" categorySelection="output" context="action")}} />
     </div>
   </div>
 
@@ -328,7 +334,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.mute_remainder property="mute_remainder" onUpdate=this.mappedFieldUpdated options=(hash context="action" wizardFieldSelection=true userFieldSelection="key,value")}}
+      <WizardMapper @inputs={{this.action.mute_remainder}} @property="mute_remainder" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash context="action" wizardFieldSelection=true userFieldSelection="key,value")}} />
     </div>
   </div>
 
@@ -338,7 +344,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{comboBox value=this.action.notification_level content=this.availableNotificationLevels onChange=(fn (mut this.action.notification_level)) options=(hash isDisabled=this.action.custom_title_enabled none="admin.wizard.action.watch_x.select_a_notification_level")}}
+      <ComboBox @value={{this.action.notification_level}} @content={{this.availableNotificationLevels}} @onChange={{(fn (mut this.action.notification_level))}} @options={{(hash isDisabled=this.action.custom_title_enabled none="admin.wizard.action.watch_x.select_a_notification_level")}} />
     </div>
   </div>
 
@@ -358,7 +364,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.usernames property="usernames" onUpdate=this.mappedFieldUpdated options=(hash context="action" wizardFieldSelection=true userFieldSelection="key,value" userSelection="output")}}
+      <WizardMapper @inputs={{this.action.usernames}} @property="usernames" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash context="action" wizardFieldSelection=true userFieldSelection="key,value" userSelection="output")}} />
     </div>
   </div>
 {{/if}}
@@ -370,7 +376,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.tags property="tags" onUpdate=this.mappedFieldUpdated options=(hash textSelection="key,value" tagSelection="output" wizardFieldSelection=true wizardActionSelection=true userFieldSelection="key,value" context="action")}}
+      <WizardMapper @inputs={{this.action.tags}} @property="tags" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection="key,value" tagSelection="output" wizardFieldSelection=true wizardActionSelection=true userFieldSelection="key,value" context="action")}} />
     </div>
   </div>
 
@@ -380,7 +386,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{comboBox value=this.action.notification_level content=this.availableNotificationLevels onChange=(fn (mut this.action.notification_level)) options=(hash isDisabled=this.action.custom_title_enabled none="admin.wizard.action.watch_x.select_a_notification_level")}}
+      <ComboBox @value={{this.action.notification_level}} @content={{this.availableNotificationLevels}} @onChange={{(fn (mut this.action.notification_level))}} @options={{(hash isDisabled=this.action.custom_title_enabled none="admin.wizard.action.watch_x.select_a_notification_level")}} />
     </div>
   </div>
 
@@ -400,7 +406,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.usernames property="usernames" onUpdate=this.mappedFieldUpdated options=(hash context="action" wizardFieldSelection=true userFieldSelection="key,value" userSelection="output")}}
+      <WizardMapper @inputs={{this.action.usernames}} @property="usernames" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash context="action" wizardFieldSelection=true userFieldSelection="key,value" userSelection="output")}} />
     </div>
   </div>
 {{/if}}
@@ -412,7 +418,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.name property="name" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}}
+      <WizardMapper @inputs={{this.action.name}} @property="name" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}} />
     </div>
   </div>
   <div class="setting full field-mapper-setting">
@@ -421,7 +427,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.full_name property="full_name" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}}
+      <WizardMapper @inputs={{this.action.full_name}} @property="full_name" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}} />
     </div>
   </div>
   <div class="setting full field-mapper-setting">
@@ -430,7 +436,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.title property="title" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}}
+      <WizardMapper @inputs={{this.action.title}} @property="title" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}} />
     </div>
   </div>
   <div class="setting full field-mapper-setting">
@@ -439,7 +445,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.bio_raw property="bio_raw" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}}
+      <WizardMapper @inputs={{this.action.bio_raw}} @property="bio_raw" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}} />
     </div>
   </div>
   <div class="setting full field-mapper-setting">
@@ -448,7 +454,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.owner_usernames property="owner_usernames" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection=true userSelection="output" context="action")}}
+      <WizardMapper @inputs={{this.action.owner_usernames}} @property="owner_usernames" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection=true userSelection="output" context="action")}} />
     </div>
   </div>
   <div class="setting full field-mapper-setting">
@@ -457,7 +463,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.usernames property="usernames" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection=true userSelection="output" context="action")}}
+      <WizardMapper @inputs={{this.action.usernames}} @property="usernames" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection=true userSelection="output" context="action")}} />
     </div>
   </div>
   <div class="setting full field-mapper-setting">
@@ -466,7 +472,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.grant_trust_level property="grant_trust_level" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}}
+      <WizardMapper @inputs={{this.action.grant_trust_level}} @property="grant_trust_level" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}} />
     </div>
   </div>
   <div class="setting full field-mapper-setting">
@@ -475,7 +481,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.mentionable_level property="mentionable_level" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}}
+      <WizardMapper @inputs={{this.action.mentionable_level}} @property="mentionable_level" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}} />
     </div>
   </div>
   <div class="setting full field-mapper-setting">
@@ -484,7 +490,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.messageable_level property="messageable_level" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}}
+      <WizardMapper @inputs={{this.action.messageable_level}} @property="messageable_level" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}} />
     </div>
   </div>
   <div class="setting full field-mapper-setting">
@@ -493,7 +499,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.visibility_level property="visibility_level" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}}
+      <WizardMapper @inputs={{this.action.visibility_level}} @property="visibility_level" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}} />
     </div>
   </div>
   <div class="setting full field-mapper-setting">
@@ -502,7 +508,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.members_visibility_level property="members_visibility_level" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}}
+      <WizardMapper @inputs={{this.action.members_visibility_level}} @property="members_visibility_level" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection=true context="action")}} />
     </div>
   </div>
 {{/if}}
@@ -514,7 +520,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.name property="name" onUpdate=this.mappedFieldUpdated options=(hash textSelection="key,value,output" wizardFieldSelection=true userFieldSelection="key,value" context="action")}}
+      <WizardMapper @inputs={{this.action.name}} @property="name" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection="key,value,output" wizardFieldSelection=true userFieldSelection="key,value" context="action")}} />
     </div>
   </div>
 
@@ -524,7 +530,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.slug property="slug" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection="key,value" context="action")}}
+      <WizardMapper @inputs={{this.action.slug}} @property="slug" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection="key,value" context="action")}} />
     </div>
   </div>
 
@@ -534,7 +540,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.color property="color" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection="key,value" context="action")}}
+      <WizardMapper @inputs={{this.action.color}} @property="color" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection="key,value" context="action")}} />
     </div>
   </div>
 
@@ -544,7 +550,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.text_color property="text_color" onUpdate=this.mappedFieldUpdated options=(hash textSelection=true wizardFieldSelection=true userFieldSelection="key,value" context="action")}}
+      <WizardMapper @inputs={{this.action.text_color}} @property="text_color" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection=true wizardFieldSelection=true userFieldSelection="key,value" context="action")}} />
     </div>
   </div>
 
@@ -554,7 +560,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.parent_category_id property="parent_category_id" onUpdate=this.mappedFieldUpdated options=(hash textSelection="key,value" wizardFieldSelection=true userFieldSelection="key,value" categorySelection="output" context="action")}}
+      <WizardMapper @inputs={{this.action.parent_category_id}} @property="parent_category_id" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection="key,value" wizardFieldSelection=true userFieldSelection="key,value" categorySelection="output" context="action")}} />
     </div>
   </div>
 
@@ -564,7 +570,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.permissions property="permissions" onUpdate=this.mappedFieldUpdated options=(hash inputTypes="association" textSelection=true wizardFieldSelection=true wizardActionSelection="key" userFieldSelection=true groupSelection="key" context="action")}}
+      <WizardMapper @inputs={{this.action.permissions}} @property="permissions" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash inputTypes="association" textSelection=true wizardFieldSelection=true wizardActionSelection="key" userFieldSelection=true groupSelection="key" context="action")}} />
     </div>
   </div>
 {{/if}}
@@ -576,7 +582,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.custom_fields property="custom_fields" onUpdate=this.mappedFieldUpdated options=(hash inputTypes="association" customFieldSelection="key" wizardFieldSelection="value" wizardActionSelection="value" userFieldSelection="value" keyPlaceholder="admin.wizard.action.custom_fields.key" context=this.customFieldsContext)}}
+      <WizardMapper @inputs={{this.action.custom_fields}} @property="custom_fields" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash inputTypes="association" customFieldSelection="key" wizardFieldSelection="value" wizardActionSelection="value" userFieldSelection="value" keyPlaceholder="admin.wizard.action.custom_fields.key" context=this.customFieldsContext)}} />
     </div>
   </div>
 {{/if}}
@@ -588,7 +594,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.required property="required" onUpdate=this.mappedFieldUpdated options=(hash textSelection="value" wizardFieldSelection=true userFieldSelection=true groupSelection=true context="action")}}
+      <WizardMapper @inputs={{this.action.required}} @property="required" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection="value" wizardFieldSelection=true userFieldSelection=true groupSelection=true context="action")}} />
     </div>
   </div>
 {{/if}}
@@ -600,7 +606,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.poster property="poster" onUpdate=this.mappedFieldUpdated options=(hash textSelection="key,value" wizardFieldSelection=true userSelection="output" outputDefaultSelection="user" userLimit="1" context="action")}}
+      <WizardMapper @inputs={{this.action.poster}} @property="poster" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection="key,value" wizardFieldSelection=true userSelection="output" outputDefaultSelection="user" userLimit="1" context="action")}} />
     </div>
   </div>
 
@@ -610,7 +616,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      {{wizardMapper inputs=this.action.guest_email property="guest_email" onUpdate=this.mappedFieldUpdated options=(hash textSelection="key,value" wizardFieldSelection=true outputPlaceholder="admin.wizard.action.guest_email.placeholder" context="action")}}
+      <WizardMapper @inputs={{this.action.guest_email}} @property="guest_email" @onUpdate={{this.mappedFieldUpdated}} @options={{(hash textSelection="key,value" wizardFieldSelection=true outputPlaceholder="admin.wizard.action.guest_email.placeholder" context="action")}} />
     </div>
   </div>
 

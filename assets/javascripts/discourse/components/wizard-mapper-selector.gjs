@@ -18,6 +18,11 @@ import multiSelect from "select-kit/components/multi-select";
 import wizardValueList from "./wizard-value-list";
 import tagChooser from "select-kit/components/tag-chooser";
 import wizardUserChooser from "./wizard-user-chooser";
+import WizardMapperSelectorType from "./wizard-mapper-selector-type";
+import ComboBox from "select-kit/components/combo-box";
+import MultiSelect from "select-kit/components/multi-select";
+import WizardValueList from "./wizard-value-list";
+import TagChooser from "select-kit/components/tag-chooser";
 
 const customFieldActionMap = {
   topic: ["create_topic", "send_message"],
@@ -441,7 +446,7 @@ export default class extends Component {
     {{#if this.showTypes}}
       <div class="selector-types">
         {{#each this.selectorTypes as |item|}}
-          {{wizardMapperSelectorType activeType=this.activeType item=item toggle=this.toggleType}}
+          <WizardMapperSelectorType @activeType={{this.activeType}} @item={{item}} @toggle={{this.toggleType}} />
         {{/each}}
       </div>
     {{/if}}
@@ -456,19 +461,19 @@ export default class extends Component {
   {{/if}}
 
   {{#if this.showComboBox}}
-    {{comboBox value=this.value content=this.comboBoxContent onChange=this.changeValue options=(hash none=this.placeholderKey allowAny=this.comboBoxAllowAny)}}
+    <ComboBox @value={{this.value}} @content={{this.comboBoxContent}} @onChange={{this.changeValue}} @options={{(hash none=this.placeholderKey allowAny=this.comboBoxAllowAny)}} />
   {{/if}}
 
   {{#if this.showMultiSelect}}
-    {{multiSelect content=this.multiSelectContent value=this.value onChange=this.changeValue options=this.multiSelectOptions}}
+    <MultiSelect @content={{this.multiSelectContent}} @value={{this.value}} @onChange={{this.changeValue}} @options={{this.multiSelectOptions}} />
   {{/if}}
 
   {{#if this.showList}}
-    {{wizardValueList values=this.value addKey=this.placeholderKey onChange=this.changeValue}}
+    <WizardValueList @values={{this.value}} @addKey={{this.placeholderKey}} @onChange={{this.changeValue}} />
   {{/if}}
 
   {{#if this.showTag}}
-    {{tagChooser tags=this.value onChange=this.changeValue everyTag=true options=(hash none=this.placeholderKey filterable=true)}}
+    <TagChooser @tags={{this.value}} @onChange={{this.changeValue}} @everyTag={{true}} @options={{(hash none=this.placeholderKey filterable=true)}} />
   {{/if}}
 
   {{#if this.showUser}}

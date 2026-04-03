@@ -8,6 +8,11 @@ import wizardTextEditor from "./wizard-text-editor";
 import wizardMapper from "./wizard-mapper";
 import wizardLinks from "./wizard-links";
 import wizardCustomField from "./wizard-custom-field";
+import UppyImageUploader from "discourse/components/uppy-image-uploader";
+import WizardTextEditor from "./wizard-text-editor";
+import WizardMapper from "./wizard-mapper";
+import WizardLinks from "./wizard-links";
+import WizardCustomField from "./wizard-custom-field";
 
 export default class extends Component {
   classNames = "wizard-custom-step";
@@ -59,7 +64,7 @@ export default class extends Component {
     <label>{{i18n "admin.wizard.step.banner"}}</label>
   </div>
   <div class="setting-value">
-    {{uppyImageUploader imageUrl=this.step.banner onUploadDone=this.bannerUploadDone onUploadDeleted=this.bannerUploadDeleted type="wizard-step-banner" class="no-repeat contain-image" id=(concat "wizard-step-" this.step.id "-banner-upload")}}
+    <UppyImageUploader @imageUrl={{this.step.banner}} @onUploadDone={{this.bannerUploadDone}} @onUploadDeleted={{this.bannerUploadDeleted}} @type="wizard-step-banner" class="no-repeat contain-image" @id={{(concat "wizard-step-" this.step.id "-banner-upload")}} />
   </div>
 </div>
 
@@ -68,7 +73,7 @@ export default class extends Component {
     <label>{{i18n "admin.wizard.step.description"}}</label>
   </div>
   <div class="setting-value">
-    {{wizardTextEditor value=this.step.raw_description}}
+    <WizardTextEditor @value={{this.step.raw_description}} />
   </div>
 </div>
 
@@ -78,7 +83,7 @@ export default class extends Component {
   </div>
 
   <div class="setting-value">
-    {{wizardMapper inputs=this.step.condition options=this.stepConditionOptions}}
+    <WizardMapper @inputs={{this.step.condition}} @options={{this.stepConditionOptions}} />
   </div>
 </div>
 
@@ -97,7 +102,7 @@ export default class extends Component {
   </div>
 
   <div class="setting-value">
-    {{wizardMapper inputs=this.step.required_data options=(hash inputTypes="validation" inputConnector="and" wizardFieldSelection="value" userFieldSelection="value" keyPlaceholder="admin.wizard.submission_key" context="step")}}
+    <WizardMapper @inputs={{this.step.required_data}} @options={{(hash inputTypes="validation" inputConnector="and" wizardFieldSelection="value" userFieldSelection="value" keyPlaceholder="admin.wizard.submission_key" context="step")}} />
     {{#if this.step.required_data}}
       <div class="required-data-message">
         <div class="label">
@@ -114,12 +119,12 @@ export default class extends Component {
     <label>{{i18n "admin.wizard.step.permitted_params.label"}}</label>
   </div>
   <div class="setting-value">
-    {{wizardMapper inputs=this.step.permitted_params options=(hash pairConnector="set" inputTypes="association" keyPlaceholder="admin.wizard.param_key" valuePlaceholder="admin.wizard.submission_key" context="step")}}
+    <WizardMapper @inputs={{this.step.permitted_params}} @options={{(hash pairConnector="set" inputTypes="association" keyPlaceholder="admin.wizard.param_key" valuePlaceholder="admin.wizard.submission_key" context="step")}} />
   </div>
 </div>
 
-{{wizardLinks itemType="field" current=this.currentField items=this.step.fields parentId=this.step.id}}
+<WizardLinks @itemType="field" @current={{this.currentField}} @items={{this.step.fields}} @parentId={{this.step.id}} />
 
 {{#each this.step.fields as |field|}}
-  {{wizardCustomField field=field step=this.step wizard=this.wizard currentFieldId=this.currentField.id fieldTypes=this.fieldTypes removeField="removeField" wizardFields=this.wizardFields subscribed=this.subscribed}}
+  <WizardCustomField @field={{field}} @step={{this.step}} @wizard={{this.wizard}} @currentFieldId={{this.currentField.id}} @fieldTypes={{this.fieldTypes}} @removeField="removeField" @wizardFields={{this.wizardFields}} @subscribed={{this.subscribed}} />
 {{/each}}</template>}

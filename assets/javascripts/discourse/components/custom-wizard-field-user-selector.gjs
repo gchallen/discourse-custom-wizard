@@ -1,6 +1,7 @@
 import Component from "@ember/component";
 import { action, computed } from "@ember/object";
 import customUserSelector from "./custom-user-selector";
+import CustomUserSelector from "./custom-user-selector";
 
 export default class extends Component {
   classNameBindings = ["fieldClass"];
@@ -54,4 +55,4 @@ export default class extends Component {
       originalCallback();
     }
   }
-<template>{{customUserSelector usernames=this.field.value includeGroups=this._includeGroups includeMentionableGroups=this._includeMentionableGroups includeMessageableGroups=this._includeMessageableGroups allowedUsers=this._allowedUsers single=this._single topicId=this._topicId disabled=this._disabled onChangeCallback=this.updateFieldValue}}</template>}
+<template><CustomUserSelector @usernames={{this.field.value}} @includeGroups={{this._includeGroups}} @includeMentionableGroups={{this._includeMentionableGroups}} @includeMessageableGroups={{this._includeMessageableGroups}} @allowedUsers={{this._allowedUsers}} @single={{this._single}} @topicId={{this._topicId}} @disabled={{this._disabled}} @onChangeCallback={{this.updateFieldValue}} /></template>}

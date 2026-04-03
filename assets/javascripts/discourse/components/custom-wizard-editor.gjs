@@ -6,6 +6,8 @@ import icon from "discourse/helpers/d-icon";
 import i18n from "discourse/helpers/i18n";
 import conditionalLoadingSpinner from "discourse/components/conditional-loading-spinner";
 import { Textarea } from "@ember/component";
+import ToolbarPopupMenuOptions from "discourse/components/toolbar-popup-menu-options";
+import ConditionalLoadingSpinner from "discourse/components/conditional-loading-spinner";
 const CustomWizardEditor = <template><div class="d-editor-overlay hidden"></div>
 
 <div class="d-editor-container">
@@ -21,7 +23,7 @@ const CustomWizardEditor = <template><div class="d-editor-overlay hidden"></div>
         {{#each this.toolbar.groups as |group|}}
           {{#each group.buttons as |b|}}
             {{#if b.popupMenu}}
-              {{toolbarPopupMenuOptions onPopupMenuAction=this.onPopupMenuAction onExpand=(fn b.action b) class=b.className content=this.popupMenuOptions options=(hash popupTitle=b.title icon=b.icon)}}
+              <ToolbarPopupMenuOptions @onPopupMenuAction={{this.onPopupMenuAction}} @onExpand={{(fn b.action b)}} class={{b.className}} @content={{this.popupMenuOptions}} @options={{(hash popupTitle=b.title icon=b.icon)}} />
             {{else}}
               <div>{{b.icon}}</div>
               <button class="wizard-btn {{b.className}}" {{on "click" (fn b.action b)}} title={{b.title}} type="button">
@@ -39,7 +41,7 @@ const CustomWizardEditor = <template><div class="d-editor-overlay hidden"></div>
         {{/each}}
       </div>
 
-      {{conditionalLoadingSpinner condition=this.loading}}
+      <ConditionalLoadingSpinner @condition={{this.loading}} />
       <Textarea tabindex={{this.tabindex}} @value={{this.value}} class="d-editor-input" placeholder={{this.placeholder}} />
     </div>
   {{/if}}

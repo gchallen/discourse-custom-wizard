@@ -5,6 +5,9 @@ import icon from "discourse/helpers/d-icon";
 import LoadMore from "discourse/components/load-more";
 import wizardTableField from "../components/wizard-table-field";
 import conditionalLoadingSpinner from "discourse/components/conditional-loading-spinner";
+import DButton from "discourse/components/d-button";
+import WizardTableField from "../components/wizard-table-field";
+import ConditionalLoadingSpinner from "discourse/components/conditional-loading-spinner";
 export default RouteTemplate(<template>{{#if @controller.submissions}}
   <div class="wizard-header large">
     <label>
@@ -12,7 +15,7 @@ export default RouteTemplate(<template>{{#if @controller.submissions}}
     </label>
 
     <div class="controls">
-      {{dButton icon="sliders" label="admin.wizard.edit_columns" action=this.showEditColumnsModal class="btn-default open-edit-columns-btn download-link"}}
+      <DButton @icon="sliders" @label="admin.wizard.edit_columns" @action={{this.showEditColumnsModal}} class="btn-default open-edit-columns-btn download-link" />
     </div>
 
     <a class="btn btn-default download-link" href={{@controller.downloadUrl}} target="_blank" rel="noopener noreferrer">
@@ -44,7 +47,7 @@ export default RouteTemplate(<template>{{#if @controller.submissions}}
             {{#each @controller.displaySubmissions as |submission|}}
               <tr>
                 {{#each-in submission as |field value|}}
-                  <td>{{wizardTableField field=field value=value}}</td>
+                  <td><WizardTableField @field={{field}} @value={{value}} /></td>
                 {{/each-in}}
               </tr>
             {{/each}}
@@ -52,7 +55,7 @@ export default RouteTemplate(<template>{{#if @controller.submissions}}
         </table>
       {{/if}}
 
-      {{conditionalLoadingSpinner condition=@controller.loadingMore}}
+      <ConditionalLoadingSpinner @condition={{@controller.loadingMore}} />
     {{/LoadMore}}
   </div>
 {{/if}}</template>)

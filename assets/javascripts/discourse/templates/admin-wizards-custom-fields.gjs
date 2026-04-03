@@ -4,15 +4,18 @@ import dButton from "discourse/components/d-button";
 import wizardMessage from "../components/wizard-message";
 import { concat } from "@ember/helper";
 import customFieldInput from "../components/custom-field-input";
+import DButton from "discourse/components/d-button";
+import WizardMessage from "../components/wizard-message";
+import CustomFieldInput from "../components/custom-field-input";
 export default RouteTemplate(<template><div class="admin-wizard-controls">
   <h3>{{i18n "admin.wizard.custom_field.nav_label"}}</h3>
 
   <div class="buttons">
-    {{dButton label="admin.wizard.custom_field.add" icon="plus" action=this.addField}}
+    <DButton @label="admin.wizard.custom_field.add" @icon="plus" @action={{this.addField}} />
   </div>
 </div>
 
-{{wizardMessage key=@controller.messageKey opts=@controller.messageOpts type=@controller.messageType url=@controller.documentationUrl component="custom_fields"}}
+<WizardMessage @key={{@controller.messageKey}} @opts={{@controller.messageOpts}} @type={{@controller.messageType}} @url={{@controller.documentationUrl}} @component="custom_fields" />
 
 <div class="admin-wizard-container">
   {{#if @controller.customFields}}
@@ -27,7 +30,7 @@ export default RouteTemplate(<template><div class="admin-wizard-controls">
       </thead>
       <tbody>
         {{#each @controller.customFields as |field|}}
-          {{customFieldInput field=field removeField=this.removeField saveField=this.saveField}}
+          <CustomFieldInput @field={{field}} @removeField={{this.removeField}} @saveField={{this.saveField}} />
         {{/each}}
       </tbody>
     </table>

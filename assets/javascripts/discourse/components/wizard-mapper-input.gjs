@@ -10,6 +10,9 @@ import wizardMapperConnector from "./wizard-mapper-connector";
 import wizardMapperPair from "./wizard-mapper-pair";
 import icon from "discourse/helpers/d-icon";
 import wizardMapperSelector from "./wizard-mapper-selector";
+import WizardMapperConnector from "./wizard-mapper-connector";
+import WizardMapperPair from "./wizard-mapper-pair";
+import WizardMapperSelector from "./wizard-mapper-selector";
 
 export default class extends Component {
   classNameBindings = [":mapper-input", "inputType"];
@@ -77,12 +80,12 @@ export default class extends Component {
     pairs.forEach((p) => set(p, "pairCount", pairCount));
     pairs.removeObject(pair);
   }
-<template>{{wizardMapperConnector connector=this.input.type connectors=this.inputTypes inputTypes=true inputType=this.inputType connectorType="type" options=this.options onUpdate=this.onUpdate}}
+<template><WizardMapperConnector @connector={{this.input.type}} @connectors={{this.inputTypes}} @inputTypes={{true}} @inputType={{this.inputType}} @connectorType="type" @options={{this.options}} @onUpdate={{this.onUpdate}} />
 
 {{#if this.hasPairs}}
   <div class="mapper-pairs mapper-block">
     {{#each this.input.pairs as |pair|}}
-      {{wizardMapperPair pair=pair last=pair.last inputType=this.inputType options=this.options removePair=this.removePair onUpdate=this.onUpdate}}
+      <WizardMapperPair @pair={{pair}} @last={{pair.last}} @inputType={{this.inputType}} @options={{this.options}} @removePair={{this.removePair}} @onUpdate={{this.onUpdate}} />
     {{/each}}
 
     {{#if this.canAddPair}}
@@ -95,11 +98,11 @@ export default class extends Component {
 
 {{#if this.hasOutput}}
   {{#if this.hasPairs}}
-    {{wizardMapperConnector connector=this.input.output_connector connectors=this.connectors connectorType="output" inputType=this.inputType options=this.options onUpdate=this.onUpdate}}
+    <WizardMapperConnector @connector={{this.input.output_connector}} @connectors={{this.connectors}} @connectorType="output" @inputType={{this.inputType}} @options={{this.options}} @onUpdate={{this.onUpdate}} />
   {{/if}}
 
   <div class="output mapper-block">
-    {{wizardMapperSelector selectorType="output" inputType=this.input.type value=this.input.output activeType=this.input.output_type options=this.options onUpdate=this.onUpdate}}
+    <WizardMapperSelector @selectorType="output" @inputType={{this.input.type}} @value={{this.input.output}} @activeType={{this.input.output_type}} @options={{this.options}} @onUpdate={{this.onUpdate}} />
   </div>
 {{/if}}
 

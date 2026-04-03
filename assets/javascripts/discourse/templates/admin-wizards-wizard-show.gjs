@@ -13,6 +13,13 @@ import wizardCustomStep from "../components/wizard-custom-step";
 import wizardCustomAction from "../components/wizard-custom-action";
 import icon from "discourse/helpers/d-icon";
 import conditionalLoadingSpinner from "discourse/components/conditional-loading-spinner";
+import DButton from "discourse/components/d-button";
+import ComboBox from "select-kit/components/combo-box";
+import WizardMapper from "../components/wizard-mapper";
+import WizardLinks from "../components/wizard-links";
+import WizardCustomStep from "../components/wizard-custom-step";
+import WizardCustomAction from "../components/wizard-custom-action";
+import ConditionalLoadingSpinner from "discourse/components/conditional-loading-spinner";
 export default RouteTemplate(<template>{{#if @controller.wizard}}
   <div class="wizard-header large">
     <Input @value={{@controller.wizard.name}} name="name" placeholder={{i18n "admin.wizard.name_placeholder"}} />
@@ -20,9 +27,9 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
     <div class="wizard-url">
       {{#if @controller.wizard.name}}
         {{#if @controller.copiedUrl}}
-          {{dButton class="btn-hover pull-right" icon="copy" label="ip_lookup.copied"}}
+          <DButton class="btn-hover pull-right" @icon="copy" @label="ip_lookup.copied" />
         {{else}}
-          {{dButton action=this.copyUrl class="pull-right no-text" icon="copy"}}
+          <DButton @action={{this.copyUrl}} class="pull-right no-text" @icon="copy" />
         {{/if}}
         <a href={{@controller.wizardUrl}} target="_blank" rel="noopener noreferrer">{{@controller.wizardUrl}}</a>
       {{/if}}
@@ -44,7 +51,7 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
         <label>{{i18n "admin.wizard.theme_id"}}</label>
       </div>
       <div class="setting-value">
-        {{comboBox content=@controller.themes valueProperty="id" value=@controller.wizard.theme_id onChange=(fn (mut @controller.wizard.theme_id)) options=(hash none="admin.wizard.no_theme")}}
+        <ComboBox @content={{@controller.themes}} @valueProperty="id" @value={{@controller.wizard.theme_id}} @onChange={{(fn (mut @controller.wizard.theme_id))}} @options={{(hash none="admin.wizard.no_theme")}} />
       </div>
     </div>
   </div>
@@ -101,7 +108,7 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
       <div class="setting-value">
         <Input @type="checkbox" @checked={{@controller.wizard.after_time}} />
         <span>{{i18n "admin.wizard.after_time_label"}}</span>
-        {{dButton action=this.setNextSessionScheduled translatedLabel=@controller.nextSessionScheduledLabel class="btn-after-time" icon="far-calendar"}}
+        <DButton @action={{this.setNextSessionScheduled}} @translatedLabel={{@controller.nextSessionScheduledLabel}} class="btn-after-time" @icon="far-calendar" />
       </div>
     </div>
 
@@ -130,7 +137,7 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
         <label>{{i18n "admin.wizard.permitted"}}</label>
       </div>
       <div class="setting-value">
-        {{wizardMapper inputs=@controller.wizard.permitted options=(hash context="wizard" inputTypes="assignment,validation" groupSelection="output" guestGroup=true userFieldSelection="key" textSelection="value" inputConnector="and")}}
+        <WizardMapper @inputs={{@controller.wizard.permitted}} @options={{(hash context="wizard" inputTypes="assignment,validation" groupSelection="output" guestGroup=true userFieldSelection="key" textSelection="value" inputConnector="and")}} />
       </div>
     </div>
 
@@ -147,16 +154,16 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
     </div>
   </div>
 
-  {{wizardLinks itemType="step" current=@controller.currentStep items=@controller.wizard.steps}}
+  <WizardLinks @itemType="step" @current={{@controller.currentStep}} @items={{@controller.wizard.steps}} />
 
   {{#if @controller.currentStep}}
-    {{wizardCustomStep step=@controller.currentStep wizard=@controller.wizard currentField=@controller.currentField wizardFields=@controller.wizardFields fieldTypes=@controller.filteredFieldTypes subscribed=@controller.subscribed}}
+    <WizardCustomStep @step={{@controller.currentStep}} @wizard={{@controller.wizard}} @currentField={{@controller.currentField}} @wizardFields={{@controller.wizardFields}} @fieldTypes={{@controller.filteredFieldTypes}} @subscribed={{@controller.subscribed}} />
   {{/if}}
 
-  {{wizardLinks itemType="action" current=@controller.currentAction items=@controller.wizard.actions generateLabels=true}}
+  <WizardLinks @itemType="action" @current={{@controller.currentAction}} @items={{@controller.wizard.actions}} @generateLabels={{true}} />
 
   {{#each @controller.wizard.actions as |wizardAction|}}
-    {{wizardCustomAction action=wizardAction currentActionId=@controller.currentAction.id wizard=@controller.wizard apis=@controller.apis removeAction="removeAction" wizardFields=@controller.wizardFields fieldTypes=@controller.filteredFieldTypes}}
+    <WizardCustomAction @action={{wizardAction}} @currentActionId={{@controller.currentAction.id}} @wizard={{@controller.wizard}} @apis={{@controller.apis}} @removeAction="removeAction" @wizardFields={{@controller.wizardFields}} @fieldTypes={{@controller.filteredFieldTypes}} />
   {{/each}}
 
   <div class="admin-wizard-buttons">
@@ -170,7 +177,7 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
       </button>
     {{/unless}}
 
-    {{conditionalLoadingSpinner condition=@controller.saving size="small"}}
+    <ConditionalLoadingSpinner @condition={{@controller.saving}} @size="small" />
 
     {{#if @controller.error}}
       <span class="error">{{icon "xmark"}}{{@controller.error}}</span>

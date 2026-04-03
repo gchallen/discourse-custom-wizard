@@ -4,6 +4,7 @@ import Category from "discourse/models/category";
 import { observes } from "discourse-common/utils/decorators";
 import customWizardCategorySelector from "./custom-wizard-category-selector";
 import { hash, fn } from "@ember/helper";
+import CustomWizardCategorySelector from "./custom-wizard-category-selector";
 
 export default class extends Component {
   categories = [];
@@ -16,7 +17,7 @@ export default class extends Component {
     if (value) {
       this.set(
         "categories",
-        [...value].reduce((result, v) => {
+        Array.from(value || []).reduce((result, v) => {
           let val =
             property === "id" ? Category.findById(v) : Category.findBySlug(v);
           if (val) {
@@ -45,4 +46,4 @@ export default class extends Component {
       );
     }
   }
-<template>{{customWizardCategorySelector categories=this.categories class=this.fieldClass whitelist=this.field.content onChange=(fn (mut this.categories)) tabindex=this.field.tabindex options=(hash maximum=this.field.limit)}}</template>}
+<template><CustomWizardCategorySelector @categories={{this.categories}} class={{this.fieldClass}} @whitelist={{this.field.content}} @onChange={{(fn (mut this.categories))}} @tabindex={{this.field.tabindex}} @options={{(hash maximum=this.field.limit)}} /></template>}

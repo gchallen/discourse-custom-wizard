@@ -8,6 +8,7 @@ import { default as wizardSchema, setWizardDefaults } from "../lib/wizard-schema
 import htmlSafe from "discourse/helpers/html-safe";
 import i18n from "discourse/helpers/i18n";
 import dButton from "discourse/components/d-button";
+import DButton from "discourse/components/d-button";
 
 export default class extends Component {
   classNameBindings = [":wizard-links", "itemType"];
@@ -158,16 +159,16 @@ export default class extends Component {
   {{#if this.anyLinks}}
     {{#each this.links as |link|}}
       <div data-id={{link.id}}>
-        {{dButton action=this.change actionParam=link.id translatedLabel=link.label class=link.classes}}
+        <DButton @action={{this.change}} @actionParam={{link.id}} @translatedLabel={{link.label}} class=link.classes />
         {{#unless link.first}}
-          {{dButton action=this.back actionParam=link icon="arrow-left" class="back"}}
+          <DButton @action={{this.back}} @actionParam={{link}} @icon="arrow-left" class="back" />
         {{/unless}}
         {{#unless link.last}}
-          {{dButton action=this.forward actionParam=link icon="arrow-right" class="forward"}}
+          <DButton @action={{this.forward}} @actionParam={{link}} @icon="arrow-right" class="forward" />
         {{/unless}}
-        {{dButton action=this.remove actionParam=link.id icon="xmark" class="remove"}}
+        <DButton @action={{this.remove}} @actionParam={{link.id}} @icon="xmark" class="remove" />
       </div>
     {{/each}}
   {{/if}}
-  {{dButton action=this.add label="admin.wizard.add" icon="plus"}}
+  <DButton @action={{this.add}} @label="admin.wizard.add" @icon="plus" />
 </div></template>}

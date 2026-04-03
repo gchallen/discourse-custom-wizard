@@ -7,6 +7,8 @@ import dButton from "discourse/components/d-button";
 import wizardMessage from "../components/wizard-message";
 import dasherize from "discourse/helpers/dasherize";
 import { LinkTo } from "@ember/routing";
+import DButton from "discourse/components/d-button";
+import WizardMessage from "../components/wizard-message";
 export default RouteTemplate(<template><div class="admin-wizard-controls">
   <h3>{{i18n "admin.wizard.manager.title"}}</h3>
 
@@ -21,14 +23,14 @@ export default RouteTemplate(<template><div class="admin-wizard-controls">
     {{/if}}
 
     <Input id="custom-wizard-file-upload" @type="file" accept="application/json" {{on "input" this.setFile}} />
-    {{dButton id="upload-button" label="admin.wizard.manager.upload" action=this.upload}}
-    {{dButton id="import-button" label="admin.wizard.manager.import" action=this.import disabled=@controller.importDisabled}}
-    {{dButton id="export-button" label="admin.wizard.manager.export" action=this.export disabled=@controller.exportDisabled}}
-    {{dButton id="destroy-button" label="admin.wizard.manager.destroy" action=this.destroy disabled=@controller.destoryDisabled}}
+    <DButton @id="upload-button" @label="admin.wizard.manager.upload" @action={{this.upload}} />
+    <DButton @id="import-button" @label="admin.wizard.manager.import" @action={{this.import}} @disabled={{@controller.importDisabled}} />
+    <DButton @id="export-button" @label="admin.wizard.manager.export" @action={{this.export}} @disabled={{@controller.exportDisabled}} />
+    <DButton @id="destroy-button" @label="admin.wizard.manager.destroy" @action={{this.destroy}} @disabled={{@controller.destoryDisabled}} />
   </div>
 </div>
 
-{{wizardMessage key=@controller.messageKey url=@controller.messageUrl type=@controller.messageType opts=@controller.messageOpts items=@controller.messageItems loading=@controller.loading component="manager"}}
+<WizardMessage @key={{@controller.messageKey}} @url={{@controller.messageUrl}} @type={{@controller.messageType}} @opts={{@controller.messageOpts}} @items={{@controller.messageItems}} @loading={{@controller.loading}} @component="manager" />
 
 <div class="admin-wizard-container">
   <table class="table grid">

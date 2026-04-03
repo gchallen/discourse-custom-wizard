@@ -3,6 +3,9 @@ import discourseComputed from "discourse-common/utils/decorators";
 import customWizardDateInput from "./custom-wizard-date-input";
 import customWizardTimeInput from "./custom-wizard-time-input";
 import dButton from "discourse/components/d-button";
+import CustomWizardDateInput from "./custom-wizard-date-input";
+import CustomWizardTimeInput from "./custom-wizard-time-input";
+import DButton from "discourse/components/d-button";
 
 export default class extends DateTimeInput {
   @discourseComputed("timeFirst", "tabindex")
@@ -15,17 +18,17 @@ export default class extends DateTimeInput {
     return timeFirst ? tabindex + 1 : tabindex;
   }
 <template>{{#unless this.timeFirst}}
-  {{customWizardDateInput date=this.date relativeDate=this.relativeDate onChange=this.onChangeDate tabindex=this.dateTabindex}}
+  <CustomWizardDateInput @date={{this.date}} @relativeDate={{this.relativeDate}} @onChange={{this.onChangeDate}} @tabindex={{this.dateTabindex}} />
 {{/unless}}
 
 {{#if this.showTime}}
-  {{customWizardTimeInput date=this.date relativeDate=this.relativeDate onChange=this.onChangeTime tabindex=this.timeTabindex}}
+  <CustomWizardTimeInput @date={{this.date}} @relativeDate={{this.relativeDate}} @onChange={{this.onChangeTime}} @tabindex={{this.timeTabindex}} />
 {{/if}}
 
 {{#if this.timeFirst}}
-  {{customWizardDateInput date=this.date relativeDate=this.relativeDate onChange=this.onChangeDate tabindex=this.dateTabindex}}
+  <CustomWizardDateInput @date={{this.date}} @relativeDate={{this.relativeDate}} @onChange={{this.onChangeDate}} @tabindex={{this.dateTabindex}} />
 {{/if}}
 
 {{#if this.clearable}}
-  {{dButton class="clear-date-time" icon="xmark" action=this.onClear}}
+  <DButton class="clear-date-time" @icon="xmark" @action={{this.onClear}} />
 {{/if}}</template>}

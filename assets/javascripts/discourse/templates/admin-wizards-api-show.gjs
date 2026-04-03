@@ -9,6 +9,9 @@ import comboBox from "select-kit/components/combo-box";
 import { hash, fn } from "@ember/helper";
 import multiSelect from "select-kit/components/multi-select";
 import avatar from "discourse/helpers/avatar";
+import DButton from "discourse/components/d-button";
+import ComboBox from "select-kit/components/combo-box";
+import MultiSelect from "select-kit/components/multi-select";
 export default RouteTemplate(<template><div class="wizard-api-header page">
   <div class="buttons">
     {{#if @controller.updating}}
@@ -19,10 +22,10 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
       {{/if}}
     {{/if}}
 
-    {{dButton label="admin.wizard.api.save" action=this.save class="btn-primary" disabled=@controller.saveDisabled}}
+    <DButton @label="admin.wizard.api.save" @action={{this.save}} class="btn-primary" @disabled={{@controller.saveDisabled}} />
 
     {{#if @controller.showRemove}}
-      {{dButton action=this.remove label="admin.wizard.api.remove"}}
+      <DButton @action={{this.remove}} @label="admin.wizard.api.remove" />
     {{/if}}
 
     {{#if @controller.error}}
@@ -67,7 +70,7 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
           <span>{{@controller.authErrorMessage}}</span>
         {{/if}}
       {{/if}}
-      {{dButton label="admin.wizard.api.auth.btn" action=this.authorize disabled=@controller.authDisabled class="btn-primary"}}
+      <DButton @label="admin.wizard.api.auth.btn" @action={{this.authorize}} @disabled={{@controller.authDisabled}} class="btn-primary" />
     {{/if}}
   </div>
 
@@ -97,7 +100,7 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
     <div class="control-group auth-type">
       <label>{{i18n "admin.wizard.api.auth.type"}}</label>
       <div class="controls">
-        {{comboBox value=@controller.api.authType content=@controller.authorizationTypes onChange=(fn (mut @controller.api.authType)) options=(hash none="admin.wizard.api.auth.type_none")}}
+        <ComboBox @value={{@controller.api.authType}} @content={{@controller.authorizationTypes}} @onChange={{(fn (mut @controller.api.authType))}} @options={{(hash none="admin.wizard.api.auth.type_none")}} />
       </div>
     </div>
 
@@ -139,10 +142,10 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
             <div class="param">
               <Input @value={{param.key}} placeholder={{i18n "admin.wizard.key"}} />
               <Input @value={{param.value}} placeholder={{i18n "admin.wizard.value"}} />
-              {{dButton action=this.removeParam actionParam=param icon="xmark"}}
+              <DButton @action={{this.removeParam}} @actionParam={{param}} @icon="xmark" />
             </div>
           {{/each}}
-          {{dButton label="admin.wizard.api.auth.params.new" icon="plus" action=this.addParam}}
+          <DButton @label="admin.wizard.api.auth.params.new" @icon="plus" @action={{this.addParam}} />
         </div>
       </div>
     {{/if}}
@@ -227,7 +230,7 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
 </div>
 
 <div class="wizard-api-endpoints">
-  {{dButton action=this.addEndpoint label="admin.wizard.api.endpoint.add" icon="plus"}}
+  <DButton @action={{this.addEndpoint}} @label="admin.wizard.api.endpoint.add" @icon="plus" />
 
   {{#if @controller.api.endpoints}}
     <div class="endpoint-list">
@@ -239,12 +242,12 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
                 <div class="top">
                   <Input @value={{endpoint.name}} placeholder={{i18n "admin.wizard.api.endpoint.name"}} />
                   <Input @value={{endpoint.url}} placeholder={{i18n "admin.wizard.api.endpoint.url"}} class="endpoint-url" />
-                  {{dButton action=this.removeEndpoint actionParam=endpoint icon="xmark" class="remove-endpoint"}}
+                  <DButton @action={{this.removeEndpoint}} @actionParam={{endpoint}} @icon="xmark" class="remove-endpoint" />
                 </div>
                 <div class="bottom">
-                  {{comboBox content=@controller.endpointMethods value=endpoint.method onChange=(fn (mut endpoint.method)) options=(hash none="admin.wizard.api.endpoint.method")}}
-                  {{comboBox content=@controller.contentTypes value=endpoint.content_type onChange=(fn (mut endpoint.content_type)) options=(hash none="admin.wizard.api.endpoint.content_type")}}
-                  {{multiSelect value=endpoint.success_codes content=@controller.successCodes onChange=(fn (mut endpoint.success_codes)) options=(hash none="admin.wizard.api.endpoint.success_codes")}}
+                  <ComboBox @content={{@controller.endpointMethods}} @value={{endpoint.method}} @onChange={{(fn (mut endpoint.method))}} @options={{(hash none="admin.wizard.api.endpoint.method")}} />
+                  <ComboBox @content={{@controller.contentTypes}} @value={{endpoint.content_type}} @onChange={{(fn (mut endpoint.content_type))}} @options={{(hash none="admin.wizard.api.endpoint.content_type")}} />
+                  <MultiSelect @value={{endpoint.success_codes}} @content={{@controller.successCodes}} @onChange={{(fn (mut endpoint.success_codes))}} @options={{(hash none="admin.wizard.api.endpoint.success_codes")}} />
                 </div>
               </div>
             </div>
@@ -259,7 +262,7 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
   {{i18n "admin.wizard.api.log.label"}}
 
   <div class="controls">
-    {{dButton action=this.clearLogs class="clear-logs" label="admin.wizard.api.log.clear"}}
+    <DButton @action={{this.clearLogs}} class="clear-logs" @label="admin.wizard.api.log.clear" />
   </div>
 </div>
 
