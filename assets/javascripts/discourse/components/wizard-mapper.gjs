@@ -64,7 +64,6 @@ export default class extends Component {
     return result;
   }
 
-  onUpdate() {}
 
   @action
   add() {
@@ -76,7 +75,7 @@ export default class extends Component {
       newInput(this.inputOptions, this.inputs.length)
     );
 
-    this.onUpdate(this.property, "input");
+    this.onUpdate && this.onUpdate(this.property, "input");
   }
 
   @action
@@ -88,7 +87,7 @@ export default class extends Component {
       inputs[0].set("connector", null);
     }
 
-    this.onUpdate(this.property, "input");
+    this.onUpdate && this.onUpdate(this.property, "input");
   }
 
   @action
