@@ -1,4 +1,6 @@
 import Component from "@ember/component";
+import { fn } from "@ember/helper";
+import { on } from "@ember/modifier";
 import { computed } from "@ember/object";
 import { alias, gt } from "@ember/object/computed";
 import { connectorContent } from "../lib/wizard-mapper";
@@ -33,5 +35,5 @@ export default class extends Component {
 {{/if}}
 
 {{#if this.showRemove}}
-  <a role="button" {{action this.removePair this.pair}} class="remove-pair">{{icon "xmark"}}</a>
+  <a role="button" {{on "click" (fn this.removePair this.pair)}} class="remove-pair">{{icon "xmark"}}</a>
 {{/if}}</template>}

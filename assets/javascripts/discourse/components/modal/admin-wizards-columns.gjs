@@ -4,7 +4,7 @@ import { Input } from "@ember/component";
 import I18n from "I18n";
 import DModal from "discourse/components/d-modal";
 import DButton from "discourse/components/d-button";
-import LoadingSpinner from "discourse/components/loading-spinner";
+import loadingSpinner from "discourse/helpers/loading-spinner";
 import directoryTableHeaderTitle from "discourse/helpers/directory-table-header-title";
 
 export default class AdminWizardsColumnComponent extends Component {
@@ -23,7 +23,7 @@ export default class AdminWizardsColumnComponent extends Component {
   <template>
     <DModal @closeModal={{@closeModal}} @title={{this.title}}>
       {{#if this.loading}}
-        <LoadingSpinner @size="large" />
+        {{loadingSpinner size="large"}}
       {{else}}
         <div class="edit-directory-columns-container">
           {{#each @model.columns as |column|}}

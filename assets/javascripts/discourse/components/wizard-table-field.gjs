@@ -1,4 +1,5 @@
 import Component from "@ember/component";
+import { on } from "@ember/modifier";
 import { action } from "@ember/object";
 import { equal, notEmpty } from "@ember/object/computed";
 import discourseComputed from "discourse-common/utils/decorators";
@@ -153,7 +154,7 @@ export default class extends Component {
       <p class="wizard-table-long-text-content {{this.textState}}">
         {{this.value.value}}
       </p>
-      <a href {{action "expandText"}}>
+      <a href {{on "click" this.expandText}}>
         {{this.toggleText}}
       </a>
     </div>
@@ -165,7 +166,7 @@ export default class extends Component {
           {{this.textState}}">
         {{this.value.value}}
       </p>
-      <a href {{action "expandText"}}>
+      <a href {{on "click" this.expandText}}>
         {{this.toggleText}}
       </a>
     </div>

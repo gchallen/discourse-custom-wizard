@@ -434,7 +434,7 @@ export default class extends Component {
   }
 <template><div class="type-selector">
   {{#if this.hasTypes}}
-    <a role="button" {{action "toggleTypes"}} class="active">
+    <a role="button" {{on "click" this.toggleTypes}} class="active">
       {{this.activeTypeLabel}}
     </a>
 

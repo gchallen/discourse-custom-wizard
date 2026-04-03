@@ -1,4 +1,5 @@
 import RouteTemplate from 'ember-route-template'
+import { on } from "@ember/modifier";
 import { mut } from "discourse/helpers/mut";
 import { Input } from "@ember/component";
 import i18n from "discourse/helpers/i18n";
@@ -159,12 +160,12 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
   {{/each}}
 
   <div class="admin-wizard-buttons">
-    <button {{action "save"}} disabled={{@controller.disableSave}} class="btn btn-primary" type="button">
+    <button {{on "click" this.save}} disabled={{@controller.disableSave}} class="btn btn-primary" type="button">
       {{i18n "admin.wizard.save"}}
     </button>
 
     {{#unless @controller.creating}}
-      <button {{action "remove"}} class="btn btn-danger remove" type="button">
+      <button {{on "click" this.remove}} class="btn btn-danger remove" type="button">
         {{icon "far-trash-can"}}{{i18n "admin.wizard.remove"}}
       </button>
     {{/unless}}

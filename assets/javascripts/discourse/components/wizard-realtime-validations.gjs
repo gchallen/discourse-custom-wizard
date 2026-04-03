@@ -78,7 +78,7 @@ export default class extends Component {
               <label>{{i18n "admin.wizard.field.validations.categories"}}</label>
             </div>
             <div class="setting-value">
-              <CategorySelector @categories={{get this (concat "validationBuffer." type ".categories")}} @onChange={{action "updateValidationCategories" type props}} class="wizard" />
+              <CategorySelector @categories={{get this (concat "validationBuffer." type ".categories")}} @onChange={{fn this.updateValidationCategories type props}} class="wizard" />
             </div>
           </div>
           <div class="validation-section">

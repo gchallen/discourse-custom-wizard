@@ -1,4 +1,5 @@
 import Component from "@ember/component";
+import { on } from "@ember/modifier";
 import { action } from "@ember/object";
 import { bind } from "@ember/runloop";
 import $ from "jquery";
@@ -47,7 +48,7 @@ export default class extends Component {
     {{/each}}
   </ul>
 {{else}}
-  <a role="button" class="show-topics" {{action "toggleShowTopics"}}>
+  <a role="button" class="show-topics" {{on "click" this.toggleShowTopics}}>
     {{i18n "realtime_validations.similar_topics.show"}}
   </a>
 {{/if}}</template>}

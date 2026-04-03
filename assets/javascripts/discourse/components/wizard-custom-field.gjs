@@ -1,4 +1,5 @@
 import Component, { Input, Textarea } from "@ember/component";
+import { on } from "@ember/modifier";
 import { mut } from "discourse/helpers/mut";
 import { action } from "@ember/object";
 import { computed } from "@ember/object";
@@ -397,7 +398,7 @@ export default class extends Component.extend(UndoChanges) {
     </div>
 
     <div class="setting-value">
-      <CategoryChooser @value={{this.field.category}} @onChangeCategory={{action "changeCategory"}} @options={{hash none="admin.wizard.field.category.none" autoInsertNoneItem=true}} />
+      <CategoryChooser @value={{this.field.category}} @onChangeCategory={{on "click" this.changeCategory}} @options={{hash none="admin.wizard.field.category.none" autoInsertNoneItem=true}} />
     </div>
   </div>
 {{/if}}

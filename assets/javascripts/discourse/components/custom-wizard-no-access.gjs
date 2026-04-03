@@ -1,4 +1,5 @@
 import { getOwner } from "@ember/application";
+import { on } from "@ember/modifier";
 import Component from "@ember/component";
 import { action } from "@ember/object";
 import { dasherize } from "@ember/string";
@@ -43,10 +44,10 @@ export default class extends Component {
   }
 <template><div>{{this.text}}</div>
 <div class="no-access-gutter">
-  <a class="return-to-site" {{action "skip"}} role="button">
+  <a class="return-to-site" {{on "click" this.skip}} role="button">
     {{i18n "wizard.return_to_site" siteName=this.siteName}}
   </a>
   {{#if this.showLoginButton}}
-    <DButton class="btn-primary btn-small login-button" @action={{action "showLogin"}} @label="log_in" @icon="user" />
+    <DButton class="btn-primary btn-small login-button" @action={{on "click" this.showLogin}} @label="log_in" @icon="user" />
   {{/if}}
 </div></template>}

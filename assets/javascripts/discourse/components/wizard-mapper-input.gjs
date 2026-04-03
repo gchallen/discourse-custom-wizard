@@ -1,4 +1,6 @@
 import { A } from "@ember/array";
+import { fn } from "@ember/helper";
+import { on } from "@ember/modifier";
 import Component from "@ember/component";
 import { action, computed, set } from "@ember/object";
 import { alias, equal, not, or } from "@ember/object/computed";
@@ -84,7 +86,7 @@ export default class extends Component {
     {{/each}}
 
     {{#if this.canAddPair}}
-      <a role="button" {{action "addPair"}} class="add-pair">
+      <a role="button" {{on "click" this.addPair}} class="add-pair">
         {{icon "plus"}}
       </a>
     {{/if}}
@@ -101,6 +103,6 @@ export default class extends Component {
   </div>
 {{/if}}
 
-<a role="button" class="remove-input" {{action this.remove this.input}}>
+<a role="button" class="remove-input" {{on "click" (fn this.remove this.input)}}>
   {{icon "xmark"}}
 </a></template>}

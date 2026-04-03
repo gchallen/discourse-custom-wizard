@@ -1,4 +1,5 @@
 import htmlSafe from "discourse/helpers/html-safe";
+import { on } from "@ember/modifier";
 import toolbarPopupMenuOptions from "discourse/components/toolbar-popup-menu-options";
 import { hash, fn } from "@ember/helper";
 import icon from "discourse/helpers/d-icon";
@@ -23,7 +24,7 @@ const CustomWizardEditor = <template><div class="d-editor-overlay hidden"></div>
               {{toolbarPopupMenuOptions onPopupMenuAction=this.onPopupMenuAction onExpand=(fn b.action b) class=b.className content=this.popupMenuOptions options=(hash popupTitle=b.title icon=b.icon)}}
             {{else}}
               <div>{{b.icon}}</div>
-              <button class="wizard-btn {{b.className}}" {{action b.action b}} title={{b.title}} type="button">
+              <button class="wizard-btn {{b.className}}" {{on "click" (fn b.action b)}} title={{b.title}} type="button">
                 {{icon b.icon}}
                 {{#if b.label}}
                   <span class="d-button-label">{{i18n b.label}}</span>

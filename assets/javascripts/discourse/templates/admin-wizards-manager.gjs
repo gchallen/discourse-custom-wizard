@@ -13,7 +13,7 @@ export default RouteTemplate(<template><div class="admin-wizard-controls">
   <div class="buttons">
     {{#if @controller.filename}}
       <div class="filename">
-        <a role="button" {{action "clearFile"}}>
+        <a role="button" {{on "click" this.clearFile}}>
           {{icon "xmark"}}
         </a>
         <span>{{@controller.filename}}</span>

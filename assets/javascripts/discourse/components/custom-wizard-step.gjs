@@ -1,4 +1,5 @@
 import Component from "@ember/component";
+import { on } from "@ember/modifier";
 import { action } from "@ember/object";
 import { alias, not, or } from "@ember/object/computed";
 import { schedule } from "@ember/runloop";
@@ -281,22 +282,22 @@ export default class extends Component {
       {{loadingSpinner size="small"}}
     {{else}}
       {{#if this.showQuitButton}}
-        <a href {{action "quit"}} class="action-link quit" tabindex={{this.secondaryButtonIndex}}>{{i18n "wizard.quit"}}</a>
+        <a href {{on "click" this.quit}} class="action-link quit" tabindex={{this.secondaryButtonIndex}}>{{i18n "wizard.quit"}}</a>
       {{/if}}
       {{#if this.showBackButton}}
-        <a href {{action "backStep"}} class="action-link back" tabindex={{this.secondaryButtonIndex}}>{{i18n "wizard.back"}}</a>
+        <a href {{on "click" this.backStep}} class="action-link back" tabindex={{this.secondaryButtonIndex}}>{{i18n "wizard.back"}}</a>
       {{/if}}
     {{/if}}
 
     {{#if this.showNextButton}}
-      <button type="button" class="wizard-btn next primary" {{action "nextStep"}} disabled={{this.btnsDisabled}} tabindex={{this.primaryButtonIndex}}>
+      <button type="button" class="wizard-btn next primary" {{on "click" this.nextStep}} disabled={{this.btnsDisabled}} tabindex={{this.primaryButtonIndex}}>
         {{i18n "wizard.next"}}
         {{icon "chevron-right"}}
       </button>
     {{/if}}
 
     {{#if this.showDoneButton}}
-      <button type="button" class="wizard-btn done" {{action "done"}} disabled={{this.btnsDisabled}} tabindex={{this.primaryButtonIndex}}>
+      <button type="button" class="wizard-btn done" {{on "click" this.done}} disabled={{this.btnsDisabled}} tabindex={{this.primaryButtonIndex}}>
         {{i18n "wizard.done_custom"}}
       </button>
     {{/if}}
