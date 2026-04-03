@@ -49,6 +49,6 @@ export default class extends Component {
     {{i18n "wizard.return_to_site" siteName=this.siteName}}
   </a>
   {{#if this.showLoginButton}}
-    <DButton class="btn-primary btn-small login-button" @action={{on "click" this.showLogin}} @label="log_in" @icon="user" />
+    <DButton class="btn-primary btn-small login-button" @action={{this.showLogin}} @label="log_in" @icon="user" />
   {{/if}}
 </div></template>}
