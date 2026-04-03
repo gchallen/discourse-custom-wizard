@@ -15,7 +15,7 @@ export default RouteTemplate(<template>{{#if @controller.submissions}}
     </label>
 
     <div class="controls">
-      <DButton @icon="sliders" @label="admin.wizard.edit_columns" @action={{this.showEditColumnsModal}} class="btn-default open-edit-columns-btn download-link" />
+      <DButton @icon="sliders" @label="admin.wizard.edit_columns" @action={{@controller.showEditColumnsModal}} class="btn-default open-edit-columns-btn download-link" />
     </div>
 
     <a class="btn btn-default download-link" href={{@controller.downloadUrl}} target="_blank" rel="noopener noreferrer">

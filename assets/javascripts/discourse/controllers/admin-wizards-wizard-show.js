@@ -119,64 +119,66 @@ export default Controller.extend({
     });
   },
 
-  actions: {
-    save() {
-      this.setProperties({
-        saving: true,
-        error: null,
-      });
+  @action
+  save() {
+    this.setProperties({
+      saving: true,
+      error: null,
+    });
 
-      const wizard = this.wizard;
-      const creating = this.creating;
-      let opts = {};
+    const wizard = this.wizard;
+    const creating = this.creating;
+    let opts = {};
 
-      if (creating) {
-        opts.create = true;
-      }
+    if (creating) {
+      opts.create = true;
+    }
 
-      wizard
-        .save(opts)
-        .then((result) => {
-          if (result.wizard_id) {
-            this.send("afterSave", result.wizard_id);
-          } else if (result.errors) {
-            this.set("error", result.errors.join(", "));
-          }
-        })
-        .catch((result) => {
-          this.set("error", this.getErrorMessage(result));
+    wizard
+      .save(opts)
+      .then((result) => {
+        if (result.wizard_id) {
+          this.send("afterSave", result.wizard_id);
+        } else if (result.errors) {
+          this.set("error", result.errors.join(", "));
+        }
+      })
+      .catch((result) => {
+        this.set("error", this.getErrorMessage(result));
 
-          later(() => this.set("error", null), 10000);
-        })
-        .finally(() => this.set("saving", false));
-    },
+        later(() => this.set("error", null), 10000);
+      })
+      .finally(() => this.set("saving", false));
+  },
 
-    remove() {
-      this.wizard.remove().then(() => this.send("afterDestroy"));
-    },
+  @action
+  remove() {
+    this.wizard.remove().then(() => this.send("afterDestroy"));
+  },
 
-    setNextSessionScheduled() {
-      this.modal.show(NextSessionScheduledModal, {
-        model: {
-          dateTime: this.wizard.after_time_scheduled,
-          update: (dateTime) =>
-            this.set("wizard.after_time_scheduled", dateTime),
-        },
-      });
-    },
+  @action
+  setNextSessionScheduled() {
+    this.modal.show(NextSessionScheduledModal, {
+      model: {
+        dateTime: this.wizard.after_time_scheduled,
+        update: (dateTime) =>
+          this.set("wizard.after_time_scheduled", dateTime),
+      },
+    });
+  },
 
-    copyUrl() {
-      const $copyRange = $('<p id="copy-range"></p>');
-      $copyRange.html(this.wizardUrl);
+  @action
+  copyUrl() {
+    const $copyRange = $('<p id="copy-range"></p>');
+    $copyRange.html(this.wizardUrl);
 
-      $(document.body).append($copyRange);
+    $(document.body).append($copyRange);
 
-      if (copyText(this.wizardUrl, $copyRange[0])) {
-        this.set("copiedUrl", true);
-        later(() => this.set("copiedUrl", false), 2000);
-      }
+    if (copyText(this.wizardUrl, $copyRange[0])) {
+      this.set("copiedUrl", true);
+      later(() => this.set("copiedUrl", false), 2000);
+    }
 
-      $copyRange.remove();
-    },
+    $copyRange.remove();
   },
 });

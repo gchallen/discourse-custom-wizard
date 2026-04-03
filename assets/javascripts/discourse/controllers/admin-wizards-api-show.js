@@ -1,4 +1,5 @@
 import Controller from "@ember/controller";
+import { action } from "@ember/object";
 import { and, equal, not } from "@ember/object/computed";
 import { service } from "@ember/service";
 import { underscore } from "@ember/string";
@@ -76,187 +77,193 @@ export default Controller.extend({
     return isNew ? "new" : "saved";
   },
 
-  actions: {
-    addParam() {
-      this.get("api.authParams").pushObject({});
-    },
+  @action
+  addParam() {
+    this.get("api.authParams").pushObject({});
+  },
 
-    removeParam(param) {
-      this.get("api.authParams").removeObject(param);
-    },
+  @action
+  removeParam(param) {
+    this.get("api.authParams").removeObject(param);
+  },
 
-    addEndpoint() {
-      this.get("api.endpoints").pushObject({});
-    },
+  @action
+  addEndpoint() {
+    this.get("api.endpoints").pushObject({});
+  },
 
-    removeEndpoint(endpoint) {
-      this.get("api.endpoints").removeObject(endpoint);
-    },
+  @action
+  removeEndpoint(endpoint) {
+    this.get("api.endpoints").removeObject(endpoint);
+  },
 
-    authorize() {
-      const api = this.get("api");
-      const { name, authType, authUrl, authParams } = api;
+  @action
+  authorize() {
+    const api = this.get("api");
+    const { name, authType, authUrl, authParams } = api;
 
-      this.set("authErrorMessage", "");
+    this.set("authErrorMessage", "");
 
-      if (authType === "oauth_2") {
-        this.set("authorizing", true);
-        ajax(`/admin/wizards/api/${underscore(name)}/authorize`)
-          .catch(popupAjaxError)
-          .then((result) => {
-            if (result.success) {
-              this.set("api", CustomWizardApi.create(result.api));
-            } else if (result.failed && result.message) {
-              this.set("authErrorMessage", result.message);
-            } else {
-              this.set("authErrorMessage", "Authorization Failed");
-            }
-            setTimeout(() => {
-              this.set("authErrorMessage", "");
-            }, 6000);
-          })
-          .finally(() => this.set("authorizing", false));
-      } else if (authType === "oauth_3") {
-        let query = "?";
+    if (authType === "oauth_2") {
+      this.set("authorizing", true);
+      ajax(`/admin/wizards/api/${underscore(name)}/authorize`)
+        .catch(popupAjaxError)
+        .then((result) => {
+          if (result.success) {
+            this.set("api", CustomWizardApi.create(result.api));
+          } else if (result.failed && result.message) {
+            this.set("authErrorMessage", result.message);
+          } else {
+            this.set("authErrorMessage", "Authorization Failed");
+          }
+          setTimeout(() => {
+            this.set("authErrorMessage", "");
+          }, 6000);
+        })
+        .finally(() => this.set("authorizing", false));
+    } else if (authType === "oauth_3") {
+      let query = "?";
 
-        query += `client_id=${api.clientId}`;
-        query += `&redirect_uri=${encodeURIComponent(api.redirectUri)}`;
-        query += `&response_type=code`;
+      query += `client_id=${api.clientId}`;
+      query += `&redirect_uri=${encodeURIComponent(api.redirectUri)}`;
+      query += `&response_type=code`;
 
-        if (authParams) {
-          authParams.forEach((p) => {
-            query += `&${p.key}=${encodeURIComponent(p.value)}`;
+      if (authParams) {
+        authParams.forEach((p) => {
+          query += `&${p.key}=${encodeURIComponent(p.value)}`;
+        });
+      }
+
+      window.location.href = authUrl + query;
+    }
+  },
+
+  @action
+  save() {
+    const api = this.get("api");
+    const name = api.name;
+    const authType = api.authType;
+    let error;
+
+    if (!name || !authType) {
+      return;
+    }
+
+    let data = {
+      auth_type: authType,
+    };
+
+    if (api.title) {
+      data["title"] = api.title;
+    }
+
+    if (api.get("isNew")) {
+      data["new"] = true;
+    }
+
+    let requiredParams;
+
+    if (authType === "basic") {
+      requiredParams = ["username", "password"];
+    } else if (authType === "oauth_2") {
+      requiredParams = ["tokenUrl", "clientId", "clientSecret"];
+    } else if (authType === "oauth_3") {
+      requiredParams = ["authUrl", "tokenUrl", "clientId", "clientSecret"];
+    }
+
+    if (requiredParams) {
+      for (let rp of requiredParams) {
+        if (!api[rp]) {
+          let key = rp.replace("auth", "");
+          error = `${I18n.t(
+            `admin.wizard.api.auth.${underscore(key)}`
+          )} is required for ${authType}`;
+          break;
+        }
+        data[underscore(rp)] = api[rp];
+      }
+    }
+
+    const params = api.authParams;
+    if (params.length) {
+      data["auth_params"] = JSON.stringify(params);
+    }
+
+    const endpoints = api.endpoints;
+    if (endpoints.length) {
+      for (let e of endpoints) {
+        if (!e.name) {
+          error = "Every endpoint must have a name";
+          break;
+        }
+      }
+      data["endpoints"] = JSON.stringify(endpoints);
+    }
+
+    if (error) {
+      this.set("error", error);
+      setTimeout(() => {
+        this.set("error", "");
+      }, 6000);
+      return;
+    }
+
+    this.set("updating", true);
+
+    ajax(`/admin/wizards/api/${underscore(name)}`, {
+      type: "PUT",
+      data,
+    })
+      .catch(popupAjaxError)
+      .then((result) => {
+        if (result.success) {
+          this.send("afterSave", result.api.name);
+        } else {
+          this.set("responseIcon", "xmark");
+        }
+      })
+      .finally(() => this.set("updating", false));
+  },
+
+  @action
+  remove() {
+    const name = this.get("api.name");
+    if (!name) {
+      return;
+    }
+
+    this.set("updating", true);
+
+    ajax(`/admin/wizards/api/${underscore(name)}`, {
+      type: "DELETE",
+    })
+      .catch(popupAjaxError)
+      .then((result) => {
+        if (result.success) {
+          this.send("afterDestroy");
+        }
+      })
+      .finally(() => this.set("updating", false));
+  },
+
+  @action
+  clearLogs() {
+    const name = this.get("api.name");
+    if (!name) {
+      return;
+    }
+
+    ajax(`/admin/wizards/api/${underscore(name)}/logs`, {
+      type: "DELETE",
+    })
+      .catch(popupAjaxError)
+      .then((result) => {
+        if (result.success) {
+          this.router.transitionTo("adminWizardsApis").then(() => {
+            this.send("refreshModel");
           });
         }
-
-        window.location.href = authUrl + query;
-      }
-    },
-
-    save() {
-      const api = this.get("api");
-      const name = api.name;
-      const authType = api.authType;
-      let error;
-
-      if (!name || !authType) {
-        return;
-      }
-
-      let data = {
-        auth_type: authType,
-      };
-
-      if (api.title) {
-        data["title"] = api.title;
-      }
-
-      if (api.get("isNew")) {
-        data["new"] = true;
-      }
-
-      let requiredParams;
-
-      if (authType === "basic") {
-        requiredParams = ["username", "password"];
-      } else if (authType === "oauth_2") {
-        requiredParams = ["tokenUrl", "clientId", "clientSecret"];
-      } else if (authType === "oauth_3") {
-        requiredParams = ["authUrl", "tokenUrl", "clientId", "clientSecret"];
-      }
-
-      if (requiredParams) {
-        for (let rp of requiredParams) {
-          if (!api[rp]) {
-            let key = rp.replace("auth", "");
-            error = `${I18n.t(
-              `admin.wizard.api.auth.${underscore(key)}`
-            )} is required for ${authType}`;
-            break;
-          }
-          data[underscore(rp)] = api[rp];
-        }
-      }
-
-      const params = api.authParams;
-      if (params.length) {
-        data["auth_params"] = JSON.stringify(params);
-      }
-
-      const endpoints = api.endpoints;
-      if (endpoints.length) {
-        for (let e of endpoints) {
-          if (!e.name) {
-            error = "Every endpoint must have a name";
-            break;
-          }
-        }
-        data["endpoints"] = JSON.stringify(endpoints);
-      }
-
-      if (error) {
-        this.set("error", error);
-        setTimeout(() => {
-          this.set("error", "");
-        }, 6000);
-        return;
-      }
-
-      this.set("updating", true);
-
-      ajax(`/admin/wizards/api/${underscore(name)}`, {
-        type: "PUT",
-        data,
       })
-        .catch(popupAjaxError)
-        .then((result) => {
-          if (result.success) {
-            this.send("afterSave", result.api.name);
-          } else {
-            this.set("responseIcon", "xmark");
-          }
-        })
-        .finally(() => this.set("updating", false));
-    },
-
-    remove() {
-      const name = this.get("api.name");
-      if (!name) {
-        return;
-      }
-
-      this.set("updating", true);
-
-      ajax(`/admin/wizards/api/${underscore(name)}`, {
-        type: "DELETE",
-      })
-        .catch(popupAjaxError)
-        .then((result) => {
-          if (result.success) {
-            this.send("afterDestroy");
-          }
-        })
-        .finally(() => this.set("updating", false));
-    },
-
-    clearLogs() {
-      const name = this.get("api.name");
-      if (!name) {
-        return;
-      }
-
-      ajax(`/admin/wizards/api/${underscore(name)}/logs`, {
-        type: "DELETE",
-      })
-        .catch(popupAjaxError)
-        .then((result) => {
-          if (result.success) {
-            this.router.transitionTo("adminWizardsApis").then(() => {
-              this.send("refreshModel");
-            });
-          }
-        })
-        .finally(() => this.set("updating", false));
-    },
+      .finally(() => this.set("updating", false));
   },
 });

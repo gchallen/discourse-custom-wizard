@@ -1,4 +1,5 @@
 import Controller from "@ember/controller";
+import { action } from "@ember/object";
 import { notEmpty } from "@ember/object/computed";
 import discourseComputed from "discourse-common/utils/decorators";
 import CustomWizardLogs from "../models/custom-wizard-logs";
@@ -32,21 +33,21 @@ export default Controller.extend({
     return !hasLogs && !refreshing;
   },
 
-  actions: {
-    loadMore() {
-      if (!this.loadingMore && this.logs.length < this.total) {
-        this.set("page", (this.page += 1));
-        this.loadLogs();
-      }
-    },
-
-    refresh() {
-      this.setProperties({
-        canLoadMore: true,
-        page: 0,
-        logs: [],
-      });
+  @action
+  loadMore() {
+    if (!this.loadingMore && this.logs.length < this.total) {
+      this.set("page", (this.page += 1));
       this.loadLogs();
-    },
+    }
+  },
+
+  @action
+  refresh() {
+    this.setProperties({
+      canLoadMore: true,
+      page: 0,
+      logs: [],
+    });
+    this.loadLogs();
   },
 });

@@ -29,7 +29,7 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
         {{#if @controller.copiedUrl}}
           <DButton class="btn-hover pull-right" @icon="copy" @label="ip_lookup.copied" />
         {{else}}
-          <DButton @action={{this.copyUrl}} class="pull-right no-text" @icon="copy" />
+          <DButton @action={{@controller.copyUrl}} class="pull-right no-text" @icon="copy" />
         {{/if}}
         <a href={{@controller.wizardUrl}} target="_blank" rel="noopener noreferrer">{{@controller.wizardUrl}}</a>
       {{/if}}
@@ -108,7 +108,7 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
       <div class="setting-value">
         <Input @type="checkbox" @checked={{@controller.wizard.after_time}} />
         <span>{{i18n "admin.wizard.after_time_label"}}</span>
-        <DButton @action={{this.setNextSessionScheduled}} @translatedLabel={{@controller.nextSessionScheduledLabel}} class="btn-after-time" @icon="far-calendar" />
+        <DButton @action={{@controller.setNextSessionScheduled}} @translatedLabel={{@controller.nextSessionScheduledLabel}} class="btn-after-time" @icon="far-calendar" />
       </div>
     </div>
 
@@ -167,12 +167,12 @@ export default RouteTemplate(<template>{{#if @controller.wizard}}
   {{/each}}
 
   <div class="admin-wizard-buttons">
-    <button {{on "click" this.save}} disabled={{@controller.disableSave}} class="btn btn-primary" type="button">
+    <button {{on "click" @controller.save}} disabled={{@controller.disableSave}} class="btn btn-primary" type="button">
       {{i18n "admin.wizard.save"}}
     </button>
 
     {{#unless @controller.creating}}
-      <button {{on "click" this.remove}} class="btn btn-danger remove" type="button">
+      <button {{on "click" @controller.remove}} class="btn btn-danger remove" type="button">
         {{icon "far-trash-can"}}{{i18n "admin.wizard.remove"}}
       </button>
     {{/unless}}

@@ -15,7 +15,7 @@ export default RouteTemplate(<template><div class="admin-wizard-controls">
   <div class="buttons">
     {{#if @controller.filename}}
       <div class="filename">
-        <a role="button" {{on "click" this.clearFile}}>
+        <a role="button" {{on "click" @controller.clearFile}}>
           {{icon "xmark"}}
         </a>
         <span>{{@controller.filename}}</span>
@@ -23,10 +23,10 @@ export default RouteTemplate(<template><div class="admin-wizard-controls">
     {{/if}}
 
     <Input id="custom-wizard-file-upload" @type="file" accept="application/json" {{on "input" this.setFile}} />
-    <DButton @id="upload-button" @label="admin.wizard.manager.upload" @action={{this.upload}} />
-    <DButton @id="import-button" @label="admin.wizard.manager.import" @action={{this.import}} @disabled={{@controller.importDisabled}} />
-    <DButton @id="export-button" @label="admin.wizard.manager.export" @action={{this.export}} @disabled={{@controller.exportDisabled}} />
-    <DButton @id="destroy-button" @label="admin.wizard.manager.destroy" @action={{this.destroy}} @disabled={{@controller.destoryDisabled}} />
+    <DButton @id="upload-button" @label="admin.wizard.manager.upload" @action={{@controller.upload}} />
+    <DButton @id="import-button" @label="admin.wizard.manager.import" @action={{@controller.import}} @disabled={{@controller.importDisabled}} />
+    <DButton @id="export-button" @label="admin.wizard.manager.export" @action={{@controller.export}} @disabled={{@controller.exportDisabled}} />
+    <DButton @id="destroy-button" @label="admin.wizard.manager.destroy" @action={{@controller.destroy}} @disabled={{@controller.destoryDisabled}} />
   </div>
 </div>
 

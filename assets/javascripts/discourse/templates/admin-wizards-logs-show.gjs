@@ -14,7 +14,7 @@ export default RouteTemplate(<template>{{#if @controller.logs}}
     </label>
 
     <div class="controls">
-      <DButton @label="refresh" @icon="arrows-rotate" @action={{this.refresh}} class="refresh" />
+      <DButton @label="refresh" @icon="arrows-rotate" @action={{@controller.refresh}} class="refresh" />
     </div>
   </div>
 

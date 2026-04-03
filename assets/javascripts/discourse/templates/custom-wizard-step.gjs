@@ -8,7 +8,7 @@ export default RouteTemplate(<template>{{#if @controller.stepMessage}}
       {{@controller.stepMessage.text}}
     </div>
     {{#if @controller.showReset}}
-      <a role="button" class="reset-wizard" {{on "click" this.resetWizard}}>
+      <a role="button" class="reset-wizard" {{on "click" @controller.resetWizard}}>
         {{i18n "wizard.reset"}}
       </a>
     {{/if}}

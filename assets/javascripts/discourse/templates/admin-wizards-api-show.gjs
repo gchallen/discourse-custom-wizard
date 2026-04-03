@@ -22,10 +22,10 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
       {{/if}}
     {{/if}}
 
-    <DButton @label="admin.wizard.api.save" @action={{this.save}} class="btn-primary" @disabled={{@controller.saveDisabled}} />
+    <DButton @label="admin.wizard.api.save" @action={{@controller.save}} class="btn-primary" @disabled={{@controller.saveDisabled}} />
 
     {{#if @controller.showRemove}}
-      <DButton @action={{this.remove}} @label="admin.wizard.api.remove" />
+      <DButton @action={{@controller.remove}} @label="admin.wizard.api.remove" />
     {{/if}}
 
     {{#if @controller.error}}
@@ -70,7 +70,7 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
           <span>{{@controller.authErrorMessage}}</span>
         {{/if}}
       {{/if}}
-      <DButton @label="admin.wizard.api.auth.btn" @action={{this.authorize}} @disabled={{@controller.authDisabled}} class="btn-primary" />
+      <DButton @label="admin.wizard.api.auth.btn" @action={{@controller.authorize}} @disabled={{@controller.authDisabled}} class="btn-primary" />
     {{/if}}
   </div>
 
@@ -142,10 +142,10 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
             <div class="param">
               <Input @value={{param.key}} placeholder={{i18n "admin.wizard.key"}} />
               <Input @value={{param.value}} placeholder={{i18n "admin.wizard.value"}} />
-              <DButton @action={{this.removeParam}} @actionParam={{param}} @icon="xmark" />
+              <DButton @action={{@controller.removeParam}} @actionParam={{param}} @icon="xmark" />
             </div>
           {{/each}}
-          <DButton @label="admin.wizard.api.auth.params.new" @icon="plus" @action={{this.addParam}} />
+          <DButton @label="admin.wizard.api.auth.params.new" @icon="plus" @action={{@controller.addParam}} />
         </div>
       </div>
     {{/if}}
@@ -230,7 +230,7 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
 </div>
 
 <div class="wizard-api-endpoints">
-  <DButton @action={{this.addEndpoint}} @label="admin.wizard.api.endpoint.add" @icon="plus" />
+  <DButton @action={{@controller.addEndpoint}} @label="admin.wizard.api.endpoint.add" @icon="plus" />
 
   {{#if @controller.api.endpoints}}
     <div class="endpoint-list">
@@ -242,7 +242,7 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
                 <div class="top">
                   <Input @value={{endpoint.name}} placeholder={{i18n "admin.wizard.api.endpoint.name"}} />
                   <Input @value={{endpoint.url}} placeholder={{i18n "admin.wizard.api.endpoint.url"}} class="endpoint-url" />
-                  <DButton @action={{this.removeEndpoint}} @actionParam={{endpoint}} @icon="xmark" class="remove-endpoint" />
+                  <DButton @action={{@controller.removeEndpoint}} @actionParam={{endpoint}} @icon="xmark" class="remove-endpoint" />
                 </div>
                 <div class="bottom">
                   <ComboBox @content={{@controller.endpointMethods}} @value={{endpoint.method}} @onChange={{(fn (mut endpoint.method))}} @options={{(hash none="admin.wizard.api.endpoint.method")}} />
@@ -262,7 +262,7 @@ export default RouteTemplate(<template><div class="wizard-api-header page">
   {{i18n "admin.wizard.api.log.label"}}
 
   <div class="controls">
-    <DButton @action={{this.clearLogs}} class="clear-logs" @label="admin.wizard.api.log.clear" />
+    <DButton @action={{@controller.clearLogs}} class="clear-logs" @label="admin.wizard.api.log.clear" />
   </div>
 </div>
 

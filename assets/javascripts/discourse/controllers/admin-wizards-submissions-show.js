@@ -1,4 +1,5 @@
 import Controller from "@ember/controller";
+import { action } from "@ember/object";
 import { empty } from "@ember/object/computed";
 import { service } from "@ember/service";
 import { fmt } from "discourse/lib/computed";
@@ -48,25 +49,25 @@ export default Controller.extend({
     return result;
   },
 
-  actions: {
-    loadMore() {
-      if (!this.loadingMore && this.submissions.length < this.total) {
-        this.set("page", this.get("page") + 1);
-        this.loadMoreSubmissions();
-      }
-    },
+  @action
+  loadMore() {
+    if (!this.loadingMore && this.submissions.length < this.total) {
+      this.set("page", this.get("page") + 1);
+      this.loadMoreSubmissions();
+    }
+  },
 
-    showEditColumnsModal() {
-      return this.modal.show(AdminWizardsColumnsModal, {
-        model: {
-          columns: this.get("fields"),
-          reset: () => {
-            this.get("fields").forEach((field) => {
-              field.set("enabled", true);
-            });
-          },
+  @action
+  showEditColumnsModal() {
+    return this.modal.show(AdminWizardsColumnsModal, {
+      model: {
+        columns: this.get("fields"),
+        reset: () => {
+          this.get("fields").forEach((field) => {
+            field.set("enabled", true);
+          });
         },
-      });
-    },
+      },
+    });
   },
 });
