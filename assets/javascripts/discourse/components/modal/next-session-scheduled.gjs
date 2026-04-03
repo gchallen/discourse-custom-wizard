@@ -33,8 +33,8 @@ export default class NextSessionScheduledComponent extends Component {
     this.bufferedDateTime = dateTime;
   }
 <template><DModal @closeModal={{@closeModal}} class="next-session-time-modal" @title={{this.title}}>
-  <DateTimeInput @date={{this.bufferedDateTime}} @onChange={{action "dateTimeChanged"}} @showTime="true" @clearable="true" />
+  <DateTimeInput @date={{this.bufferedDateTime}} @onChange={{this.dateTimeChanged}} @showTime="true" @clearable="true" />
   <div class="modal-footer">
-    <DButton @action={{action "submit"}} class="btn-primary" @label="admin.wizard.after_time_modal.done" @disabled={{this.submitDisabled}} />
+    <DButton @action={{this.submit}} class="btn-primary" @label="admin.wizard.after_time_modal.done" @disabled={{this.submitDisabled}} />
   </div>
 </DModal></template>}
