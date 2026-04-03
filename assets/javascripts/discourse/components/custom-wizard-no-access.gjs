@@ -9,9 +9,10 @@ import discourseComputed from "discourse-common/utils/decorators";
 import CustomWizard from "../models/custom-wizard";
 import i18n from "discourse/helpers/i18n";
 import DButton from "discourse/components/d-button";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings(":wizard-no-access", "reasonClass")
 export default class extends Component {
-  classNameBindings = [":wizard-no-access", "reasonClass"];
 
   @discourseComputed("reason")
   reasonClass(reason) {

@@ -7,9 +7,10 @@ import { observes } from "discourse-common/utils/decorators";
 import customWizardSimilarTopic from "./custom-wizard-similar-topic";
 import i18n from "discourse/helpers/i18n";
 import CustomWizardSimilarTopic from "./custom-wizard-similar-topic";
+import { classNames } from "@ember-decorators/component";
 
+@classNames("wizard-similar-topics")
 export default class extends Component {
-  classNames = ["wizard-similar-topics"];
   showTopics = true;
 
   didInsertElement() {

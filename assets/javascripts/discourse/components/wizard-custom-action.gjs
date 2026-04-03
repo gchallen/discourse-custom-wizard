@@ -20,10 +20,11 @@ import ComboBox from "select-kit/components/combo-box";
 import WizardMessage from "./wizard-message";
 import WizardMapper from "./wizard-mapper";
 import WizardTextEditor from "./wizard-text-editor";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings(":wizard-custom-action", "visible")
 export default class extends Component.extend(UndoChanges) {
   componentType = "action";
-  classNameBindings = [":wizard-custom-action", "visible"];
   @computed("currentActionId")
   get visible() {
     return this.action.id === this.currentActionId;

@@ -6,13 +6,10 @@ import I18n from "I18n";
 import { defaultConnector } from "../lib/wizard-mapper";
 import comboBox from "select-kit/components/combo-box";
 import ComboBox from "select-kit/components/combo-box";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings(":mapper-connector", ":mapper-block", "hasMultiple::single")
 export default class extends Component {
-  classNameBindings = [
-    ":mapper-connector",
-    ":mapper-block",
-    "hasMultiple::single",
-  ];
   @gt("connectors.length", 1) hasMultiple;
   @computed()
   get connectorLabel() {

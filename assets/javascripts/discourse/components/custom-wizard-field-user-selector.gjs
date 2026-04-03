@@ -2,9 +2,10 @@ import Component from "@ember/component";
 import { action, computed } from "@ember/object";
 import customUserSelector from "./custom-user-selector";
 import CustomUserSelector from "./custom-user-selector";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings("fieldClass")
 export default class extends Component {
-  classNameBindings = ["fieldClass"];
 
   @computed("includeGroups")
   get _includeGroups() {

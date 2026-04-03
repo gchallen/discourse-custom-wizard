@@ -14,15 +14,16 @@ import dButton from "discourse/components/d-button";
 import WizardSubscriptionSelector from "./wizard-subscription-selector";
 import MultiSelect from "select-kit/components/multi-select";
 import DButton from "discourse/components/d-button";
+import { classNames, tagName } from "@ember-decorators/component";
 
+@classNames("custom-field-input")
+@tagName("tr")
 export default class extends Component {
-  tagName = "tr";
   topicSerializers = ["topic_view", "topic_list_item"];
   postSerializers = ["post"];
   groupSerializers = ["basic_group"];
   categorySerializers = ["basic_category"];
   showInputs = or("field.new", "field.edit");
-  classNames = ["custom-field-input"];
   loading = or("saving", "destroying");
   destroyDisabled = alias("loading");
   closeDisabled = alias("loading");

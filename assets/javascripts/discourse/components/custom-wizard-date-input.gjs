@@ -2,10 +2,11 @@ import DateInput from "discourse/components/date-input";
 import discourseComputed from "discourse-common/utils/decorators";
 import { Input } from "@ember/component";
 import { on } from "@ember/modifier";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings("fieldClass")
 export default class extends DateInput {
   useNativePicker = false;
-  classNameBindings = ["fieldClass"];
 
   @discourseComputed()
   placeholder() {

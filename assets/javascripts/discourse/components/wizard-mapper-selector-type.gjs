@@ -1,9 +1,10 @@
 import Component from "@ember/component";
 import discourseComputed from "discourse-common/utils/decorators";
+import { classNameBindings, tagName } from "@ember-decorators/component";
 
+@classNameBindings("active")
+@tagName("a")
 export default class extends Component {
-  tagName = "a";
-  classNameBindings = ["active"];
 
   @discourseComputed("item.type", "activeType")
   active(type, activeType) {

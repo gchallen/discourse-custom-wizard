@@ -1,8 +1,9 @@
 import Component, { Input } from "@ember/component";
 import { observes } from "discourse-common/utils/decorators";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings(":wizard-field-email", "emailInvalid:invalid")
 export default class extends Component {
-  classNameBindings = [":wizard-field-email", "emailInvalid:invalid"];
   emailInvalid = false;
 
   keyPress(e) {

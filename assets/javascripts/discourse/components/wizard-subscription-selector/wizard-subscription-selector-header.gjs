@@ -3,9 +3,10 @@ import { reads } from "@ember/object/computed";
 import SingleSelectHeaderComponent from "select-kit/components/select-kit/single-select-header";
 import icon from "discourse/helpers/d-icon";
 import { i18n } from "discourse-i18n";
+import { classNames } from "@ember-decorators/component";
 
+@classNames("combo-box-header", "wizard-subscription-selector-header")
 export default class WizardSubscriptionSelectorHeader extends SingleSelectHeaderComponent {
-  classNames = ["combo-box-header", "wizard-subscription-selector-header"];
   @reads("selectKit.options.caretUpIcon") caretUpIcon;
   @reads("selectKit.options.caretDownIcon") caretDownIcon;
   @computed(

@@ -4,6 +4,7 @@ import { default as discourseComputed } from "discourse-common/utils/decorators"
 import I18n from "I18n";
 import icon from "discourse/helpers/d-icon";
 import htmlSafe from "discourse/helpers/html-safe";
+import { classNameBindings } from "@ember-decorators/component";
 
 const icons = {
   error: "circle-xmark",
@@ -12,8 +13,8 @@ const icons = {
   info: "circle-info",
 };
 
+@classNameBindings(":wizard-message", "type", "loading")
 export default class extends Component {
-  classNameBindings = [":wizard-message", "type", "loading"];
   showDocumentation = not("loading");
   showIcon = not("loading");
   hasItems = notEmpty("items");

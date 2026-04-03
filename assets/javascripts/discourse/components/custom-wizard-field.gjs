@@ -24,6 +24,7 @@ import CustomWizardFieldEmail from "./custom-wizard-field-email";
 import CustomWizardFieldUserSelector from "./custom-wizard-field-user-selector";
 import CustomWizardFieldComposer from "./custom-wizard-field-composer";
 import CustomWizardFieldComposerPreview from "./custom-wizard-field-composer-preview";
+import { classNameBindings } from "@ember-decorators/component";
 
 const FIELD_COMPONENTS = {
   "text": CustomWizardFieldText,
@@ -56,13 +57,8 @@ function openLinksInNewTab(html) {
   return htmlSafe(div.innerHTML);
 }
 
+@classNameBindings(":wizard-field", "typeClasses", "field.invalid", "field.id")
 export default class CustomWizardField extends Component {
-  classNameBindings = [
-    ":wizard-field",
-    "typeClasses",
-    "field.invalid",
-    "field.id",
-  ];
 
   didReceiveAttrs() {
     super.didReceiveAttrs(...arguments);

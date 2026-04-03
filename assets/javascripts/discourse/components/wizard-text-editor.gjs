@@ -11,11 +11,12 @@ import dButton from "discourse/components/d-button";
 import i18n from "discourse/helpers/i18n";
 import DEditor from "discourse/components/d-editor";
 import DButton from "discourse/components/d-button";
+import { classNames } from "@ember-decorators/component";
 
 const excludedUserProperties = ["profile_background", "card_background"];
 
+@classNames("wizard-text-editor")
 export default class extends Component {
-  classNames = ["wizard-text-editor"];
   barEnabled = true;
   previewEnabled = true;
   fieldsEnabled = true;

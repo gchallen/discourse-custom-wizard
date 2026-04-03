@@ -12,9 +12,10 @@ import CategorySelector from "select-kit/components/category-selector";
 import comboBox from "select-kit/components/combo-box";
 import radioButton from "discourse/components/radio-button";
 import ComboBox from "select-kit/components/combo-box";
+import { classNames } from "@ember-decorators/component";
 
+@classNames("realtime-validations", "setting", "full", "subscription")
 export default class extends Component {
-  classNames = ["realtime-validations", "setting", "full", "subscription"];
 
   @discourseComputed
   timeUnits() {

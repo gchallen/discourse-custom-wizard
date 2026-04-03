@@ -2,10 +2,11 @@ import Component from "@ember/component";
 import { equal } from "@ember/object/computed";
 import { ajax } from "discourse/lib/ajax";
 import i18n from "discourse/helpers/i18n";
+import { classNameBindings, classNames } from "@ember-decorators/component";
 
+@classNameBindings("isValid", "isInvalid")
+@classNames("validator")
 export default class extends Component {
-  classNames = ["validator"];
-  classNameBindings = ["isValid", "isInvalid"];
   validMessageKey = null;
   invalidMessageKey = null;
   isValid = null;

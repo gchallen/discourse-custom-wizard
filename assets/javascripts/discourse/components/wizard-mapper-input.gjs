@@ -13,9 +13,10 @@ import wizardMapperSelector from "./wizard-mapper-selector";
 import WizardMapperConnector from "./wizard-mapper-connector";
 import WizardMapperPair from "./wizard-mapper-pair";
 import WizardMapperSelector from "./wizard-mapper-selector";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings(":mapper-input", "inputType")
 export default class extends Component {
-  classNameBindings = [":mapper-input", "inputType"];
   @alias("input.type") inputType;
   @equal("inputType", "conditional") isConditional;
   @equal("inputType", "assignment") isAssignment;

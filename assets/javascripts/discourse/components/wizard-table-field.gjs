@@ -11,9 +11,10 @@ import discourseTag from "discourse/helpers/discourse-tag";
 import { LinkTo } from "@ember/routing";
 import avatar from "discourse/helpers/avatar";
 import rawDate from "discourse/helpers/raw-date";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings("value.type")
 export default class extends Component {
-  classNameBindings = ["value.type"];
   isText = equal("value.type", "text");
   isComposer = equal("value.type", "composer");
   isDate = equal("value.type", "date");

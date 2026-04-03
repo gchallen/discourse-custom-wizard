@@ -10,9 +10,10 @@ import WizardFieldValidator from "discourse/plugins/discourse-custom-wizard/disc
 import htmlSafe from "discourse/helpers/html-safe";
 import i18n from "discourse/helpers/i18n";
 import customWizardSimilarTopics from "./custom-wizard-similar-topics";
+import { classNames } from "@ember-decorators/component";
 
+@classNames("similar-topics-validator")
 export default class extends WizardFieldValidator {
-  classNames = ["similar-topics-validator"];
   similarTopics = null;
   hasInput = notEmpty("field.value");
   hasSimilarTopics = notEmpty("similarTopics");

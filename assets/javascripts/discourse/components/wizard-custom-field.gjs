@@ -27,10 +27,11 @@ import WizardMessage from "./wizard-message";
 import WizardMapper from "./wizard-mapper";
 import ComboBox from "select-kit/components/combo-box";
 import WizardRealtimeValidations from "./wizard-realtime-validations";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings(":wizard-custom-field", "visible")
 export default class extends Component.extend(UndoChanges) {
   componentType = "field";
-  classNameBindings = [":wizard-custom-field", "visible"];
   @computed("currentFieldId")
   get visible() {
     return this.field.id === this.currentFieldId;

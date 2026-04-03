@@ -10,9 +10,10 @@ import dButton from "discourse/components/d-button";
 import WizardMapperConnector from "./wizard-mapper-connector";
 import WizardMapperInput from "./wizard-mapper-input";
 import DButton from "discourse/components/d-button";
+import { classNames } from "@ember-decorators/component";
 
+@classNames("wizard-mapper")
 export default class extends Component {
-  classNames = ["wizard-mapper"];
 
   didReceiveAttrs() {
     super.didReceiveAttrs();

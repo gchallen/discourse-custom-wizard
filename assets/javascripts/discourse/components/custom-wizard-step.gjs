@@ -17,6 +17,7 @@ import i18n from "discourse/helpers/i18n";
 import loadingSpinner from "discourse/helpers/loading-spinner";
 import icon from "discourse/helpers/d-icon";
 import CustomWizardField from "./custom-wizard-field";
+import { classNameBindings } from "@ember-decorators/component";
 
 function openLinksInNewTab(html) {
   const div = document.createElement("div");
@@ -38,8 +39,8 @@ const uploadEndedEventKeys = [
   "all-uploads-complete",
 ];
 
+@classNameBindings(":wizard-step", "step.id")
 export default class extends Component {
-  classNameBindings = [":wizard-step", "step.id"];
   saving = null;
 
   init() {

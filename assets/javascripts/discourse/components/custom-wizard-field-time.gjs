@@ -3,9 +3,10 @@ import { action } from "@ember/object";
 import { observes } from "discourse-common/utils/decorators";
 import customWizardTimeInput from "./custom-wizard-time-input";
 import CustomWizardTimeInput from "./custom-wizard-time-input";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings("fieldClass")
 export default class extends Component {
-  classNameBindings = ["fieldClass"];
 
   @observes("time")
   setValue() {

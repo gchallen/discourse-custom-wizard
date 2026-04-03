@@ -13,9 +13,10 @@ import WizardTextEditor from "./wizard-text-editor";
 import WizardMapper from "./wizard-mapper";
 import WizardLinks from "./wizard-links";
 import WizardCustomField from "./wizard-custom-field";
+import { classNames } from "@ember-decorators/component";
 
+@classNames("wizard-custom-step")
 export default class extends Component {
-  classNames = ["wizard-custom-step"];
 
   @discourseComputed("step.index")
   stepConditionOptions(stepIndex) {

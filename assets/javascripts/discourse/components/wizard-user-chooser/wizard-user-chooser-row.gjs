@@ -5,9 +5,10 @@ import and from "truth-helpers/helpers/and";
 import UserStatusMessage from "discourse/components/user-status-message";
 import decorateUsernameSelector from "discourse/helpers/decorate-username-selector";
 import icon from "discourse/helpers/d-icon";
+import { classNames } from "@ember-decorators/component";
 
+@classNames("user-row", "wizard-user-chooser-row")
 export default class extends SelectKitRowComponent {
-  classNames = ["user-row", "wizard-user-chooser-row"];
 <template>{{#if this.item.isUser}}
   {{avatar this.item imageSize="tiny"}}
   <div>

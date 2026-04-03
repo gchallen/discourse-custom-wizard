@@ -9,9 +9,10 @@ import wizardMapperConnector from "./wizard-mapper-connector";
 import icon from "discourse/helpers/d-icon";
 import WizardMapperSelector from "./wizard-mapper-selector";
 import WizardMapperConnector from "./wizard-mapper-connector";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings(":mapper-pair", "hasConnector::no-connector")
 export default class extends Component {
-  classNameBindings = [":mapper-pair", "hasConnector::no-connector"];
   @gt("pair.index", 0) firstPair;
   @alias("firstPair") showRemove;
   @computed("pair.pairCount")

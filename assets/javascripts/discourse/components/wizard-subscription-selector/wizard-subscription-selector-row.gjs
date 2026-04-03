@@ -4,9 +4,10 @@ import icon from "discourse/helpers/d-icon";
 import dasherize from "discourse/helpers/dasherize";
 import htmlSafe from "discourse/helpers/html-safe";
 import i18n from "discourse/helpers/i18n";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings("isDisabled:disabled")
 export default class extends SelectKitRowComponent {
-  classNameBindings = ["isDisabled:disabled"];
 
   @discourseComputed("item")
   isDisabled() {

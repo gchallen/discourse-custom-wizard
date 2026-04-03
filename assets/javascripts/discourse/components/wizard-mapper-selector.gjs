@@ -23,6 +23,7 @@ import ComboBox from "select-kit/components/combo-box";
 import MultiSelect from "select-kit/components/multi-select";
 import WizardValueList from "./wizard-value-list";
 import TagChooser from "select-kit/components/tag-chooser";
+import { classNameBindings } from "@ember-decorators/component";
 
 const customFieldActionMap = {
   topic: ["create_topic", "send_message"],
@@ -34,8 +35,8 @@ const customFieldActionMap = {
 
 const values = ["present", "true", "false"];
 
+@classNameBindings(":mapper-selector", "activeType")
 export default class extends Component {
-  classNameBindings = [":mapper-selector", "activeType"];
   @service subscription;
 
   @computed("activeType")

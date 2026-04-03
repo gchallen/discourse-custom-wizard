@@ -9,9 +9,10 @@ import htmlSafe from "discourse/helpers/html-safe";
 import i18n from "discourse/helpers/i18n";
 import dButton from "discourse/components/d-button";
 import DButton from "discourse/components/d-button";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings(":wizard-links", "itemType")
 export default class extends Component {
-  classNameBindings = [":wizard-links", "itemType"];
   items = A();
   @notEmpty("links") anyLinks;
 

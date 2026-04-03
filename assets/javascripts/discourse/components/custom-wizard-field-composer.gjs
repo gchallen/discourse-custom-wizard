@@ -4,13 +4,11 @@ import { default as computed, observes } from "discourse-common/utils/decorators
 import CustomWizardComposerEditor from "./custom-wizard-composer-editor";
 import DButton from "discourse/components/d-button";
 import wizardCharCounter from "../helpers/wizard-char-counter";
+import { classNameBindings } from "@ember-decorators/component";
 
+@classNameBindings(":wizard-field-composer", "showPreview:show-preview:hide-preview")
 export default class extends Component {
   showPreview = false;
-  classNameBindings = [
-    ":wizard-field-composer",
-    "showPreview:show-preview:hide-preview",
-  ];
 
   init() {
     super.init(...arguments);
