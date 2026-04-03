@@ -15,5 +15,5 @@ export default RouteTemplate(<template>{{#if @controller.stepMessage}}
   </div>
 {{/if}}
 {{#if @controller.step.permitted}}
-  {{customWizardStep step=@controller.step wizard=@controller.wizard goNext=this.goNext goBack=this.goBack showMessage=this.showMessage}}
+  {{customWizardStep step=@controller.step wizard=@controller.wizard goNext=@controller.goNext goBack=@controller.goBack showMessage=@controller.showMessage}}
 {{/if}}</template>)

@@ -1,4 +1,5 @@
 import Component, { Input } from "@ember/component";
+import { action } from "@ember/object";
 import { mut } from "discourse/helpers/mut";
 import { computed } from "@ember/object";
 import { empty, equal, or } from "@ember/object/computed";
@@ -119,6 +120,11 @@ export default class extends Component.extend(UndoChanges) {
   hasLocationField(fieldTypes) {
     return fieldTypes.map((ft) => ft.id).includes("location");
   }
+
+  @action undoChanges() { super.undoChanges(...arguments); }
+  @action changeType(type) { super.changeType(type); }
+  @action mappedFieldUpdated(property, mappedComponent, type) { super.mappedFieldUpdated(property, mappedComponent, type); }
+
 <template>{{#if this.showUndo}}
   <DButton @action={{this.undoChanges}} @icon={{this.undoIcon}} @label={{this.undoKey}} class="undo-changes" />
 {{/if}}

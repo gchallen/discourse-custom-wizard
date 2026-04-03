@@ -195,6 +195,11 @@ export default class extends Component.extend(UndoChanges) {
   changeCategory(category) {
     this.set("field.category", category?.id);
   }
+
+  @action undoChanges() { super.undoChanges(...arguments); }
+  @action changeType(type) { super.changeType(type); }
+  @action mappedFieldUpdated(property, mappedComponent, type) { super.mappedFieldUpdated(property, mappedComponent, type); }
+
 <template>{{#if this.showUndo}}
   <DButton @action={{this.undoChanges}} @icon={{this.undoIcon}} @label={{this.undoKey}} class="undo-changes" />
 {{/if}}

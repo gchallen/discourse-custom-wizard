@@ -92,7 +92,7 @@ export default class extends Component {
 
   @action
   inputUpdated(component, type) {
-    this.onUpdate(this.property, component, type);
+    this.onUpdate && this.onUpdate(this.property, component, type);
   }
 <template>{{#each this.inputs as |input|}}
   {{#if input.connector}}

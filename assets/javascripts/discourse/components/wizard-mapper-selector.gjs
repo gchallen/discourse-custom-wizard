@@ -400,7 +400,7 @@ export default class extends Component {
 
   _updateValue(value) {
     this.set("value", value);
-    this.onUpdate("selector", this.activeType);
+    this.onUpdate && this.onUpdate("selector", this.activeType);
   }
 
   @observes("inputType")
@@ -416,7 +416,7 @@ export default class extends Component {
     this.set("activeType", type);
     this.set("showTypes", false);
     this.set("value", null);
-    this.onUpdate("selector");
+    this.onUpdate && this.onUpdate("selector");
   }
 
   @action

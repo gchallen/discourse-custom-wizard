@@ -104,33 +104,31 @@ export default Mixin.create({
     this.set("showUndo", !deepEqual(current, original));
   },
 
-  actions: {
-    undoChanges() {
-      const componentType = this.componentType;
-      const obj = this.get(componentType);
+  undoChanges() {
+    const componentType = this.componentType;
+    const obj = this.get(componentType);
 
-      this.removeObservers(obj.type);
-      this.revertToOriginal(true);
-      this.set("showUndo", false);
-      this.setupObservers(this.get(componentType).type);
-    },
+    this.removeObservers(obj.type);
+    this.revertToOriginal(true);
+    this.set("showUndo", false);
+    this.setupObservers(this.get(componentType).type);
+  },
 
-    changeType(type) {
-      const componentType = this.componentType;
-      const original = this.get("originalObject");
-      const obj = this.get(componentType);
+  changeType(type) {
+    const componentType = this.componentType;
+    const original = this.get("originalObject");
+    const obj = this.get(componentType);
 
-      this.removeObservers(obj.type);
-      obj.set("type", type);
-      this.revertToOriginal();
-      this.set("showUndo", type !== original.type);
-      this.setupObservers(type);
-    },
+    this.removeObservers(obj.type);
+    obj.set("type", type);
+    this.revertToOriginal();
+    this.set("showUndo", type !== original.type);
+    this.setupObservers(type);
+  },
 
-    // eslint-disable-next-line
-    mappedFieldUpdated(property, mappedComponent, type) {
-      const obj = this.get(this.componentType);
-      obj.notifyPropertyChange(property);
-    },
+  // eslint-disable-next-line
+  mappedFieldUpdated(property, mappedComponent, type) {
+    const obj = this.get(this.componentType);
+    obj.notifyPropertyChange(property);
   },
 });
