@@ -3,8 +3,15 @@ import { isEmpty } from "@ember/utils";
 import { searchForTerm } from "discourse/lib/search";
 import { makeArray } from "discourse-common/lib/helpers";
 import MultiSelectComponent from "select-kit/components/multi-select";
+import { selectKitOptions } from "select-kit/components/select-kit";
 
 @classNames("topic-selector", "wizard-topic-selector")
+@selectKitOptions({
+    clearable: true,
+    filterable: true,
+    filterPlaceholder: "choose_topic.title.placeholder",
+    allowAny: false,
+  })
 export default class extends MultiSelectComponent {
 
   topics = null;
@@ -14,12 +21,7 @@ export default class extends MultiSelectComponent {
   labelProperty = "title";
   titleProperty = "title";
 
-  selectKitOptions = {
-    clearable: true,
-    filterable: true,
-    filterPlaceholder: "choose_topic.title.placeholder",
-    allowAny: false,
-  };
+
 
   didReceiveAttrs() {
     if (this.topics && !this.selectKit.hasSelection) {

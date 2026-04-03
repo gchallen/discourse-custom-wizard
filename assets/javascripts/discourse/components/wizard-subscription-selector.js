@@ -3,6 +3,7 @@ import { service } from "@ember/service";
 import discourseComputed from "discourse-common/utils/decorators";
 import I18n from "I18n";
 import SingleSelectComponent from "select-kit/components/single-select";
+import { selectKitOptions } from "select-kit/components/select-kit";
 import { filterValues } from "discourse/plugins/discourse-custom-wizard/discourse/lib/wizard-schema";
 
 const nameKey = function (feature, attribute, value) {
@@ -14,11 +15,7 @@ const nameKey = function (feature, attribute, value) {
 };
 
 @classNames("combo-box", "wizard-subscription-selector")
-export default class extends SingleSelectComponent {
-
-  @service subscription;
-
-  selectKitOptions = {
+@selectKitOptions({
     autoFilterable: false,
     filterable: false,
     showFullTitle: true,
@@ -26,7 +23,12 @@ export default class extends SingleSelectComponent {
       "wizard-subscription-selector/wizard-subscription-selector-header",
     caretUpIcon: "caret-up",
     caretDownIcon: "caret-down",
-  };
+  })
+export default class extends SingleSelectComponent {
+
+  @service subscription;
+
+
 
   allowedSubscriptionTypes(feature, attribute, value) {
     let attributes = this.subscription.subscriptionAttributes[feature];

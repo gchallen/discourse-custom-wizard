@@ -91,10 +91,10 @@ export default class extends Component {
     const users = [];
 
     if (isUserSelector) {
-      const userData = value.value;
+      const userData = value?.value || "";
       const usernames = [];
 
-      if (userData.indexOf(",")) {
+      if (userData && userData.indexOf(",") !== -1) {
         usernames.push(...userData.split(","));
 
         usernames.forEach((u) => {
