@@ -1,10 +1,12 @@
+import { classNames } from "@ember-decorators/component";
 import { isEmpty } from "@ember/utils";
 import { searchForTerm } from "discourse/lib/search";
 import { makeArray } from "discourse-common/lib/helpers";
 import MultiSelectComponent from "select-kit/components/multi-select";
 
+@classNames("topic-selector", "wizard-topic-selector")
 export default class extends MultiSelectComponent {
-  classNames = ["topic-selector", "wizard-topic-selector"];
+
   topics = null;
   value = [];
   content = [];

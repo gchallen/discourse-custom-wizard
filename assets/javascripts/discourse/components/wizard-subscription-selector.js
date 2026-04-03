@@ -1,3 +1,4 @@
+import { classNames } from "@ember-decorators/component";
 import { service } from "@ember/service";
 import discourseComputed from "discourse-common/utils/decorators";
 import I18n from "I18n";
@@ -12,8 +13,9 @@ const nameKey = function (feature, attribute, value) {
   }
 };
 
+@classNames("combo-box", "wizard-subscription-selector")
 export default class extends SingleSelectComponent {
-  classNames = ["combo-box", "wizard-subscription-selector"];
+
   @service subscription;
 
   selectKitOptions = {

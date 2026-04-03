@@ -1,12 +1,15 @@
+import { classNames, classNameBindings } from "@ember-decorators/component";
 import I18n from "I18n";
 import UserChooserComponent from "select-kit/components/user-chooser";
 
 export const WIZARD_USER = "wizard-user";
 
+@classNames("user-chooser", "wizard-user-chooser")
+@classNameBindings("selectKit.options.fullWidthWrap:full-width-wrap")
 export default class extends UserChooserComponent {
   pluginApiIdentifiers = ["wizard-user-chooser"];
-  classNames = ["user-chooser", "wizard-user-chooser"];
-  classNameBindings = ["selectKit.options.fullWidthWrap:full-width-wrap"];
+
+
   valueProperty = "id";
   nameProperty = "name";
 

@@ -1,9 +1,10 @@
+import { classNames } from "@ember-decorators/component";
 import { computed } from "@ember/object";
 import { makeArray } from "discourse-common/lib/helpers";
 import CategorySelector from "select-kit/components/category-selector";
 
 class CustomWizardCategorySelector extends CategorySelector {
-  classNames = ["category-selector", "wizard-category-selector"];
+
 }
 
 CustomWizardCategorySelector.reopen({
