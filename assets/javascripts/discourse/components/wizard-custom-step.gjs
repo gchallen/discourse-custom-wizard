@@ -15,7 +15,7 @@ import WizardLinks from "./wizard-links";
 import WizardCustomField from "./wizard-custom-field";
 
 export default class extends Component {
-  classNames = "wizard-custom-step";
+  classNames = ["wizard-custom-step"];
 
   @discourseComputed("step.index")
   stepConditionOptions(stepIndex) {

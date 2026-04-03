@@ -12,7 +12,7 @@ import WizardMapperInput from "./wizard-mapper-input";
 import DButton from "discourse/components/d-button";
 
 export default class extends Component {
-  classNames = "wizard-mapper";
+  classNames = ["wizard-mapper"];
 
   didReceiveAttrs() {
     super.didReceiveAttrs();

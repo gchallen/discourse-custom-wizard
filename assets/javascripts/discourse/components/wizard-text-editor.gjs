@@ -15,7 +15,7 @@ import DButton from "discourse/components/d-button";
 const excludedUserProperties = ["profile_background", "card_background"];
 
 export default class extends Component {
-  classNames = "wizard-text-editor";
+  classNames = ["wizard-text-editor"];
   barEnabled = true;
   previewEnabled = true;
   fieldsEnabled = true;
