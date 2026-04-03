@@ -15,8 +15,8 @@ const icons = {
 
 @classNameBindings(":wizard-message", "type", "loading")
 export default class extends Component {
-  showDocumentation = not("loading");
-  showIcon = not("loading");
+  @not("loading") showDocumentation;
+  @not("loading") showIcon;
   hasItems = notEmpty("items");
 
   @discourseComputed("type")

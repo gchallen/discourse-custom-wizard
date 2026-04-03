@@ -80,9 +80,9 @@ export default class extends Component {
     return index === 0 && !required;
   }
 
-  showNextButton = not("step.final");
-  showDoneButton = alias("step.final");
-  btnsDisabled = or("saving", "uploading");
+  @not("step.final") showNextButton;
+  @alias("step.final") showDoneButton;
+  @or("saving", "uploading") btnsDisabled;
 
   @discourseComputed(
     "step.index",

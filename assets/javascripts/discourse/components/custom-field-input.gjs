@@ -23,11 +23,11 @@ export default class extends Component {
   postSerializers = ["post"];
   groupSerializers = ["basic_group"];
   categorySerializers = ["basic_category"];
-  showInputs = or("field.new", "field.edit");
-  loading = or("saving", "destroying");
-  destroyDisabled = alias("loading");
-  closeDisabled = alias("loading");
-  isExternal = equal("field.id", "external");
+  @or("field.new", "field.edit") showInputs;
+  @or("saving", "destroying") loading;
+  @alias("loading") destroyDisabled;
+  @alias("loading") closeDisabled;
+  @equal("field.id", "external") isExternal;
 
   didInsertElement() {
     super.didInsertElement(...arguments);

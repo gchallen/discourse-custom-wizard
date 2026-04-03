@@ -15,23 +15,23 @@ import { classNameBindings } from "@ember-decorators/component";
 
 @classNameBindings("value.type")
 export default class extends Component {
-  isText = equal("value.type", "text");
-  isComposer = equal("value.type", "composer");
-  isDate = equal("value.type", "date");
-  isTime = equal("value.type", "time");
-  isDateTime = equal("value.type", "date_time");
-  isNumber = equal("value.type", "number");
-  isCheckbox = equal("value.type", "checkbox");
-  isUrl = equal("value.type", "url");
-  isUpload = equal("value.type", "upload");
-  isDropdown = equal("value.type", "dropdown");
-  isTag = equal("value.type", "tag");
-  isCategory = equal("value.type", "category");
-  isTopic = equal("value.type", "topic");
-  isGroup = equal("value.type", "group");
-  isUserSelector = equal("value.type", "user_selector");
-  isSubmittedAt = equal("field", "submitted_at");
-  isComposerPreview = equal("value.type", "composer_preview");
+  @equal("value.type", "text") isText;
+  @equal("value.type", "composer") isComposer;
+  @equal("value.type", "date") isDate;
+  @equal("value.type", "time") isTime;
+  @equal("value.type", "date_time") isDateTime;
+  @equal("value.type", "number") isNumber;
+  @equal("value.type", "checkbox") isCheckbox;
+  @equal("value.type", "url") isUrl;
+  @equal("value.type", "upload") isUpload;
+  @equal("value.type", "dropdown") isDropdown;
+  @equal("value.type", "tag") isTag;
+  @equal("value.type", "category") isCategory;
+  @equal("value.type", "topic") isTopic;
+  @equal("value.type", "group") isGroup;
+  @equal("value.type", "user_selector") isUserSelector;
+  @equal("field", "submitted_at") isSubmittedAt;
+  @equal("value.type", "composer_preview") isComposerPreview;
   textState = "text-collapsed";
   toggleText = I18n.t("admin.wizard.expand_text");
 
@@ -120,7 +120,7 @@ export default class extends Component {
     return null;
   }
 
-  showUsername = notEmpty("username");
+  @notEmpty("username") showUsername;
 
   @discourseComputed("username")
   userProfileUrl(username) {
