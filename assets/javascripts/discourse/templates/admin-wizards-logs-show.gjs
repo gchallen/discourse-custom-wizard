@@ -19,7 +19,7 @@ export default RouteTemplate(<template>{{#if @controller.logs}}
   </div>
 
   <div class="wizard-table">
-    {{#LoadMore selector=".wizard-table tr" action=this.loadMore}}
+    {{#LoadMore selector=".wizard-table tr" action=@controller.loadMore}}
       {{#if @controller.noResults}}
         <p>{{i18n "search.no_results"}}</p>
       {{else}}

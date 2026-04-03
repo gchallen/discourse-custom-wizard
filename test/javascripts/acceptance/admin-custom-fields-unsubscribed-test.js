@@ -35,7 +35,7 @@ acceptance("Admin | Custom Fields Unsubscribed", function (needs) {
     server.put("/admin/wizards/custom-fields", () => {
       return helper.response({ success: "OK" });
     });
-    server.delete("/admin/wizards/custom-fields/topic_custom_field", () => {
+    server.delete("/admin/wizards/custom-fields/:id", () => {
       return helper.response({ success: "OK" });
     });
     server.get("/admin/plugins/subscription-client/suppliers", () => {
