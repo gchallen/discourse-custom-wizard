@@ -6,19 +6,17 @@ import { service } from "@ember/service";
 import { dasherize } from "@ember/string";
 import $ from "jquery";
 import copyText from "discourse/lib/copy-text";
-import {
-  default as discourseComputed,
-  observes,
-} from "discourse-common/utils/decorators";
+import discourseComputed from "discourse-common/utils/decorators";
+import { observes } from "@ember-decorators/object";
 import I18n from "I18n";
 import { filterValues } from "discourse/plugins/discourse-custom-wizard/discourse/lib/wizard-schema";
 import NextSessionScheduledModal from "../components/modal/next-session-scheduled";
 import { generateId, wizardFieldList } from "../lib/wizard";
 
-export default Controller.extend({
-  modal: service(),
-  site: service(),
-  hasName: notEmpty("wizard.name"),
+export default class extends Controller {
+  @service modal;
+  @service site;
+  @notEmpty("wizard.name") hasName;
 
   @observes("currentStep")
   resetCurrentObjects() {
@@ -30,11 +28,11 @@ export default Controller.extend({
     }
 
     scheduleOnce("afterRender", this, this._addBodyClass);
-  },
+  }
 
   _addBodyClass() {
     $("body").addClass("admin-wizard");
-  },
+  }
 
   @observes("wizard.name")
   setId() {
@@ -42,20 +40,20 @@ export default Controller.extend({
     if (wizard && !wizard.existingId) {
       this.set("wizard.id", generateId(wizard.name));
     }
-  },
+  }
 
   @discourseComputed("wizard.id")
   wizardUrl(wizardId) {
     let baseUrl = window.location.href.split("/admin");
     return baseUrl[0] + "/w/" + dasherize(wizardId);
-  },
+  }
 
   @discourseComputed("wizard.after_time_scheduled")
   nextSessionScheduledLabel(scheduled) {
     return scheduled
       ? moment(scheduled).format("MMMM Do, HH:mm")
       : I18n.t("admin.wizard.after_time_time_label");
-  },
+  }
 
   @discourseComputed(
     "currentStep.id",
@@ -68,7 +66,7 @@ export default Controller.extend({
       steps = [steps.find((s) => s.id === currentStepId)];
     }
     return wizardFieldList(steps);
-  },
+  }
 
   @discourseComputed("fieldTypes", "wizard.allowGuests")
   filteredFieldTypes(fieldTypes) {
@@ -80,7 +78,7 @@ export default Controller.extend({
       fieldTypeIds
     );
     return fieldTypes.filter((f) => allowedTypeIds.includes(f.id));
-  },
+  }
 
   getErrorMessage(result) {
     if (result.backend_validation_error) {
@@ -96,7 +94,7 @@ export default Controller.extend({
     }
 
     return I18n.t(`admin.wizard.error.${errorType}`, errorParams);
-  },
+  }
 
   setAfterTimeGroupIds() {
     if (!this.wizard.after_time_groups) {
@@ -108,7 +106,7 @@ export default Controller.extend({
     this.setProperties({
       afterTimeGroupIds: groups.map((g) => g.id),
     });
-  },
+  }
 
   @action
   setAfterTimeGroups(groupIds) {
@@ -117,7 +115,7 @@ export default Controller.extend({
       afterTimeGroupIds: groups.map((g) => g.id),
       "wizard.after_time_groups": groups.map((g) => g.name),
     });
-  },
+  }
 
   @action
   save() {
@@ -149,12 +147,12 @@ export default Controller.extend({
         later(() => this.set("error", null), 10000);
       })
       .finally(() => this.set("saving", false));
-  },
+  }
 
   @action
   remove() {
     this.wizard.remove().then(() => this.send("afterDestroy"));
-  },
+  }
 
   @action
   setNextSessionScheduled() {
@@ -165,7 +163,7 @@ export default Controller.extend({
           this.set("wizard.after_time_scheduled", dateTime),
       },
     });
-  },
+  }
 
   @action
   copyUrl() {
@@ -180,5 +178,5 @@ export default Controller.extend({
     }
 
     $copyRange.remove();
-  },
-});
+  }
+}

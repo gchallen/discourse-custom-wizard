@@ -4,21 +4,21 @@ import { action } from "@ember/object";
 import { empty } from "@ember/object/computed";
 import { underscore } from "@ember/string";
 import $ from "jquery";
-import { observes } from "discourse-common/utils/decorators";
+import { observes } from "@ember-decorators/object";
 import I18n from "I18n";
 import CustomWizardManager from "../models/custom-wizard-manager";
 
-export default Controller.extend({
-  messageUrl:
-    "https://pavilion.tech/products/discourse-custom-wizard-plugin/documentation/wizard-manager",
-  messageKey: "info",
-  messageIcon: "circle-info",
-  messageClass: "info",
-  importDisabled: empty("file"),
-  exportWizards: A(),
-  destroyWizards: A(),
-  exportDisabled: empty("exportWizards"),
-  destoryDisabled: empty("destroyWizards"),
+export default class extends Controller {
+  messageUrl =
+    "https://pavilion.tech/products/discourse-custom-wizard-plugin/documentation/wizard-manager";
+  messageKey = "info";
+  messageIcon = "circle-info";
+  messageClass = "info";
+  @empty("file") importDisabled;
+  exportWizards = A();
+  destroyWizards = A();
+  @empty("exportWizards") exportDisabled;
+  @empty("destroyWizards") destoryDisabled;
 
   setMessage(type, key, opts = {}, items = []) {
     this.setProperties({
@@ -38,7 +38,7 @@ export default Controller.extend({
         messageItems: null,
       });
     }, 10000);
-  },
+  }
 
   buildWizardLink(wizard) {
     let html = `<a href='/admin/wizards/wizard/${wizard.id}'>${wizard.name}</a>`;
@@ -49,7 +49,7 @@ export default Controller.extend({
       icon: "circle-check",
       html,
     };
-  },
+  }
 
   buildDestroyedItem(destroyed) {
     let html = `<span data-wizard-id="${destroyed.id}">${destroyed.name}</span>`;
@@ -60,14 +60,14 @@ export default Controller.extend({
       icon: "circle-check",
       html,
     };
-  },
+  }
 
   buildFailureItem(failure) {
     return {
       icon: "circle-xmark",
       html: `${failure.id}: ${failure.messages}`,
     };
-  },
+  }
 
   @action
   clearFile() {
@@ -76,7 +76,7 @@ export default Controller.extend({
       filename: null,
     });
     document.getElementById("custom-wizard-file-upload").value = "";
-  },
+  }
 
   @observes("importing", "destroying")
   setLoadingMessages() {
@@ -86,12 +86,12 @@ export default Controller.extend({
     if (this.destroying) {
       this.setMessage("loading", "destroying");
     }
-  },
+  }
 
   @action
   upload() {
     document.getElementById("custom-wizard-file-upload").click();
-  },
+  }
 
   @action
   setFile(event) {
@@ -113,7 +113,7 @@ export default Controller.extend({
         filename: file.name,
       });
     }
-  },
+  }
 
   @action
   selectWizard(event) {
@@ -136,7 +136,7 @@ export default Controller.extend({
     } else {
       wizards.removeObject(wizardId);
     }
-  },
+  }
 
   @action
   import() {
@@ -184,7 +184,7 @@ export default Controller.extend({
       .finally(() => {
         this.set("importing", false);
       });
-  },
+  }
 
   @action
   export() {
@@ -197,7 +197,7 @@ export default Controller.extend({
       exportWizards.clear();
       $("input.export").prop("checked", false);
     }
-  },
+  }
 
   @action
   destroy() {
@@ -249,5 +249,5 @@ export default Controller.extend({
           this.set("destroying", false);
         });
     }
-  },
-});
+  }
+}
