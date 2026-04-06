@@ -44,7 +44,7 @@ export default EmberObject.extend(ValidState, {
   },
 
   fieldError(id, description) {
-    const field = this.fields.findBy("id", id);
+    const field = this.fields.find((f) => f.id === id);
     if (field) {
       field.setValid(false, description);
     }

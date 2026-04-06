@@ -21,7 +21,7 @@ export default Route.extend({
     const wizard = this.wizard;
 
     if (wizard && wizard.steps) {
-      const step = wizard.steps.findBy("id", params.step_id);
+      const step = wizard.steps.find((s) => s.id === params.step_id);
       return step ? step : wizard.steps[0];
     } else {
       return wizard;

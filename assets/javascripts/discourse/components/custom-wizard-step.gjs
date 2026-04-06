@@ -149,7 +149,7 @@ export default class extends Component {
 
   @discourseComputed("step.fields")
   includeSidebar(fields) {
-    return !!fields.findBy("show_in_sidebar");
+    return !!fields.find((f) => f.show_in_sidebar);
   }
 
   autoFocus() {

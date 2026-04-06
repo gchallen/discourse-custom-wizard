@@ -18,7 +18,7 @@ export default class extends Component {
 
   updateItemOrder(itemId, newIndex) {
     const items = this.items;
-    const item = items.findBy("id", itemId);
+    const item = items.find((i) => i.id === itemId);
     items.removeObject(item);
     item.set("index", newIndex);
     items.insertAt(newIndex, item);
@@ -127,7 +127,7 @@ export default class extends Component {
 
   @action
   change(itemId) {
-    this.set("current", this.items.findBy("id", itemId));
+    this.set("current", this.items.find((i) => i.id === itemId));
   }
 
   @action

@@ -65,7 +65,7 @@ export default Controller.extend({
   wizardFields(currentStepId, saveSubmissions) {
     let steps = this.wizard.steps;
     if (!saveSubmissions) {
-      steps = [steps.findBy("id", currentStepId)];
+      steps = [steps.find((s) => s.id === currentStepId)];
     }
     return wizardFieldList(steps);
   },
