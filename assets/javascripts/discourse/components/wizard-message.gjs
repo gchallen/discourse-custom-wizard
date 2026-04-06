@@ -3,7 +3,7 @@ import { not, notEmpty } from "@ember/object/computed";
 import { default as discourseComputed } from "discourse-common/utils/decorators";
 import I18n from "I18n";
 import icon from "discourse/helpers/d-icon";
-import htmlSafe from "discourse/helpers/html-safe";
+import { trustHTML } from "@ember/template";
 import { classNameBindings } from "@ember-decorators/component";
 
 const icons = {
@@ -37,13 +37,13 @@ export default class extends Component {
   {{#if this.showIcon}}
     {{icon this.icon}}
   {{/if}}
-  <span class="message-content">{{htmlSafe this.message}}</span>
+  <span class="message-content">{{trustHTML this.message}}</span>
   {{#if this.hasItems}}
     <ul>
       {{#each this.items as |item|}}
         <li>
           <span>{{icon item.icon}}</span>
-          <span>{{htmlSafe item.html}}</span>
+          <span>{{trustHTML item.html}}</span>
         </li>
       {{/each}}
     </ul>

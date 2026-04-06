@@ -4,7 +4,7 @@ import { on } from "@ember/modifier";
 import Component from "@ember/component";
 import { action, computed, set } from "@ember/object";
 import { alias, equal, not, or } from "@ember/object/computed";
-import { observes } from "discourse-common/utils/decorators";
+import { observes } from "@ember-decorators/object";
 import { connectorContent, defaultConnector, defaultSelectionType, inputTypesContent, newPair } from "../lib/wizard-mapper";
 import wizardMapperConnector from "./wizard-mapper-connector";
 import wizardMapperPair from "./wizard-mapper-pair";

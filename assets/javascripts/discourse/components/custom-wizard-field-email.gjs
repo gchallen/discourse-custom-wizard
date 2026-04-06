@@ -1,5 +1,5 @@
 import Component, { Input } from "@ember/component";
-import { observes } from "discourse-common/utils/decorators";
+import { observes } from "@ember-decorators/object";
 import { classNameBindings } from "@ember-decorators/component";
 
 @classNameBindings(":wizard-field-email", "emailInvalid:invalid")

@@ -5,7 +5,7 @@ import { notEmpty } from "@ember/object/computed";
 import discourseComputed from "discourse-common/utils/decorators";
 import { generateName } from "../lib/wizard";
 import { default as wizardSchema, setWizardDefaults } from "../lib/wizard-schema";
-import htmlSafe from "discourse/helpers/html-safe";
+import { trustHTML } from "@ember/template";
 import i18n from "discourse/helpers/i18n";
 import dButton from "discourse/components/d-button";
 import DButton from "discourse/components/d-button";
@@ -154,7 +154,7 @@ export default class extends Component {
       this.set("current", items[nextIndex]);
     }
   }
-<template><div class="wizard-header medium">{{htmlSafe (i18n this.header)}}</div>
+<template><div class="wizard-header medium">{{trustHTML (i18n this.header)}}</div>
 
 <div class="link-list">
   {{#if this.anyLinks}}

@@ -1,6 +1,6 @@
 import Component from "@ember/component";
 import { action } from "@ember/object";
-import { observes } from "discourse-common/utils/decorators";
+import { observes } from "@ember-decorators/object";
 import customWizardDateInput from "./custom-wizard-date-input";
 import CustomWizardDateInput from "./custom-wizard-date-input";
 

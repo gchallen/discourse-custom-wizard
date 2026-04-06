@@ -14,7 +14,7 @@ import uppyImageUploader from "discourse/components/uppy-image-uploader";
 import { concat, hash, fn } from "@ember/helper";
 import wizardSubscriptionSelector from "./wizard-subscription-selector";
 import wizardMessage from "./wizard-message";
-import htmlSafe from "discourse/helpers/html-safe";
+import { trustHTML } from "@ember/template";
 import wizardMapper from "./wizard-mapper";
 import tagGroupChooser from "select-kit/components/tag-group-chooser";
 import CategoryChooser from "select-kit/components/category-chooser";
@@ -348,12 +348,12 @@ export default class extends Component.extend(UndoChanges) {
 {{#if this.isDateTime}}
   <div class="setting">
     <div class="setting-label">
-      <label>{{htmlSafe (i18n "admin.wizard.field.date_time_format.label")}}</label>
+      <label>{{trustHTML (i18n "admin.wizard.field.date_time_format.label")}}</label>
     </div>
 
     <div class="setting-value">
       <Input @value={{this.field.format}} class="medium" />
-      <label>{{htmlSafe (i18n "admin.wizard.field.date_time_format.instructions")}}</label>
+      <label>{{trustHTML (i18n "admin.wizard.field.date_time_format.instructions")}}</label>
     </div>
   </div>
 {{/if}}

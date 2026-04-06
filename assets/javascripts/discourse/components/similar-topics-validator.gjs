@@ -5,9 +5,10 @@ import { cancel, later } from "@ember/runloop";
 import { dasherize } from "@ember/string";
 import { categoryBadgeHTML } from "discourse/helpers/category-link";
 import { deepMerge } from "discourse-common/lib/object";
-import discourseComputed, { observes } from "discourse-common/utils/decorators";
+import discourseComputed from "discourse-common/utils/decorators";
+import { observes } from "@ember-decorators/object";
 import WizardFieldValidator from "discourse/plugins/discourse-custom-wizard/discourse/components/validator";
-import htmlSafe from "discourse/helpers/html-safe";
+import { trustHTML } from "@ember/template";
 import i18n from "discourse/helpers/i18n";
 import customWizardSimilarTopics from "./custom-wizard-similar-topics";
 import { classNames } from "@ember-decorators/component";
@@ -163,7 +164,7 @@ export default class extends WizardFieldValidator {
 <template><label class={{this.currentStateClass}}>
   {{#if this.currentState}}
     {{#if this.insufficientCharactersCategories}}
-      {{htmlSafe (i18n this.currentStateKey catLinks=this.catLinks)}}
+      {{trustHTML (i18n this.currentStateKey catLinks=this.catLinks)}}
     {{else}}
       {{i18n this.currentStateKey}}
     {{/if}}

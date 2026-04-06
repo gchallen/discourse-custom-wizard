@@ -5,8 +5,8 @@ import { resolveAllShortUrls } from "pretty-text/upload-short-url";
 import { ajax } from "discourse/lib/ajax";
 import { loadOneboxes } from "discourse/lib/load-oneboxes";
 import discourseDebounce from "discourse-common/lib/debounce";
-import { on } from "discourse-common/utils/decorators";
-import htmlSafe from "discourse/helpers/html-safe";
+import { on } from "@ember-decorators/object";
+import { trustHTML } from "@ember/template";
 
 export default class extends Component {
   @on("init")
@@ -50,6 +50,6 @@ export default class extends Component {
   }
 <template><div class="wizard-composer-preview d-editor-preview-wrapper">
   <div class="d-editor-preview">
-    {{htmlSafe this.field.preview_template}}
+    {{trustHTML this.field.preview_template}}
   </div>
 </div></template>}

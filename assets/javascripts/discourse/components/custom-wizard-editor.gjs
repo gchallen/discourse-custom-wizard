@@ -1,4 +1,4 @@
-import htmlSafe from "discourse/helpers/html-safe";
+import { trustHTML } from "@ember/template";
 import { on } from "@ember/modifier";
 import toolbarPopupMenuOptions from "discourse/components/toolbar-popup-menu-options";
 import { hash, fn } from "@ember/helper";
@@ -14,7 +14,7 @@ const CustomWizardEditor = <template><div class="d-editor-overlay hidden"></div>
   {{#if this.showPreview}}
     <div class="d-editor-preview-wrapper {{if this.forcePreview "force-preview"}}">
       <div class="d-editor-preview">
-        {{htmlSafe this.preview}}
+        {{trustHTML this.preview}}
       </div>
     </div>
   {{else}}

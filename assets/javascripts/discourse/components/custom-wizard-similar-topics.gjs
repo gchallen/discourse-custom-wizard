@@ -3,7 +3,7 @@ import { on } from "@ember/modifier";
 import { action } from "@ember/object";
 import { bind } from "@ember/runloop";
 import $ from "jquery";
-import { observes } from "discourse-common/utils/decorators";
+import { observes } from "@ember-decorators/object";
 import customWizardSimilarTopic from "./custom-wizard-similar-topic";
 import i18n from "discourse/helpers/i18n";
 import CustomWizardSimilarTopic from "./custom-wizard-similar-topic";

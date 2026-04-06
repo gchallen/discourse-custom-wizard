@@ -1,6 +1,6 @@
 import Component from "@ember/component";
 import { action } from "@ember/object";
-import { observes } from "discourse-common/utils/decorators";
+import { observes } from "@ember-decorators/object";
 import customWizardTimeInput from "./custom-wizard-time-input";
 import CustomWizardTimeInput from "./custom-wizard-time-input";
 import { classNameBindings } from "@ember-decorators/component";

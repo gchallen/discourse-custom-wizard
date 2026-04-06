@@ -2,7 +2,7 @@ import { default as discourseComputed } from "discourse-common/utils/decorators"
 import SelectKitRowComponent from "select-kit/components/select-kit/select-kit-row";
 import icon from "discourse/helpers/d-icon";
 import dasherize from "discourse/helpers/dasherize";
-import htmlSafe from "discourse/helpers/html-safe";
+import { trustHTML } from "@ember/template";
 import i18n from "discourse/helpers/i18n";
 import { classNameBindings } from "@ember-decorators/component";
 
@@ -32,7 +32,7 @@ export default class extends SelectKitRowComponent {
 {{/if}}
 
 <div class="texts">
-  <span class="name">{{htmlSafe this.label}}</span>
+  <span class="name">{{trustHTML this.label}}</span>
   {{#if this.item.subscriptionRequired}}
     <span class="subscription-label">{{i18n this.item.selectorLabel}}</span>
   {{/if}}

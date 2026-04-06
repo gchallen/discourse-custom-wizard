@@ -1,6 +1,7 @@
 import Component from "@ember/component";
 import EmberObject, { action } from "@ember/object";
-import { default as computed, observes } from "discourse-common/utils/decorators";
+import { default as computed } from "discourse-common/utils/decorators";
+import { observes } from "@ember-decorators/object";
 import CustomWizardComposerEditor from "./custom-wizard-composer-editor";
 import DButton from "discourse/components/d-button";
 import wizardCharCounter from "../helpers/wizard-char-counter";

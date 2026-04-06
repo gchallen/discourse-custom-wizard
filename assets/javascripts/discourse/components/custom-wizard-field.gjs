@@ -1,9 +1,8 @@
 import Component from "@ember/component";
 import { dasherize } from "@ember/string";
-import { htmlSafe } from "@ember/template";
+import { htmlSafe, trustHTML } from "@ember/template";
 import { cook } from "discourse/lib/text";
 import discourseComputed from "discourse-common/utils/decorators";
-import htmlSafeHelper from "discourse/helpers/html-safe";
 import FieldValidators from "./field-validators";
 import wizardCharCounter from "../helpers/wizard-char-counter";
 import CustomWizardFieldText from "./custom-wizard-field-text";
@@ -93,7 +92,7 @@ export default class CustomWizardField extends Component {
 
   <template>
     <label for={{this.field.id}} class="field-label">
-      {{htmlSafeHelper this.field.translatedLabel}}
+      {{trustHTML this.field.translatedLabel}}
     </label>
 
     {{#if this.field.image}}
@@ -126,7 +125,7 @@ export default class CustomWizardField extends Component {
     {{/if}}
 
     {{#if this.field.errorDescription}}
-      <div class="field-error-description">{{htmlSafeHelper
+      <div class="field-error-description">{{trustHTML
           this.field.errorDescription
         }}</div>
     {{/if}}
