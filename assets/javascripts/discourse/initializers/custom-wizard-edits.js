@@ -47,7 +47,9 @@ export default {
 
         init() {
           this._super(...arguments);
-          this.editorComponent = CustomWizardTextareaEditor;
+          if (this.wizardComposer) {
+            this.editorComponent = CustomWizardTextareaEditor;
+          }
         },
 
         didInsertElement() {
