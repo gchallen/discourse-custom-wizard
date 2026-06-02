@@ -31,6 +31,35 @@ describe CustomWizard::WizardController do
     expect(response.parsed_body["error"]).to eq("We couldn't find a wizard at that address.")
   end
 
+  context "stuck onboarding user (kksgandhi scenario)" do
+    before do
+      # Mirror the production onboarding wizard flags
+      @template["after_signup"] = true
+      @template["required"] = true
+      @template["multiple_submissions"] = true
+      @template["restart_on_revisit"] = true
+      CustomWizard::Template.save(@template, skip_jobs: true)
+
+      sign_in(user)
+      # User is flagged for forced redirect (never cleared because never completed)
+      user.custom_fields["redirect_to_wizard"] = "super_mega_fun_wizard"
+      user.save_custom_fields(true)
+
+      # An incomplete submission holding only a redirect_to, no submitted_at
+      wizard = CustomWizard::Wizard.create("super_mega_fun_wizard", user)
+      sub = wizard.current_submission
+      sub.redirect_to = "/t/redesigning-cs1/234/4"
+      sub.save
+    end
+
+    it "still renders the wizard rather than 'couldn't find a wizard'" do
+      get "/w/super-mega-fun-wizard.json"
+      expect(response.status).to eq(200)
+      expect(response.parsed_body["error"]).to be_nil
+      expect(response.parsed_body["id"]).to eq("super_mega_fun_wizard")
+    end
+  end
+
   context "with user" do
     before { sign_in(user) }
 

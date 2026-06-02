@@ -43,6 +43,17 @@ describe ApplicationController do
           expect(response).to redirect_to("/w/super-mega-fun-wizard")
         end
 
+        it "redirects on a full-page (text/html) topic load" do
+          get "/", headers: { "Accept" => "text/html" }
+          expect(response).to redirect_to("/w/super-mega-fun-wizard")
+        end
+
+        it "does NOT redirect JSON/AJAX requests (SPA nav, posting)" do
+          get "/latest.json", headers: { "Accept" => "application/json" }
+          expect(response).to_not redirect_to("/w/super-mega-fun-wizard")
+          expect(response.status).to eq(200)
+        end
+
         it "does not redirect if wizard is subsequently disabled" do
           get "/"
           expect(response).to redirect_to("/w/super-mega-fun-wizard")
