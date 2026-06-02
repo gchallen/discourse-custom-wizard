@@ -2,7 +2,7 @@ import { LinkTo } from "@ember/routing";
 import { fn } from "@ember/helper";
 import { i18n } from "discourse-i18n";
 import DButton from "discourse/components/d-button";
-import { dasherize } from "discourse/helpers/dasherize";
+import dasherize from "discourse/ui-kit/helpers/d-dasherize";
 
 <template>
 <section class="details">

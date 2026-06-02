@@ -1,5 +1,4 @@
 import Component from "@ember/component";
-import { mut } from "discourse/helpers/mut";
 import Category from "discourse/models/category";
 import { observes } from "@ember-decorators/object";
 import customWizardCategorySelector from "./custom-wizard-category-selector";

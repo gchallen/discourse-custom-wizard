@@ -1,5 +1,4 @@
 import Component from "@ember/component";
-import { mut } from "discourse/helpers/mut";
 import customWizardGroupSelector from "./custom-wizard-group-selector";
 import { hash, fn } from "@ember/helper";
 import CustomWizardGroupSelector from "./custom-wizard-group-selector";

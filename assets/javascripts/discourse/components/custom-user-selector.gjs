@@ -3,7 +3,7 @@ import { tracked } from "@glimmer/tracking";
 import { array } from "@ember/helper";
 import { action } from "@ember/object";
 import DMultiSelect from "discourse/components/d-multi-select";
-import avatar from "discourse/helpers/avatar";
+import avatar from "discourse/ui-kit/helpers/d-avatar";
 import icon from "discourse/helpers/d-icon";
 import userSearch from "discourse/lib/user-search";
 

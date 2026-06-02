@@ -1,5 +1,5 @@
 import { makeArray } from "discourse/lib/helpers";
-import TagChooser from "discourse/select-kit/components/tag-chooser";
+import TagChooser from "select-kit/components/tag-chooser";
 
 export default class extends TagChooser {
   _selectedTagPayload(selectedTags, blockedTags) {

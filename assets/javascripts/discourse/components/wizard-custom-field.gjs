@@ -1,6 +1,5 @@
 import Component, { Input, Textarea } from "@ember/component";
 import { on } from "@ember/modifier";
-import { mut } from "discourse/helpers/mut";
 import { action } from "@ember/object";
 import { computed } from "@ember/object";
 import { equal, or } from "@ember/object/computed";

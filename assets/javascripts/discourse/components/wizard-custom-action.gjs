@@ -1,6 +1,5 @@
 import Component, { Input } from "@ember/component";
 import { action } from "@ember/object";
-import { mut } from "discourse/helpers/mut";
 import { computed } from "@ember/object";
 import { empty, equal, or } from "@ember/object/computed";
 import { default as discourseComputed } from "discourse-common/utils/decorators";

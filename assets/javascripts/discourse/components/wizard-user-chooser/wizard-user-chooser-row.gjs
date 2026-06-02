@@ -1,5 +1,5 @@
 import SelectKitRowComponent from "select-kit/components/select-kit/select-kit-row";
-import avatar from "discourse/helpers/avatar";
+import avatar from "discourse/ui-kit/helpers/d-avatar";
 import formatUsername from "discourse/helpers/format-username";
 import and from "truth-helpers/helpers/and";
 import UserStatusMessage from "discourse/components/user-status-message";

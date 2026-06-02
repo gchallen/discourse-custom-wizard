@@ -4,7 +4,7 @@ import { Input } from "@ember/component";
 import I18n from "I18n";
 import DModal from "discourse/components/d-modal";
 import DButton from "discourse/components/d-button";
-import loadingSpinner from "discourse/helpers/loading-spinner";
+import loadingSpinner from "discourse/ui-kit/helpers/d-loading-spinner";
 import directoryTableHeaderTitle from "discourse/helpers/directory-table-header-title";
 
 export default class AdminWizardsColumnComponent extends Component {

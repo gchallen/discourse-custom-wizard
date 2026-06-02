@@ -6,10 +6,10 @@ import discourseComputed from "discourse-common/utils/decorators";
 import I18n from "I18n";
 import icon from "discourse/helpers/d-icon";
 import i18n from "discourse/helpers/i18n";
-import formatDate from "discourse/helpers/format-date";
-import discourseTag from "discourse/helpers/discourse-tag";
+import formatDate from "discourse/ui-kit/helpers/d-format-date";
+import discourseTag from "discourse/ui-kit/helpers/d-discourse-tag";
 import { LinkTo } from "@ember/routing";
-import avatar from "discourse/helpers/avatar";
+import avatar from "discourse/ui-kit/helpers/d-avatar";
 import rawDate from "discourse/helpers/raw-date";
 import { classNameBindings } from "@ember-decorators/component";
 

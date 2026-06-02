@@ -1,6 +1,5 @@
 import RouteTemplate from 'ember-route-template'
-import { mut } from "discourse/helpers/mut";
-import loadingSpinner from "discourse/helpers/loading-spinner";
+import loadingSpinner from "discourse/ui-kit/helpers/d-loading-spinner";
 import icon from "discourse/helpers/d-icon";
 import dButton from "discourse/components/d-button";
 import i18n from "discourse/helpers/i18n";
@@ -8,7 +7,7 @@ import { Input } from "@ember/component";
 import comboBox from "select-kit/components/combo-box";
 import { hash, fn } from "@ember/helper";
 import multiSelect from "select-kit/components/multi-select";
-import avatar from "discourse/helpers/avatar";
+import avatar from "discourse/ui-kit/helpers/d-avatar";
 import DButton from "discourse/components/d-button";
 import ComboBox from "select-kit/components/combo-box";
 import MultiSelect from "select-kit/components/multi-select";

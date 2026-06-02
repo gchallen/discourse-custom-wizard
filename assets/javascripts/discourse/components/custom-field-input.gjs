@@ -1,5 +1,4 @@
 import Component, { Input } from "@ember/component";
-import { mut } from "discourse/helpers/mut";
 import { action } from "@ember/object";
 import { alias, equal, or } from "@ember/object/computed";
 import discourseComputed from "discourse-common/utils/decorators";
@@ -9,7 +8,7 @@ import wizardSubscriptionSelector from "./wizard-subscription-selector";
 import { hash, fn } from "@ember/helper";
 import i18n from "discourse/helpers/i18n";
 import multiSelect from "select-kit/components/multi-select";
-import loadingSpinner from "discourse/helpers/loading-spinner";
+import loadingSpinner from "discourse/ui-kit/helpers/d-loading-spinner";
 import icon from "discourse/helpers/d-icon";
 import dButton from "discourse/components/d-button";
 import WizardSubscriptionSelector from "./wizard-subscription-selector";

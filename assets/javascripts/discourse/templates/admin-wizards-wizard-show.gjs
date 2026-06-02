@@ -1,6 +1,5 @@
 import RouteTemplate from 'ember-route-template'
 import { on } from "@ember/modifier";
-import { mut } from "discourse/helpers/mut";
 import { Input } from "@ember/component";
 import i18n from "discourse/helpers/i18n";
 import dButton from "discourse/components/d-button";

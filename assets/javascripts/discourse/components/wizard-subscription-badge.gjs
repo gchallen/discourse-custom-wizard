@@ -4,7 +4,7 @@ import { action } from "@ember/object";
 import { service } from "@ember/service";
 import I18n from "I18n";
 import DButton from "discourse/components/d-button";
-import loadingSpinner from "discourse/helpers/loading-spinner";
+import loadingSpinner from "discourse/ui-kit/helpers/d-loading-spinner";
 import icon from "discourse/helpers/d-icon";
 
 export default class WizardSubscriptionBadge extends Component {

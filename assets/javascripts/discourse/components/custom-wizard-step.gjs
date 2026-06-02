@@ -15,7 +15,7 @@ import { wizardComposerEdtiorEventPrefix } from "./custom-wizard-composer-editor
 import CustomWizardStepForm from "./custom-wizard-step-form";
 import customWizardField from "./custom-wizard-field";
 import i18n from "discourse/helpers/i18n";
-import loadingSpinner from "discourse/helpers/loading-spinner";
+import loadingSpinner from "discourse/ui-kit/helpers/d-loading-spinner";
 import icon from "discourse/helpers/d-icon";
 import CustomWizardField from "./custom-wizard-field";
 import { classNameBindings } from "@ember-decorators/component";

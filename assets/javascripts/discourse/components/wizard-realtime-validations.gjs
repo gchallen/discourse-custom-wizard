@@ -1,5 +1,4 @@
 import Component, { Input } from "@ember/component";
-import { mut } from "discourse/helpers/mut";
 import { action } from "@ember/object";
 import EmberObject from "@ember/object";
 import Category from "discourse/models/category";

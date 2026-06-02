@@ -3,7 +3,7 @@ import EmberObject, { action, computed } from "@ember/object";
 import { and, equal, notEmpty } from "@ember/object/computed";
 import { cancel, later } from "@ember/runloop";
 import { dasherize } from "@ember/string";
-import { categoryBadgeHTML } from "discourse/helpers/category-link";
+import { categoryBadgeHTML } from "discourse/ui-kit/helpers/d-category-link";
 import { deepMerge } from "discourse-common/lib/object";
 import discourseComputed from "discourse-common/utils/decorators";
 import { observes } from "@ember-decorators/object";

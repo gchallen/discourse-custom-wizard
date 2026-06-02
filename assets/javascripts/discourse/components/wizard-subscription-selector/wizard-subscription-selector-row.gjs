@@ -1,7 +1,7 @@
 import { default as discourseComputed } from "discourse-common/utils/decorators";
 import SelectKitRowComponent from "select-kit/components/select-kit/select-kit-row";
 import icon from "discourse/helpers/d-icon";
-import dasherize from "discourse/helpers/dasherize";
+import dasherize from "discourse/ui-kit/helpers/d-dasherize";
 import { trustHTML } from "@ember/template";
 import i18n from "discourse/helpers/i18n";
 import { classNameBindings } from "@ember-decorators/component";

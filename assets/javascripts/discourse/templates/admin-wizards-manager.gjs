@@ -5,7 +5,7 @@ import { Input } from "@ember/component";
 import { on } from "@ember/modifier";
 import dButton from "discourse/components/d-button";
 import wizardMessage from "../components/wizard-message";
-import dasherize from "discourse/helpers/dasherize";
+import dasherize from "discourse/ui-kit/helpers/d-dasherize";
 import { LinkTo } from "@ember/routing";
 import DButton from "discourse/components/d-button";
 import WizardMessage from "../components/wizard-message";
