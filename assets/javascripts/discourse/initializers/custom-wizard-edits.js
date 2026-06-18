@@ -45,11 +45,12 @@ export default {
       api.modifyClass("component:d-editor", {
         pluginId: "custom-wizard",
 
-        init() {
-          this._super(...arguments);
+        setupEditorMode() {
           if (this.wizardComposer) {
             this.editorComponent = CustomWizardTextareaEditor;
+            return;
           }
+          return this._super(...arguments);
         },
 
         didInsertElement() {
