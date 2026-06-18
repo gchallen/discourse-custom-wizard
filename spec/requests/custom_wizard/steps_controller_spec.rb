@@ -134,6 +134,25 @@ describe CustomWizard::StepsController do
       expect(wizard.current_submission.fields["step_1_field_1"]).to eq("Text input")
     end
 
+    context "when a step update fails validation" do
+      it "returns a 422 and logs the validation failure" do
+        # step_1_field_1 has min_length 3, so "ab" is rejected.
+        put "/w/super-mega-fun-wizard/steps/step_1.json",
+            params: {
+              fields: {
+                step_1_field_1: "ab",
+              },
+            }
+        expect(response.status).to eq(422)
+
+        validation_log =
+          CustomWizard::Log.list.logs.find { |log| log.action == "validation_error" }
+        expect(validation_log).to be_present
+        expect(validation_log.username).to eq(user.username)
+        expect(validation_log.message).to include("step_1_field_1")
+      end
+    end
+
     context "raises an error" do
       it "when the wizard doesnt exist" do
         put "/w/not-super-mega-fun-wizard/steps/step_1.json"

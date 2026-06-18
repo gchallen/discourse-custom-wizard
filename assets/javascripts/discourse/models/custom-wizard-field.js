@@ -1,5 +1,6 @@
 import EmberObject from "@ember/object";
 import discourseComputed from "discourse-common/utils/decorators";
+import { i18n } from "discourse-i18n";
 import { translationOrText } from "discourse/plugins/discourse-custom-wizard/discourse/lib/wizard";
 import ValidState from "discourse/plugins/discourse-custom-wizard/discourse/mixins/valid-state";
 
@@ -52,8 +53,6 @@ export default EmberObject.extend(ValidState, {
       return this.customCheck();
     }
 
-    let valid = this.valid;
-
     if (!this.required) {
       this.setValid(true);
       return true;
@@ -61,6 +60,9 @@ export default EmberObject.extend(ValidState, {
 
     const val = this.get("value");
     const type = this.get("type");
+    let valid;
+    // Default message covers empty required fields of every type.
+    let errorKey = "required";
 
     if (type === "checkbox") {
       valid = val;
@@ -82,10 +84,15 @@ export default EmberObject.extend(ValidState, {
         } else {
           valid = false;
         }
+        if (!valid) {
+          errorKey = "invalid_email";
+        }
       }
     }
 
-    this.setValid(Boolean(valid));
+    valid = Boolean(valid);
+    // Surface a human-readable reason to the user, not just a red field.
+    this.setValid(valid, valid ? null : i18n(`wizard.field.${errorKey}`));
 
     return valid;
   },

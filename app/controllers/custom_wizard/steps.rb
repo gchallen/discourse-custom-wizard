@@ -75,6 +75,20 @@ class CustomWizard::StepsController < ::CustomWizard::WizardClientController
       updater.errors.messages.each do |field, msg|
         errors << { field: field, description: msg.join(",") }
       end
+
+      summary = errors.map { |e| "#{e[:field]}: #{e[:description]}" }.join("; ")
+      CustomWizard::Log.create(
+        update_params[:wizard_id],
+        "validation_error",
+        current_user&.username,
+        "error: step #{update[:step_id]} rejected - #{summary.presence || "no field details"}",
+      )
+      Rails.logger.warn(
+        "[custom-wizard] #{update_params[:wizard_id]} step #{update[:step_id]} " \
+          "validation failed for #{current_user&.username || "anonymous"}: " \
+          "#{summary.presence || "no field details"}",
+      )
+
       render json: { errors: errors }, status: 422
     end
   end

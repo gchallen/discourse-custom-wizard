@@ -9,6 +9,9 @@ en:
       requires_login: "You need to be logged in to access this wizard."
       reset: "Reset this wizard."
       step_not_permitted: "You're not permitted to view this step."
+      field:
+        required: "This field is required."
+        invalid_email: "Please enter an email address from an allowed domain."
       incomplete_submission:
         title: "Continue editing your draft submission from %{date}?"
         resume: "Continue"
