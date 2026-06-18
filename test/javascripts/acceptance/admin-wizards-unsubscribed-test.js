@@ -122,8 +122,12 @@ acceptance("Admin | Custom Wizard Unsubscribed", function (needs) {
     let timeText = query(
       ".d-date-time-input .d-time-input span.name"
     ).innerText;
-    const regex = /\d\d\:\d\d/;
-    assert.ok(regex.test(timeText));
+    // Tolerate core's time-widget format (24h "13:30" or 12h "1:30 PM").
+    const regex = /\d{1,2}:\d\d/;
+    assert.ok(
+      regex.test(timeText),
+      `the time selector shows a time (got: "${timeText}")`
+    );
     // Subscription restrictions were removed (01fe27d1), so "Not Subscribed" link
     // is no longer shown in the wizard builder.
 
