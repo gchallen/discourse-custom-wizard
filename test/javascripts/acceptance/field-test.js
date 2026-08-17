@@ -1,3 +1,4 @@
+import { getOwner } from "@ember/owner";
 import { click, fillIn, triggerKeyEvent, visit } from "@ember/test-helpers";
 import { test } from "qunit";
 import {
@@ -218,9 +219,13 @@ acceptance("Field | Fields", function (needs) {
     await visit("/w/wizard");
     assert.ok(visible(".wizard-field.group-field .single-select-header"));
     await click(".wizard-field.group-field .select-kit-header");
+    // With no whitelist the field lists every site group, so assert against the
+    // live group count rather than a hardcoded number (core adds/removes default
+    // groups over time).
+    const site = getOwner(this).lookup("service:site");
     assert.strictEqual(
       count(".wizard-field.group-field .select-kit-collection li"),
-      10
+      site.groups.length
     );
   });
 
